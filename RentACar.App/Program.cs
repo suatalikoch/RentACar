@@ -17,8 +17,6 @@ namespace RentACar.App
                 options.UseSqlServer(connectionString));
             builder.Services.AddDatabaseDeveloperPageExceptionFilter();
 
-            builder.Services.AddDefaultIdentity<IdentityUser>(options => options.SignIn.RequireConfirmedAccount = true)
-                .AddEntityFrameworkStores<ApplicationDbContext>();
             builder.Services.AddIdentity<RentACarUser, IdentityRole>()
                 .AddEntityFrameworkStores<ApplicationDbContext>()
                 .AddDefaultTokenProviders();
@@ -33,6 +31,9 @@ namespace RentACar.App
                 options.Password.RequireUppercase = false;
                 options.Password.RequiredUniqueChars = 0;
             });
+
+            // Add Razor Pages services
+            builder.Services.AddRazorPages();
 
             var app = builder.Build();
 
