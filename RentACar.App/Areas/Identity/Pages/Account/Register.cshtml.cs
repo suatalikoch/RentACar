@@ -69,6 +69,14 @@ namespace RentACar.App.Areas.Identity.Pages.Account
         public class InputModel
         {
             /// <summary>
+            ///     Lorem ipsum dolor sit amet.
+            ///     Lorem ipsum dolor sit amet.
+            /// </summary>
+            [Required]
+            [Display(Name = "Username")]
+            public string Username { get; set; }
+
+            /// <summary>
             ///     This API supports the ASP.NET Core Identity default UI infrastructure and is not intended to be used
             ///     directly from your code. This API may change or be removed in future releases.
             /// </summary>
@@ -95,6 +103,38 @@ namespace RentACar.App.Areas.Identity.Pages.Account
             [Display(Name = "Confirm password")]
             [Compare("Password", ErrorMessage = "The password and confirmation password do not match.")]
             public string ConfirmPassword { get; set; }
+
+            /// <summary>
+            ///     Lorem ipsum dolor sit amet.
+            ///     Lorem ipsum dolor sit amet.
+            /// </summary>
+            [Required]
+            [Display(Name = "First Name")]
+            public string FirstName { get; set; }
+
+            /// <summary>
+            ///     Lorem ipsum dolor sit amet.
+            ///     Lorem ipsum dolor sit amet.
+            /// </summary>
+            [Required]
+            [Display(Name = "Last Name")]
+            public string LastName { get; set; }
+
+            /// <summary>
+            ///     Lorem ipsum dolor sit amet.
+            ///     Lorem ipsum dolor sit amet.
+            /// </summary>
+            [Required]
+            [Display(Name = "PIN")]
+            public string PIN { get; set; }
+
+            /// <summary>
+            ///     Lorem ipsum dolor sit amet.
+            ///     Lorem ipsum dolor sit amet.
+            /// </summary>
+            [Required]
+            [Display(Name = "Phone Number")]
+            public string PhoneNumber { get; set; }
         }
 
 
@@ -110,7 +150,15 @@ namespace RentACar.App.Areas.Identity.Pages.Account
             ExternalLogins = (await _signInManager.GetExternalAuthenticationSchemesAsync()).ToList();
             if (ModelState.IsValid)
             {
-                var user = CreateUser();
+                var user = new RentACarUser
+                {
+                    UserName = Input.Username,
+                    Email = Input.Email,
+                    FirstName = Input.FirstName,
+                    LastName = Input.LastName,
+                    PIN = Input.PIN,
+                    PhoneNumber = Input.PhoneNumber
+                };
 
                 await _userStore.SetUserNameAsync(user, Input.Email, CancellationToken.None);
                 await _emailStore.SetEmailAsync(user, Input.Email, CancellationToken.None);
