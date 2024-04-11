@@ -109,6 +109,7 @@ namespace RentACar.App.Areas.Identity.Pages.Account
             ///     Lorem ipsum dolor sit amet.
             /// </summary>
             [Required]
+            [RegularExpression(@"^[a-zA-Z]+$", ErrorMessage = "Name must contain only alphabetic characters.")]
             [Display(Name = "First Name")]
             public string FirstName { get; set; }
 
@@ -117,6 +118,7 @@ namespace RentACar.App.Areas.Identity.Pages.Account
             ///     Lorem ipsum dolor sit amet.
             /// </summary>
             [Required]
+            [RegularExpression(@"^[a-zA-Z]+$", ErrorMessage = "Name must contain only alphabetic characters.")]
             [Display(Name = "Last Name")]
             public string LastName { get; set; }
 
@@ -125,6 +127,7 @@ namespace RentACar.App.Areas.Identity.Pages.Account
             ///     Lorem ipsum dolor sit amet.
             /// </summary>
             [Required]
+            [RegularExpression(@"^\d{10}$", ErrorMessage = "Invalid PIN format.")]
             [Display(Name = "PIN")]
             public string PIN { get; set; }
 
@@ -133,6 +136,7 @@ namespace RentACar.App.Areas.Identity.Pages.Account
             ///     Lorem ipsum dolor sit amet.
             /// </summary>
             [Required]
+            [RegularExpression(@"^\d{7,15}$", ErrorMessage = "Invalid phone number format.")]
             [Display(Name = "Phone Number")]
             public string PhoneNumber { get; set; }
         }
@@ -162,30 +166,15 @@ namespace RentACar.App.Areas.Identity.Pages.Account
 
                 await _userStore.SetUserNameAsync(user, Input.Username, CancellationToken.None);
                 await _emailStore.SetEmailAsync(user, Input.Email, CancellationToken.None);
+
                 var result = await _userManager.CreateAsync(user, Input.Password);
 
                 if (result.Succeeded)
                 {
                     _logger.LogInformation("User created a new account with password.");
 
-                    var userId = await _userManager.GetUserIdAsync(user);
-                    var code = await _userManager.GenerateEmailConfirmationTokenAsync(user);
-                    code = WebEncoders.Base64UrlEncode(Encoding.UTF8.GetBytes(code));
-                    var callbackUrl = Url.Page(
-                        "/Account/ConfirmEmail",
-                        pageHandler: null,
-                        values: new { area = "Identity", userId = userId, code = code, returnUrl = returnUrl },
-                        protocol: Request.Scheme);
-
-                    if (_userManager.Options.SignIn.RequireConfirmedAccount)
-                    {
-                        return RedirectToPage("RegisterConfirmation", new { email = Input.Email, returnUrl = returnUrl });
-                    }
-                    else
-                    {
-                        await _signInManager.SignInAsync(user, isPersistent: false);
-                        return LocalRedirect(returnUrl);
-                    }
+                    await _signInManager.SignInAsync(user, isPersistent: false);
+                    return LocalRedirect(returnUrl);
                 }
                 foreach (var error in result.Errors)
                 {

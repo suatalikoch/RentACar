@@ -5,6 +5,7 @@ namespace RentACar.App.Models
     public class CarCreateBindingModel
     {
         [Required]
+        [RegularExpression(@"^[a-zA-Z]+$", ErrorMessage = "Brand must contain only alphabetic characters.")]
         [Display(Name = "Name")]
         public string Brand { get; set; }
 

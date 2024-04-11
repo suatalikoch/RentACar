@@ -1,4 +1,5 @@
 ﻿using Microsoft.AspNetCore.Identity;
+using Microsoft.EntityFrameworkCore;
 
 namespace RentACar.App.Domain
 {
@@ -6,8 +7,6 @@ namespace RentACar.App.Domain
     {
         public string FirstName { get; set; }
         public string LastName { get; set; }
-        public string Email { get; set; }
-        public string PhoneNumber { get; set; }
         public string PIN { get; set; }
     }
 }
