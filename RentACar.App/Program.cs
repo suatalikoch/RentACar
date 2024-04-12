@@ -1,5 +1,6 @@
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
+using RentACar.App.Areas.Identity.Pages.Account;
 using RentACar.App.Data;
 using RentACar.App.Domain;
 
@@ -34,6 +35,9 @@ namespace RentACar.App
 
             // Add Razor Pages services
             builder.Services.AddRazorPages();
+
+            // Register UserPinService
+            builder.Services.AddScoped<UserPinServices>();
 
             var app = builder.Build();
 
