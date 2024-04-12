@@ -4,6 +4,7 @@ using Microsoft.AspNetCore.Mvc;
 using RentACar.App.Data;
 using RentACar.App.Domain;
 using RentACar.App.Models.Cars;
+using RentACar.App.Models.Users;
 using System.Security.Claims;
 
 namespace RentACar.App.Controllers
@@ -69,6 +70,34 @@ namespace RentACar.App.Controllers
         }
 
         [HttpGet]
+        public async Task<IActionResult> Edit(string id, CarEditBindingModel bindingModel)
+        {
+            if (ModelState.IsValid)
+            {
+                var car = _context.Cars.FirstOrDefault(c => c.Id == id);
+
+                if (id == null)
+                {
+                    return NotFound();
+                }
+
+                car.Brand = bindingModel.Brand;
+                car.Model = bindingModel.Model;
+                car.Year = bindingModel.Year;
+                car.Passenger = bindingModel.Passenger;
+                car.Description = bindingModel.Description;
+                car.RentPrice = bindingModel.RentPrice;
+
+                _context.Cars.Update(car);
+                _context.SaveChanges();
+
+                return RedirectToAction("All");
+            }
+
+            return View(bindingModel);
+        }
+
+        [HttpGet]
         public async Task<IActionResult> Details(string id)
         {
             if (id == null)
@@ -97,8 +126,7 @@ namespace RentACar.App.Controllers
             return View(model);
         }
 
-        [HttpDelete]
-        [ValidateAntiForgeryToken]
+        [HttpGet]
         public async Task<IActionResult> Delete(string id)
         {
             var car = _context.Cars.FirstOrDefault(c => c.Id == id);
@@ -108,10 +136,12 @@ namespace RentACar.App.Controllers
                 return NotFound();
             }
 
-            var result = _context.Cars.Remove(car);
-            _context.SaveChanges();
+            //var result = _context.Cars.Remove(car);
+            //_context.SaveChanges();
 
-            return RedirectToAction("All");
+            //return RedirectToAction("All");
+
+            return View();
         }
     }
 }

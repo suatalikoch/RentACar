@@ -19,6 +19,7 @@ namespace RentACar.App.Controllers
             _userManager = userManager;
         }
 
+        [HttpGet]
         public IActionResult All()
         {
             List<UserAllViewModel> users = _context.Users
@@ -35,12 +36,12 @@ namespace RentACar.App.Controllers
             return View(users);
         }
 
+        [HttpPost]
         public IActionResult Create()
         {
             return View();
         }
 
-        [HttpPost]
         public async Task<IActionResult> Create(UserCreateBindingModel bindingModel)
         {
             if (ModelState.IsValid)
@@ -68,8 +69,7 @@ namespace RentACar.App.Controllers
             return View();
         }
 
-        [HttpPost]
-        [ValidateAntiForgeryToken]
+        [HttpGet]
         public async Task<IActionResult> Edit(string username, UserEditBindingModel bindingModel)
         {
             if (username != bindingModel.UserName)
@@ -137,8 +137,7 @@ namespace RentACar.App.Controllers
             return View(model);
         }
 
-        [HttpDelete]
-        [ValidateAntiForgeryToken]
+        [HttpGet]
         public async Task<IActionResult> Delete(string username)
         {
             var user = await _userManager.FindByNameAsync(username);
@@ -148,6 +147,13 @@ namespace RentACar.App.Controllers
                 return NotFound();
             }
 
+            return View();
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> DeleteConfirm(string username)
+        {
+            var user = await _userManager.FindByNameAsync(username);
             var result = await _userManager.DeleteAsync(user);
 
             if (result.Succeeded)
@@ -160,7 +166,7 @@ namespace RentACar.App.Controllers
                 ModelState.AddModelError(string.Empty, error.Description);
             }
 
-            return View();
+            return RedirectToAction("All");
         }
     }
 }
