@@ -1,10 +1,8 @@
 ﻿using Microsoft.AspNetCore.Authorization;
-using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using RentACar.App.Data;
 using RentACar.App.Domain;
 using RentACar.App.Models.Cars;
-using RentACar.App.Models.Users;
 using System.Security.Claims;
 
 namespace RentACar.App.Controllers
