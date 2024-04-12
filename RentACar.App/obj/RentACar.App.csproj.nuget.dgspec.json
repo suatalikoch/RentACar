@@ -1,12 +1,7 @@
 {
   "format": 1,
   "restore": {
-<<<<<<< HEAD
     "D:\\Projects\\GitHub\\RentACar\\RentACar.App\\RentACar.App.csproj": {}
-=======
-<<<<<<< HEAD
-    "C:\\Users\\ad_di\\Source\\Repos\\suatalikoch\\RentACar\\RentACar.App\\RentACar.App.csproj": {}
->>>>>>> parent of 46360ea (Revert "+ merged conficlts")
   },
   "projects": {
     "D:\\Projects\\GitHub\\RentACar\\RentACar.App\\RentACar.App.csproj": {
@@ -14,44 +9,16 @@
       "restore": {
         "projectUniqueName": "D:\\Projects\\GitHub\\RentACar\\RentACar.App\\RentACar.App.csproj",
         "projectName": "RentACar.App",
-<<<<<<< HEAD
         "projectPath": "D:\\Projects\\GitHub\\RentACar\\RentACar.App\\RentACar.App.csproj",
         "packagesPath": "C:\\Users\\suata\\.nuget\\packages\\",
         "outputPath": "D:\\Projects\\GitHub\\RentACar\\RentACar.App\\obj\\",
-=======
-        "projectPath": "C:\\Users\\ad_di\\Source\\Repos\\suatalikoch\\RentACar\\RentACar.App\\RentACar.App.csproj",
-        "packagesPath": "C:\\Users\\ad_di\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\ad_di\\Source\\Repos\\suatalikoch\\RentACar\\RentACar.App\\obj\\",
-=======
-    "C:\\Users\\erenm\\Desktop\\project\\RentACar\\RentACar.App\\RentACar.App.csproj": {}
-  },
-  "projects": {
-    "C:\\Users\\erenm\\Desktop\\project\\RentACar\\RentACar.App\\RentACar.App.csproj": {
-      "version": "1.0.0",
-      "restore": {
-        "projectUniqueName": "C:\\Users\\erenm\\Desktop\\project\\RentACar\\RentACar.App\\RentACar.App.csproj",
-        "projectName": "RentACar.App",
-        "projectPath": "C:\\Users\\erenm\\Desktop\\project\\RentACar\\RentACar.App\\RentACar.App.csproj",
-        "packagesPath": "C:\\Users\\erenm\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\erenm\\Desktop\\project\\RentACar\\RentACar.App\\obj\\",
->>>>>>> 2a96a6edc36be0cec3128c98399f56d6ebcae480
->>>>>>> parent of 46360ea (Revert "+ merged conficlts")
         "projectStyle": "PackageReference",
         "fallbackFolders": [
           "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
         ],
         "configFilePaths": [
-<<<<<<< HEAD
           "C:\\Users\\suata\\AppData\\Roaming\\NuGet\\NuGet.Config",
           "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.FallbackLocation.config",
-=======
-<<<<<<< HEAD
-          "C:\\Users\\ad_di\\AppData\\Roaming\\NuGet\\NuGet.Config",
-=======
-          "C:\\Users\\erenm\\AppData\\Roaming\\NuGet\\NuGet.Config",
-          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.FallbackLocation.config",
->>>>>>> 2a96a6edc36be0cec3128c98399f56d6ebcae480
->>>>>>> parent of 46360ea (Revert "+ merged conficlts")
           "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
         ],
         "originalTargetFrameworks": [
@@ -59,15 +26,7 @@
         ],
         "sources": {
           "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
-<<<<<<< HEAD
           "C:\\Program Files\\dotnet\\library-packs": {},
-=======
-<<<<<<< HEAD
-=======
-          "C:\\Program Files\\dotnet\\library-packs": {},
-          "C:\\Program Files\\dotnet\\sdk\\7.0.306\\Sdks\\Microsoft.NET.Sdk.Web\\library-packs": {},
->>>>>>> 2a96a6edc36be0cec3128c98399f56d6ebcae480
->>>>>>> parent of 46360ea (Revert "+ merged conficlts")
           "https://api.nuget.org/v3/index.json": {}
         },
         "frameworks": {
@@ -141,15 +100,7 @@
               "privateAssets": "all"
             }
           },
-<<<<<<< HEAD
           "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\8.0.202\\RuntimeIdentifierGraph.json"
-=======
-<<<<<<< HEAD
-          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\6.0.401\\RuntimeIdentifierGraph.json"
-=======
-          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\7.0.306\\RuntimeIdentifierGraph.json"
->>>>>>> 2a96a6edc36be0cec3128c98399f56d6ebcae480
->>>>>>> parent of 46360ea (Revert "+ merged conficlts")
         }
       }
     }
