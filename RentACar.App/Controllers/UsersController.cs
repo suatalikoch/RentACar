@@ -67,8 +67,14 @@ namespace RentACar.App.Controllers
             return View();
         }
 
-        public IActionResult Index()
+        [HttpPost]
+        public async Task<IActionResult> Edit(UserEditBindingModel bindingModel)
         {
+            if (ModelState.IsValid)
+            {
+                return RedirectToAction("All");
+            }
+
             return View();
         }
     }
