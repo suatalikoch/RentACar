@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Identity;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using RentACar.App.Data;
 using RentACar.App.Domain;
@@ -6,7 +7,7 @@ using RentACar.App.Models.Users;
 
 namespace RentACar.App.Controllers
 {
-    //[Authorize(Roles = "Administrator")]
+    [Authorize(Roles = "Administrator")]
     public class UsersController : Controller
     {
         private readonly ApplicationDbContext _context;
@@ -67,8 +68,14 @@ namespace RentACar.App.Controllers
             return View();
         }
 
-        public IActionResult Index()
+        [HttpPost]
+        public async Task<IActionResult> Edit(UserEditBindingModel bindingModel)
         {
+            if (ModelState.IsValid)
+            {
+                return RedirectToAction("All");
+            }
+
             return View();
         }
     }
