@@ -41,6 +41,25 @@
                                 </div>
                             </li>
                         }
+                        @if (this.User.Identity.IsAuthenticated && !this.User.IsInRole("Administrator"))
+                        {
+                            <li class="nav-item active">
+                                <div class="dropdown show">
+                                    <a class="nav-link active dropdown-toggle" href="#"
+                                       id="dropdownMenuLink"
+                                       data-bs-toggle="dropdown"
+                                       aria-haspopup="true"
+                                       aria-expanded="false">
+                                        Users
+                                    </a>
+
+                                    <div class="dropdown-menu" aria-labelledby="dropdownMenuLink">
+                                        <a class="dropdown-item" href="/Users/All">All Users</a>
+                                        <a class="dropdown-item" href="/Users/Create">Create a user</a>
+                                    </div>
+                                </div>
+                            </li>
+                        }
                     </ul>
                     <partial name="_LoginPartial" />
                 </div>
