@@ -2,7 +2,7 @@
 using RentACar.App.Data;
 using RentACar.App.Domain;
 
-namespace RentACar.App.Areas.Identity.Pages.Account
+namespace RentACar.App.Services
 {
     public class UserPinServices
     {

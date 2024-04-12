@@ -1,8 +1,8 @@
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
-using RentACar.App.Areas.Identity.Pages.Account;
 using RentACar.App.Data;
 using RentACar.App.Domain;
+using RentACar.App.Services;
 
 namespace RentACar.App
 {

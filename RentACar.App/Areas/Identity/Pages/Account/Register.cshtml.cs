@@ -8,6 +8,7 @@ using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using RentACar.App.Domain;
+using RentACar.App.Services;
 
 namespace RentACar.App.Areas.Identity.Pages.Account
 {
