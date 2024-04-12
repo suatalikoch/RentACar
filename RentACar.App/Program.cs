@@ -7,7 +7,7 @@ namespace RentACar.App
 {
     public class Program
     {
-        public static void Main(string[] args)
+        public static async Task Main(string[] args)
         {
             var builder = WebApplication.CreateBuilder(args);
 
@@ -21,7 +21,7 @@ namespace RentACar.App
                 .AddEntityFrameworkStores<ApplicationDbContext>()
                 .AddDefaultTokenProviders();
             builder.Services.AddControllersWithViews();
-
+          
             builder.Services.Configure<IdentityOptions>(options =>
             {
                 options.Password.RequireDigit = false;
@@ -61,6 +61,54 @@ namespace RentACar.App
                 name: "default",
                 pattern: "{controller=Home}/{action=Index}/{id?}");
             app.MapRazorPages();
+
+
+            using (var scope = app.Services.CreateScope())
+            {
+                var roleManager = scope.ServiceProvider.GetRequiredService<RoleManager<IdentityRole>>();
+
+                var roles = new[] { "Administrator", "User" };
+
+                foreach (var role in roles)
+                {
+                    if (!await roleManager.RoleExistsAsync(role))
+                    {
+                        await roleManager.CreateAsync(new IdentityRole(role));
+                    }
+                }
+            }
+
+            using (var scope = app.Services.CreateScope())
+            {
+                var userManager = scope.ServiceProvider.GetRequiredService<UserManager<User>>();
+
+                string username = "admin";
+                string email = "admin@gmail.com";
+                string password = "admin@gmail.com";
+                string firstName = "Admin_FirstName";
+                string lastName = "Admin_LastName";
+                string PIN = "0123456789";
+                string phoneNumber = "1234567";
+
+
+
+                if (await userManager.FindByEmailAsync(email) == null)
+                {
+
+                    var user = new User();
+                    user.UserName = username;
+                    user.Email = email;
+                    user.FirstName = firstName;
+                    user.LastName = lastName;
+                    user.PIN = PIN;
+                    user.PhoneNumber = phoneNumber;
+
+                    await userManager.CreateAsync(user, password);
+
+                    await userManager.AddToRoleAsync(user, "Admin");
+                }
+
+            }
 
             app.Run();
         }
