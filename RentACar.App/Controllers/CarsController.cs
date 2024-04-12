@@ -7,7 +7,7 @@ using System.Security.Claims;
 
 namespace RentACar.App.Controllers
 {
-    //[Authorize(Roles = "Administrator")]
+    [Authorize]
     public class CarsController : Controller
     {
         private readonly ApplicationDbContext _context;
@@ -63,6 +63,11 @@ namespace RentACar.App.Controllers
                 return RedirectToAction("All");
             }
 
+            return View();
+        }
+
+        public IActionResult Index()
+        {
             return View();
         }
     }

@@ -7,7 +7,6 @@ using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
-using Microsoft.EntityFrameworkCore;
 using RentACar.App.Domain;
 
 namespace RentACar.App.Areas.Identity.Pages.Account
@@ -146,14 +145,6 @@ namespace RentACar.App.Areas.Identity.Pages.Account
 
             if (ModelState.IsValid)
             {
-                // Check if the email is already in use
-                var existingUserWithEmail = await _userManager.FindByEmailAsync(Input.Email);
-                if (existingUserWithEmail != null)
-                {
-                    ModelState.AddModelError(string.Empty, "Email is already in use.");
-                    return Page();
-                }
-
                 var user = new User
                 {
                     UserName = Input.UserName,
