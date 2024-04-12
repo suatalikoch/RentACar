@@ -86,6 +86,7 @@ namespace RentACar.App.Controllers
                     return NotFound();
                 }
 
+                user.UserName = bindingModel.UserName;
                 user.Email = bindingModel.Email;
                 user.FirstName = bindingModel.FirstName;
                 user.LastName = bindingModel.LastName;

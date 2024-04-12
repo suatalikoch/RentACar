@@ -4,7 +4,7 @@ namespace RentACar.App.Models.Users
 {
     public class UserEditBindingModel
     {
-        [Display(Name = "Username")]
+        [Display(Name = "UserName")]
         public string UserName { get; set; }
 
         [EmailAddress]
