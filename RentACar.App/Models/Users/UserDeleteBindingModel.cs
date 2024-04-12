@@ -2,6 +2,6 @@
 {
     public class UserDeleteBindingModel
     {
-        
+        public string Id { get; set; }
     }
 }

@@ -124,18 +124,20 @@ namespace RentACar.App.Controllers
 
             var model = new UserDetailsViewModel
             {
+                Id = user.Id,
                 UserName = user.UserName,
                 Email = user.Email,
                 FirstName = user.FirstName,
                 LastName = user.LastName,
                 PIN = user.PIN,
-                PhoneNumber = user.PhoneNumber
+                PhoneNumber = user.PhoneNumber,
+                PasswordHash = user.PasswordHash
             };
 
             return View(model);
         }
 
-        [HttpPost]
+        [HttpDelete]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Delete(string username)
         {

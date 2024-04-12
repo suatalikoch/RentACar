@@ -1,4 +1,5 @@
 ﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using RentACar.App.Data;
 using RentACar.App.Domain;
@@ -22,6 +23,7 @@ namespace RentACar.App.Controllers
             List<CarAllViewModel> cars = _context.Cars
                 .Select(carFromDb => new CarAllViewModel
                 {
+                    Id = carFromDb.Id,
                     Brand = carFromDb.Brand,
                     Model = carFromDb.Model,
                     Year = carFromDb.Year.ToString(),
@@ -64,6 +66,52 @@ namespace RentACar.App.Controllers
             }
 
             return View();
+        }
+
+        [HttpGet]
+        public async Task<IActionResult> Details(string id)
+        {
+            if (id == null)
+            {
+                return NotFound();
+            }
+
+            var car = _context.Cars.FirstOrDefault(c => c.Id == id);
+
+            if (car == null)
+            {
+                return NotFound();
+            }
+
+            var model = new CarDetailsViewModel
+            {
+                Id = car.Id,
+                Brand = car.Brand,
+                Model = car.Model,
+                Year = car.Year,
+                Passenger = car.Passenger,
+                Description = car.Description,
+                RentPrice = car.RentPrice
+            };
+
+            return View(model);
+        }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> Delete(string id)
+        {
+            var car = _context.Cars.FirstOrDefault(c => c.Id == id);
+
+            if (car == null)
+            {
+                return NotFound();
+            }
+
+            var result = _context.Cars.Remove(car);
+            _context.SaveChanges();
+
+            return RedirectToAction("All");
         }
     }
 }
