@@ -69,11 +69,65 @@ namespace RentACar.App.Controllers
         }
 
         [HttpPost]
-        public async Task<IActionResult> Edit(UserEditBindingModel bindingModel)
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> Edit(string username, UserEditBindingModel bindingModel)
         {
+            if (username != bindingModel.UserName)
+            {
+                return NotFound();
+            }
+
             if (ModelState.IsValid)
             {
+                var user = await _userManager.FindByNameAsync(username);
+
+                if (user == null)
+                {
+                    return NotFound();
+                }
+
+                user.Email = bindingModel.Email;
+                user.FirstName = bindingModel.FirstName;
+                user.LastName = bindingModel.LastName;
+                user.PIN = bindingModel.PIN;
+                user.PhoneNumber = bindingModel.PhoneNumber;
+
+                var result = await _userManager.UpdateAsync(user);
+
+                if (result.Succeeded)
+                {
+                    return RedirectToAction("All");
+                }
+                foreach (var error in result.Errors)
+                {
+                    ModelState.AddModelError(string.Empty, error.Description);
+                }
+            }
+
+            return View(bindingModel);
+        }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> Delete(string username)
+        {
+            var user = await _userManager.FindByNameAsync(username);
+            
+            if (user == null)
+            {
+                return NotFound();
+            }
+
+            var result = await _userManager.DeleteAsync(user);
+
+            if (result.Succeeded)
+            {
                 return RedirectToAction("All");
+            }
+
+            foreach (var error in result.Errors)
+            {
+                ModelState.AddModelError(string.Empty, error.Description);
             }
 
             return View();
