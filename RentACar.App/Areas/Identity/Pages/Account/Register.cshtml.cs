@@ -7,7 +7,6 @@ using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
-using Microsoft.EntityFrameworkCore;
 using RentACar.App.Domain;
 
 namespace RentACar.App.Areas.Identity.Pages.Account
@@ -19,18 +18,23 @@ namespace RentACar.App.Areas.Identity.Pages.Account
         private readonly IUserStore<User> _userStore;
         private readonly IUserEmailStore<User> _emailStore;
         private readonly ILogger<RegisterModel> _logger;
+        private readonly UserPinServices _userPinService;
+
+
 
         public RegisterModel(
             UserManager<User> userManager,
             IUserStore<User> userStore,
             SignInManager<User> signInManager,
-            ILogger<RegisterModel> logger)
+            ILogger<RegisterModel> logger,
+            UserPinServices userPinService)
         {
             _userManager = userManager;
             _userStore = userStore;
             _emailStore = GetEmailStore();
             _signInManager = signInManager;
             _logger = logger;
+            _userPinService = userPinService;
         }
 
         /// <summary>
@@ -144,6 +148,7 @@ namespace RentACar.App.Areas.Identity.Pages.Account
             returnUrl ??= Url.Content("~/");
             ExternalLogins = (await _signInManager.GetExternalAuthenticationSchemesAsync()).ToList();
 
+
             if (ModelState.IsValid)
             {
                 // Check if the email is already in use
@@ -153,6 +158,15 @@ namespace RentACar.App.Areas.Identity.Pages.Account
                     ModelState.AddModelError(string.Empty, "Email is already in use.");
                     return Page();
                 }
+
+                // Check if the PIN is already in use
+                var existingUserWithPIN = await _userPinService.FindByPINAsync(Input.PIN);
+                if (existingUserWithPIN != null)
+                {
+                    ModelState.AddModelError(string.Empty, "PIN is already in use.");
+                    return Page();
+                }
+
 
                 var user = new User
                 {
