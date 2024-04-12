@@ -107,6 +107,34 @@ namespace RentACar.App.Controllers
             return View(bindingModel);
         }
 
+        [HttpGet]
+        public async Task<IActionResult> Details(string username)
+        {
+            if (username == null)
+            {
+                return NotFound();
+            }
+
+            var user = await _userManager.FindByNameAsync(username);
+
+            if (user == null)
+            {
+                return NotFound();
+            }
+
+            var model = new UserDetailsViewModel
+            {
+                UserName = user.UserName,
+                Email = user.Email,
+                FirstName = user.FirstName,
+                LastName = user.LastName,
+                PIN = user.PIN,
+                PhoneNumber = user.PhoneNumber
+            };
+
+            return View(model);
+        }
+
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Delete(string username)
