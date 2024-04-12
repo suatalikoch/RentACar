@@ -7,7 +7,7 @@ using System.Security.Claims;
 
 namespace RentACar.App.Controllers
 {
-    //[Authorize(Roles = "Administrator")]
+    [Authorize(Roles = "Administrator")]
     public class CarsController : Controller
     {
         private readonly ApplicationDbContext _context;
