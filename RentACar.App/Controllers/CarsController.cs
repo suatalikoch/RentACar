@@ -97,7 +97,7 @@ namespace RentACar.App.Controllers
             return View(model);
         }
 
-        [HttpPost]
+        [HttpDelete]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Delete(string id)
         {
