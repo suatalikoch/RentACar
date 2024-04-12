@@ -4,7 +4,7 @@ using RentACar.App.Domain;
 
 namespace RentACar.App.Data
 {
-    public class ApplicationDbContext : IdentityDbContext<RentACarUser>
+    public class ApplicationDbContext : IdentityDbContext<User>
     {
         public DbSet<Car> Cars { get; set; }
 

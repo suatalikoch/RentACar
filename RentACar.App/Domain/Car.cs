@@ -21,7 +21,7 @@ namespace RentACar.App.Domain
         public decimal RentPrice {  get; set; }
 
         //- Additional (Below)
-        public RentACarUser Tenant { get; set; }
+        public User Tenant { get; set; }
         public string TenantId { get; set; }
     }
 }

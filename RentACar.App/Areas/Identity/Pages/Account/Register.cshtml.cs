@@ -2,38 +2,27 @@
 // The .NET Foundation licenses this file to you under the MIT license.
 #nullable disable
 
-using System;
-using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
-using System.Linq;
-using System.Text;
-using System.Text.Encodings.Web;
-using System.Threading;
-using System.Threading.Tasks;
 using Microsoft.AspNetCore.Authentication;
-using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
-using Microsoft.AspNetCore.Identity.UI.Services;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
-using Microsoft.AspNetCore.WebUtilities;
-using Microsoft.Extensions.Logging;
 using RentACar.App.Domain;
 
 namespace RentACar.App.Areas.Identity.Pages.Account
 {
     public class RegisterModel : PageModel
     {
-        private readonly SignInManager<RentACarUser> _signInManager;
-        private readonly UserManager<RentACarUser> _userManager;
-        private readonly IUserStore<RentACarUser> _userStore;
-        private readonly IUserEmailStore<RentACarUser> _emailStore;
+        private readonly SignInManager<User> _signInManager;
+        private readonly UserManager<User> _userManager;
+        private readonly IUserStore<User> _userStore;
+        private readonly IUserEmailStore<User> _emailStore;
         private readonly ILogger<RegisterModel> _logger;
 
         public RegisterModel(
-            UserManager<RentACarUser> userManager,
-            IUserStore<RentACarUser> userStore,
-            SignInManager<RentACarUser> signInManager,
+            UserManager<User> userManager,
+            IUserStore<User> userStore,
+            SignInManager<User> signInManager,
             ILogger<RegisterModel> logger)
         {
             _userManager = userManager;
@@ -74,7 +63,7 @@ namespace RentACar.App.Areas.Identity.Pages.Account
             /// </summary>
             [Required]
             [Display(Name = "Username")]
-            public string Username { get; set; }
+            public string UserName { get; set; }
 
             /// <summary>
             ///     This API supports the ASP.NET Core Identity default UI infrastructure and is not intended to be used
@@ -128,6 +117,7 @@ namespace RentACar.App.Areas.Identity.Pages.Account
             /// </summary>
             [Required]
             [RegularExpression(@"^\d{10}$", ErrorMessage = "Invalid PIN format.")]
+
             [Display(Name = "PIN")]
             public string PIN { get; set; }
 
@@ -152,11 +142,12 @@ namespace RentACar.App.Areas.Identity.Pages.Account
         {
             returnUrl ??= Url.Content("~/");
             ExternalLogins = (await _signInManager.GetExternalAuthenticationSchemesAsync()).ToList();
+
             if (ModelState.IsValid)
             {
-                var user = new RentACarUser
+                var user = new User
                 {
-                    UserName = Input.Username,
+                    UserName = Input.UserName,
                     Email = Input.Email,
                     FirstName = Input.FirstName,
                     LastName = Input.LastName,
@@ -164,7 +155,7 @@ namespace RentACar.App.Areas.Identity.Pages.Account
                     PhoneNumber = Input.PhoneNumber
                 };
 
-                await _userStore.SetUserNameAsync(user, Input.Username, CancellationToken.None);
+                await _userStore.SetUserNameAsync(user, Input.UserName, CancellationToken.None);
                 await _emailStore.SetEmailAsync(user, Input.Email, CancellationToken.None);
 
                 var result = await _userManager.CreateAsync(user, Input.Password);
@@ -174,8 +165,10 @@ namespace RentACar.App.Areas.Identity.Pages.Account
                     _logger.LogInformation("User created a new account with password.");
 
                     await _signInManager.SignInAsync(user, isPersistent: false);
+
                     return LocalRedirect(returnUrl);
                 }
+
                 foreach (var error in result.Errors)
                 {
                     ModelState.AddModelError(string.Empty, error.Description);
@@ -186,27 +179,27 @@ namespace RentACar.App.Areas.Identity.Pages.Account
             return Page();
         }
 
-        private RentACarUser CreateUser()
+        private User CreateUser()
         {
             try
             {
-                return Activator.CreateInstance<RentACarUser>();
+                return Activator.CreateInstance<User>();
             }
             catch
             {
-                throw new InvalidOperationException($"Can't create an instance of '{nameof(RentACarUser)}'. " +
-                    $"Ensure that '{nameof(IdentityUser)}' is not an abstract class and has a parameterless constructor, or alternatively " +
+                throw new InvalidOperationException($"Can't create an instance of '{nameof(Domain.User)}'. " +
+                    $"Ensure that '{nameof(Microsoft.AspNetCore.Identity.IdentityUser)}' is not an abstract class and has a parameterless constructor, or alternatively " +
                     $"override the register page in /Areas/Identity/Pages/Account/Register.cshtml");
             }
         }
 
-        private IUserEmailStore<RentACarUser> GetEmailStore()
+        private IUserEmailStore<User> GetEmailStore()
         {
             if (!_userManager.SupportsUserEmail)
             {
                 throw new NotSupportedException("The default UI requires a user store with email support.");
             }
-            return (IUserEmailStore<RentACarUser>)_userStore;
+            return (IUserEmailStore<User>)_userStore;
         }
     }
 }

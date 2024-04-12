@@ -1,12 +1,12 @@
 ﻿using System.ComponentModel.DataAnnotations;
 
-namespace RentACar.App.Models
+namespace RentACar.App.Models.Cars
 {
     public class CarCreateBindingModel
     {
         [Required]
         [RegularExpression(@"^[a-zA-Z]+$", ErrorMessage = "Brand must contain only alphabetic characters.")]
-        [Display(Name = "Name")]
+        [Display(Name = "Brand")]
         public string Brand { get; set; }
 
         [Required]

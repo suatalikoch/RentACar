@@ -1,7 +1,7 @@
 ﻿@using Microsoft.AspNetCore.Identity
 @using RentACar.App.Domain
-@inject SignInManager<RentACarUser> SignInManager
-@inject UserManager<RentACarUser> UserManager
+@inject SignInManager<User> SignInManager
+@inject UserManager<User> UserManager
 
 <ul class="navbar-nav">
 @if (SignInManager.IsSignedIn(User))

@@ -2,7 +2,7 @@
 using Microsoft.AspNetCore.Mvc;
 using RentACar.App.Data;
 using RentACar.App.Domain;
-using RentACar.App.Models;
+using RentACar.App.Models.Cars;
 using System.Security.Claims;
 
 namespace RentACar.App.Controllers
@@ -27,7 +27,7 @@ namespace RentACar.App.Controllers
                     Year = carFromDb.Year.ToString(),
                     Passenger = carFromDb.Passenger.ToString(),
                     Description = carFromDb.Description,
-                    RentPrice = carFromDb.Year.ToString(),
+                    RentPrice = carFromDb.RentPrice.ToString(),
                     Tenant = carFromDb.Tenant.UserName
                 }).ToList();
 
@@ -45,6 +45,7 @@ namespace RentACar.App.Controllers
             if (ModelState.IsValid)
             {
                 string currentUserId = User.FindFirstValue(ClaimTypes.NameIdentifier);
+
                 Car carFromDb = new Car
                 {
                     Brand = bindingModel.Brand,
