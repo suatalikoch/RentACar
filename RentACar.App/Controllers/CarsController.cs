@@ -1,4 +1,5 @@
 ﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using RentACar.App.Data;
 using RentACar.App.Domain;
@@ -11,10 +12,12 @@ namespace RentACar.App.Controllers
     public class CarsController : Controller
     {
         private readonly ApplicationDbContext _context;
+        private readonly UserManager<User> _userManager;
 
-        public CarsController(ApplicationDbContext context)
+        public CarsController(ApplicationDbContext context, UserManager<User> userManager)
         {
             _context = context;
+            _userManager = userManager;
         }
 
         public IActionResult All()
@@ -29,7 +32,7 @@ namespace RentACar.App.Controllers
                     Passenger = carFromDb.Passenger.ToString(),
                     Description = carFromDb.Description,
                     RentPrice = carFromDb.RentPrice.ToString(),
-                    Tenant = carFromDb.Tenant.UserName
+                    Renter = carFromDb.Renter
                 }).ToList();
 
             return View(cars);
@@ -41,69 +44,65 @@ namespace RentACar.App.Controllers
         }
 
         [HttpPost]
-        public IActionResult Create(CarCreateBindingModel bindingModel)
+        public async Task<IActionResult> Create(CarCreateBindingModel bindingModel)
         {
-            if (ModelState.IsValid)
+            if (!ModelState.IsValid)
             {
-                string currentUserId = User.FindFirstValue(ClaimTypes.NameIdentifier);
-
-                Car carFromDb = new Car
-                {
-                    Brand = bindingModel.Brand,
-                    Model = bindingModel.Model,
-                    Year = bindingModel.Year,
-                    Passenger = bindingModel.Passenger,
-                    Description = bindingModel.Description,
-                    RentPrice = bindingModel.RentPrice,
-                    TenantId = currentUserId
-                };
-
-                _context.Cars.Add(carFromDb);
-                _context.SaveChanges();
-
-                return RedirectToAction("All");
+                return View();
             }
 
-            return View();
+            string currentUserId = User.FindFirstValue(ClaimTypes.NameIdentifier);
+            var currentUser = await _userManager.FindByIdAsync(currentUserId);
+
+            Car carFromDb = new Car
+            {
+                Brand = bindingModel.Brand,
+                Model = bindingModel.Model,
+                Year = bindingModel.Year,
+                Passenger = bindingModel.Passenger,
+                Description = bindingModel.Description,
+                RentPrice = bindingModel.RentPrice,
+                Renter = currentUser.UserName,
+                RenterId = currentUserId
+            };
+
+            _context.Cars.Add(carFromDb);
+            await _context.SaveChangesAsync();
+
+            return RedirectToAction("All");
         }
 
-        [HttpGet]
         public async Task<IActionResult> Edit(string id, CarEditBindingModel bindingModel)
         {
-            if (ModelState.IsValid)
+            if (!ModelState.IsValid)
             {
-                var car = _context.Cars.FirstOrDefault(c => c.Id == id);
-
-                if (id == null)
-                {
-                    return NotFound();
-                }
-
-                car.Brand = bindingModel.Brand;
-                car.Model = bindingModel.Model;
-                car.Year = bindingModel.Year;
-                car.Passenger = bindingModel.Passenger;
-                car.Description = bindingModel.Description;
-                car.RentPrice = bindingModel.RentPrice;
-
-                _context.Cars.Update(car);
-                _context.SaveChanges();
-
-                return RedirectToAction("All");
+                return View();
             }
 
-            return View(bindingModel);
+            var car = await _context.Cars.FindAsync(id);
+
+            if (car == null)
+            {
+                return NotFound();
+            }
+
+            car.Brand = bindingModel.Brand;
+            car.Model = bindingModel.Model;
+            car.Year = bindingModel.Year;
+            car.Passenger = bindingModel.Passenger;
+            car.Description = bindingModel.Description;
+            car.RentPrice = bindingModel.RentPrice;
+
+            _context.Cars.Update(car);
+            await _context.SaveChangesAsync();
+
+            return RedirectToAction("All");
         }
 
         [HttpGet]
         public async Task<IActionResult> Details(string id)
         {
-            if (id == null)
-            {
-                return NotFound();
-            }
-
-            var car = _context.Cars.FirstOrDefault(c => c.Id == id);
+            var car = await _context.Cars.FindAsync(id);
 
             if (car == null)
             {
@@ -118,7 +117,9 @@ namespace RentACar.App.Controllers
                 Year = car.Year,
                 Passenger = car.Passenger,
                 Description = car.Description,
-                RentPrice = car.RentPrice
+                RentPrice = car.RentPrice,
+                Renter = car.Renter,
+                RenterId = car.RenterId
             };
 
             return View(model);
@@ -127,19 +128,37 @@ namespace RentACar.App.Controllers
         [HttpGet]
         public async Task<IActionResult> Delete(string id)
         {
-            var car = _context.Cars.FirstOrDefault(c => c.Id == id);
+            var car = await _context.Cars.FindAsync(id);
 
             if (car == null)
             {
                 return NotFound();
             }
 
-            //var result = _context.Cars.Remove(car);
-            //_context.SaveChanges();
+            CarDeleteBindingModel bindingModel = new CarDeleteBindingModel()
+            {
+                Id = car.Id,
+                Brand = car.Brand,
+                Model = car.Model
+            };
 
-            //return RedirectToAction("All");
+            return View(bindingModel);
+        }
 
-            return View();
+        [HttpPost]
+        public async Task<IActionResult> DeleteConfirm(string id)
+        {
+            var car = await _context.Cars.FindAsync(id);
+
+            if (car == null)
+            {
+                return NotFound();
+            }
+
+            _context.Cars.Remove(car);
+            await _context.SaveChangesAsync();
+
+            return RedirectToAction("All");
         }
     }
 }

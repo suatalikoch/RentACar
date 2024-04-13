@@ -1,4 +1,6 @@
-﻿@{
+﻿@model AvailableCarsViewModel
+
+@{
     ViewData["Title"] = "Home Page";
 }
 
@@ -17,5 +19,58 @@ else
         <h1 class="text-center">Welcome, @this.User.Identity.Name</h1>
         <hr class="hr-2 bg-secondary" />
         <h4 class="mt-4 text-secondary text-center">RentACar wishes you an exciting experience.</h4>
+    </div>
+
+    <div class="container mt-5">
+        <div class="row">
+            <div class="col-md-12">
+                <form id="searchForm" method="get" asp-action="Search">
+                    <input type="hidden" name="searchButton" value="true" />
+                    <div class="form-row align-items-center">
+                        <div class="col-md-3 mb-3">
+                            <label for="startDate">Start Date</label>
+                            <input type="date" class="form-control" id="startDate" name="startDate" required>
+                        </div>
+                        <div class="col-md-3 mb-3">
+                            <label for="endDate">End Date</label>
+                            <input type="date" class="form-control" id="endDate" name="endDate" required>
+                        </div>
+                        <div class="col-md-3 mb-3">
+                            <button type="submit" class="btn btn-primary" id="searchBtn">Search</button>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+
+        @{
+            var searchButtonClicked = ViewBag.SearchButtonClicked as bool? ?? false;
+        }
+
+        @if (searchButtonClicked)
+        {
+            <section class="container mt-5">
+                <h2 class="text-center mb-4">Available Cars for Rent</h2>
+
+                <div class="row" id="carResults">
+                    @foreach (var car in Model.AvailableCars)
+                    {
+                        <div class="col-md-4 mb-4">
+                            <div class="card">
+                                <img src="https://media.discordapp.net/attachments/532572214562914334/1228610959359217716/403537-2024-mercedes-benz-g-class.jpg?ex=662cac1f&is=661a371f&hm=d2dfff51f2e66b2d57df9b839ac59717c98e0031a93167947341d5d57fd0a404&=&format=webp&width=1448&height=905" class="card-img-top" alt="Car 3">
+                                <div class="card-body">
+                                    <h5 class="card-title">@car.Brand @car.Model</h5>
+                                    <p class="card-text">Year: @car.Year</p>
+                                    <p class="card-text">Seats: @car.Passenger</p>
+                                    <p class="card-text">@car.Description</p>
+                                    <p class="card-text">Rent Price: @car.RentPrice</p>
+                                    <a href="#" class="btn btn-primary">Rent Now</a>
+                                </div>
+                            </div>
+                        </div>
+                    }
+                </div>
+            </section>
+        }
     </div>
 }

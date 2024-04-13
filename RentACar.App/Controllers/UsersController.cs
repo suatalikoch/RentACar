@@ -3,6 +3,7 @@ using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using RentACar.App.Data;
 using RentACar.App.Domain;
+using RentACar.App.Models.Cars;
 using RentACar.App.Models.Users;
 
 namespace RentACar.App.Controllers
@@ -63,7 +64,10 @@ namespace RentACar.App.Controllers
                     ModelState.AddModelError(string.Empty, error.Description);
                 }
 
-                return RedirectToAction("All");
+                if (result.Succeeded)
+                {
+                    return RedirectToAction("All");
+                }
             }
 
             return View();
@@ -111,11 +115,6 @@ namespace RentACar.App.Controllers
         [HttpGet]
         public async Task<IActionResult> Details(string username)
         {
-            if (username == null)
-            {
-                return NotFound();
-            }
-
             var user = await _userManager.FindByNameAsync(username);
 
             if (user == null)
@@ -148,24 +147,25 @@ namespace RentACar.App.Controllers
                 return NotFound();
             }
 
-            return View();
+            UserDeleteBindingModel bindingModel = new UserDeleteBindingModel()
+            {
+                UserName = user.UserName,
+            };
+
+            return View(bindingModel);
         }
 
         [HttpPost]
         public async Task<IActionResult> DeleteConfirm(string username)
         {
             var user = await _userManager.FindByNameAsync(username);
-            var result = await _userManager.DeleteAsync(user);
 
-            if (result.Succeeded)
+            if (user == null)
             {
-                return RedirectToAction("All");
+                return NotFound();
             }
 
-            foreach (var error in result.Errors)
-            {
-                ModelState.AddModelError(string.Empty, error.Description);
-            }
+            await _userManager.DeleteAsync(user);
 
             return RedirectToAction("All");
         }

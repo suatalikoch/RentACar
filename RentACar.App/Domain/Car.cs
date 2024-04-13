@@ -13,7 +13,7 @@ namespace RentACar.App.Domain
         public string Description { get; set; }
         [Column(TypeName = "decimal(12,3)")]
         public decimal RentPrice {  get; set; }
-        public User Tenant { get; set; }
-        public string TenantId { get; set; }
+        public string Renter { get; set; }
+        public string RenterId { get; set; }
     }
 }

@@ -7,9 +7,9 @@ namespace RentACar.App.Domain
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         public string Id { get; set; }
         public string CarId { get; set; }
-        public DateTime RentStart { get; set; }
-        public DateTime RentEnd { get; set; }
-        public User Tenant { get; set; }
         public string TenantId { get; set; }
+        public DateTime StartDate { get; set; }
+        public DateTime EndDate { get; set; }
+        public bool Approved { get;set; }
     }
 }

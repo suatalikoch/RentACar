@@ -9,6 +9,6 @@
         public string Passenger { get; set; }
         public string Description { get; set; }
         public string RentPrice { get; set; }
-        public string Tenant { get; set; }
+        public string Renter { get; set; }
     }
 }

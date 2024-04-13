@@ -1,8 +1,10 @@
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using RentACar.App.Data;
 using RentACar.App.Domain;
 using RentACar.App.Services;
+using System.Globalization;
 
 namespace RentACar.App
 {
@@ -101,6 +103,26 @@ namespace RentACar.App
                     await userManager.AddToRoleAsync(user, "Administrator");
                 }
             }
+
+            /*
+            using (var scope = app.Services.CreateScope())
+            {
+                var context = scope.ServiceProvider.GetRequiredService<ApplicationDbContext>();
+ 
+                var rent = new Rent()
+                {
+                    Id = "2310e325-59b3-4143-a5d6-08f0eedbf96b",
+                    CarId = context.Cars.FirstOrDefault().Id,
+                    TenantId = "4b4454fa-8c09-41e6-8d90-8353f3de4138",
+                    StartDate = DateTime.ParseExact("13/04/2024", "dd/MM/yyyy", CultureInfo.InvariantCulture),
+                    EndDate = DateTime.ParseExact("20/04/2024", "dd/MM/yyyy", CultureInfo.InvariantCulture),
+                    Approved = true
+                };
+
+                context.Add(rent);
+                context.SaveChanges();
+            }
+            */
 
             app.Run();
         }

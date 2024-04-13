@@ -1,7 +1,11 @@
 ﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using RentACar.App.Data;
+using RentACar.App.Domain;
+using RentACar.App.Models.Cars;
 using RentACar.App.Models.Rents;
+using System.Security.Claims;
 
 namespace RentACar.App.Controllers
 {
@@ -21,40 +25,42 @@ namespace RentACar.App.Controllers
             List<RentAllViewModel> rents = _context.Rents
                 .Select(rentFromDb => new RentAllViewModel
                 {
+                    Id = rentFromDb.Id,
                     CarId = rentFromDb.CarId,
-                    RentStart = rentFromDb.RentStart,
-                    RentEnd = rentFromDb.RentEnd,
-                    Tenant = rentFromDb.Tenant
+                    StartDate = rentFromDb.StartDate,
+                    EndDate = rentFromDb.EndDate,
+                    TenantId = rentFromDb.TenantId
                 }).ToList();
 
             return View(rents);
         }
 
-        // GET: RentsController/Create
-        public ActionResult Create()
+        public IActionResult Create()
         {
             return View();
         }
 
-        // GET: RentsController/Details/5
-        public ActionResult Details(int id)
-        {
-            return View();
-        }
-
-        // POST: RentsController/Create
         [HttpPost]
-        [ValidateAntiForgeryToken]
-        public ActionResult Create(IFormCollection collection)
+        public async Task<IActionResult> Create(RentCreateBindingModel bindingModel)
         {
-            try
-            {
-                return RedirectToAction(nameof(All));
-            }
-            catch
+            if (!ModelState.IsValid)
             {
                 return View();
             }
+
+            Rent rentFromDb = new Rent
+            {
+                CarId = bindingModel.CarId,
+                TenantId = bindingModel.TenantId,
+                StartDate = bindingModel.StartDate,
+                EndDate = bindingModel.EndDate,
+                Approved = bindingModel.Approved
+            };
+
+            _context.Rents.Add(rentFromDb);
+            await _context.SaveChangesAsync();
+
+            return RedirectToAction("All");
         }
 
         // GET: RentsController/Edit/5
@@ -78,25 +84,63 @@ namespace RentACar.App.Controllers
             }
         }
 
-        // GET: RentsController/Delete/5
-        public ActionResult Delete(int id)
+        [HttpGet]
+        public async Task<IActionResult> Details(string id)
         {
-            return View();
+            var rent = await _context.Rents.FindAsync(id);
+
+            if (rent == null)
+            {
+                return NotFound();
+            }
+
+            var model = new RentDetailsViewModel
+            {
+                Id = rent.Id,
+                CarId = rent.CarId,
+                TenantId = rent.TenantId,
+                StartDate = rent.StartDate.ToString(),
+                EndDate = rent.EndDate.ToString(),
+                Approved = rent.Approved.ToString()
+            };
+
+            return View(model);
         }
 
-        // POST: RentsController/Delete/5
-        [HttpPost]
-        [ValidateAntiForgeryToken]
-        public ActionResult Delete(int id, IFormCollection collection)
+        [HttpGet]
+        public async Task<IActionResult> Delete(string id)
         {
-            try
+            var rent = await _context.Rents.FindAsync(id);
+
+            if (rent == null)
             {
-                return RedirectToAction(nameof(All));
+                return NotFound();
             }
-            catch
+
+            RentDeleteBindingModel bindingModel = new RentDeleteBindingModel()
             {
-                return View();
+                Id = rent.Id,
+                CarId = rent.CarId,
+                TenantId = rent.TenantId
+            };
+
+            return View(bindingModel);
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> DeleteConfirm(string id)
+        {
+            var rent = await _context.Rents.FindAsync(id);
+
+            if (rent == null)
+            {
+                return NotFound();
             }
+
+            _context.Rents.Remove(rent);
+            await _context.SaveChangesAsync();
+
+            return RedirectToAction("All");
         }
     }
 }

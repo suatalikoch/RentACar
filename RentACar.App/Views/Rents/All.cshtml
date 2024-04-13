@@ -16,10 +16,16 @@
                 @Html.DisplayNameFor(model => model.CarId)
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.RentStart)
+                @Html.DisplayNameFor(model => model.TenantId)
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.RentEnd)
+                @Html.DisplayNameFor(model => model.StartDate)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.EndDate)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Approved)
             </th>
             <th></th>
         </tr>
@@ -31,15 +37,21 @@
                 @Html.DisplayFor(modelItem => item.CarId)
             </td>
             <td>
-                @Html.DisplayFor(modelItem => item.RentStart)
+                @Html.DisplayFor(modelItem => item.TenantId)
             </td>
             <td>
-                @Html.DisplayFor(modelItem => item.RentEnd)
+                @Html.DisplayFor(modelItem => item.StartDate)
             </td>
             <td>
-                @Html.ActionLink("Edit", "Edit", new { /* id=item.PrimaryKey */ }) |
-                @Html.ActionLink("Details", "Details", new { /* id=item.PrimaryKey */ }) |
-                @Html.ActionLink("Delete", "Delete", new { /* id=item.PrimaryKey */ })
+                @Html.DisplayFor(modelItem => item.EndDate)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Approved)
+            </td>
+            <td>
+                @Html.ActionLink("Edit", "Edit", new { /*id = item.PrimaryKey*/ }) |
+                @Html.ActionLink("Details", "Details", new { id = item.Id }) |
+                @Html.ActionLink("Delete", "Delete", new { id = item.Id })
             </td>
         </tr>
 }

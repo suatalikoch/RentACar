@@ -9,6 +9,7 @@
         public int Passenger {  get; set; }
         public string Description { get; set; }
         public decimal RentPrice {  get; set; }
-
+        public string Renter { get; set; }
+        public string RenterId { get; set; }
     }
 }
