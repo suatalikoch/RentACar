@@ -19,7 +19,6 @@ namespace RentACar.App.Controllers
             _context = context;
         }
 
-        // GET: RentsController
         public ActionResult All()
         {
             List<RentAllViewModel> rents = _context.Rents
@@ -63,25 +62,38 @@ namespace RentACar.App.Controllers
             return RedirectToAction("All");
         }
 
-        // GET: RentsController/Edit/5
-        public ActionResult Edit(int id)
+        public async Task<IActionResult> Edit(string id, RentEditBindingModel bindingModel)
         {
-            return View();
-        }
+            if (!ModelState.IsValid)
+            {
+                foreach (var modelState in ModelState.Values)
+                {
+                    foreach (var error in modelState.Errors)
+                    {
+                        ModelState.AddModelError(string.Empty, error.ErrorMessage);
+                    }
+                }
 
-        // POST: RentsController/Edit/5
-        [HttpPost]
-        [ValidateAntiForgeryToken]
-        public ActionResult Edit(int id, IFormCollection collection)
-        {
-            try
-            {
-                return RedirectToAction(nameof(All));
+                return View(bindingModel);
             }
-            catch
+
+            var rent = await _context.Rents.FindAsync(id);
+
+            if (rent == null)
             {
-                return View();
+                return NotFound();
             }
+
+            rent.CarId = bindingModel.CarId;
+            rent.TenantId = bindingModel.TenantId;
+            rent.StartDate = bindingModel.StartDate;
+            rent.EndDate = bindingModel.EndDate;
+            rent.Approved = bindingModel.Approved;
+
+            _context.Rents.Update(rent);
+            await _context.SaveChangesAsync();
+
+            return RedirectToAction("All");
         }
 
         [HttpGet]

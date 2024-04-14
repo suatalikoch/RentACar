@@ -76,7 +76,15 @@ namespace RentACar.App.Controllers
         {
             if (!ModelState.IsValid)
             {
-                return View();
+                foreach (var modelState in ModelState.Values)
+                {
+                    foreach (var error in modelState.Errors)
+                    {
+                        ModelState.AddModelError(string.Empty, error.ErrorMessage);
+                    }
+                }
+
+                return View(bindingModel);
             }
 
             var car = await _context.Cars.FindAsync(id);
