@@ -54,7 +54,7 @@ namespace RentACar.App.Controllers
             string currentUserId = User.FindFirstValue(ClaimTypes.NameIdentifier);
             var currentUser = await _userManager.FindByIdAsync(currentUserId);
 
-            Car carFromDb = new Car
+            Car carFromDb = new()
             {
                 Brand = bindingModel.Brand,
                 Model = bindingModel.Model,
@@ -74,24 +74,23 @@ namespace RentACar.App.Controllers
 
         public async Task<IActionResult> Edit(string id, CarEditBindingModel bindingModel)
         {
-            if (!ModelState.IsValid)
-            {
-                foreach (var modelState in ModelState.Values)
-                {
-                    foreach (var error in modelState.Errors)
-                    {
-                        ModelState.AddModelError(string.Empty, error.ErrorMessage);
-                    }
-                }
-
-                return View(bindingModel);
-            }
-
             var car = await _context.Cars.FindAsync(id);
 
             if (car == null)
             {
                 return NotFound();
+            }
+
+            if (!ModelState.IsValid)
+            {
+                bindingModel.Brand = car.Brand;
+                bindingModel.Model = car.Model;
+                bindingModel.Year = car.Year;
+                bindingModel.Passenger = car.Passenger;
+                bindingModel.Description = car.Description;
+                bindingModel.RentPrice = car.RentPrice;
+
+                return View(bindingModel);
             }
 
             car.Brand = bindingModel.Brand;
@@ -103,6 +102,14 @@ namespace RentACar.App.Controllers
 
             _context.Cars.Update(car);
             await _context.SaveChangesAsync();
+
+            foreach (var modelState in ModelState.Values)
+            {
+                foreach (var error in modelState.Errors)
+                {
+                    ModelState.AddModelError(string.Empty, error.ErrorMessage);
+                }
+            }
 
             return RedirectToAction("All");
         }

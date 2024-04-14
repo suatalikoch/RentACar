@@ -3,7 +3,6 @@ using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using RentACar.App.Data;
 using RentACar.App.Domain;
-using RentACar.App.Models.Cars;
 using RentACar.App.Models.Users;
 
 namespace RentACar.App.Controllers
@@ -12,7 +11,7 @@ namespace RentACar.App.Controllers
     public class UsersController : Controller
     {
         private readonly ApplicationDbContext _context;
-        private UserManager<User> _userManager;
+        private readonly UserManager<User> _userManager;
 
         public UsersController(ApplicationDbContext context, UserManager<User> userManager)
         {
@@ -20,7 +19,6 @@ namespace RentACar.App.Controllers
             _userManager = userManager;
         }
 
-        [HttpGet]
         public IActionResult All()
         {
             List<UserAllViewModel> users = _context.Users
@@ -37,76 +35,71 @@ namespace RentACar.App.Controllers
             return View(users);
         }
 
-        [HttpPost]
         public IActionResult Create()
         {
             return View();
         }
 
+        [HttpPost]
         public async Task<IActionResult> Create(UserCreateBindingModel bindingModel)
         {
-            if (ModelState.IsValid)
+            if (!ModelState.IsValid)
             {
-                User userFromDb = new User
-                {
-                    UserName = bindingModel.UserName,
-                    Email = bindingModel.Email,
-                    FirstName = bindingModel.FirstName,
-                    LastName = bindingModel.LastName,
-                    PIN = bindingModel.PIN,
-                    PhoneNumber = bindingModel.PhoneNumber
-                };
+                return View();
+            }
 
-                var result = await _userManager.CreateAsync(userFromDb, bindingModel.Password);
+            User userFromDb = new()
+            {
+                UserName = bindingModel.UserName,
+                Email = bindingModel.Email,
+                FirstName = bindingModel.FirstName,
+                LastName = bindingModel.LastName,
+                PIN = bindingModel.PIN,
+                PhoneNumber = bindingModel.PhoneNumber
+            };
 
-                foreach (var error in result.Errors)
-                {
-                    ModelState.AddModelError(string.Empty, error.Description);
-                }
+            var result = await _userManager.CreateAsync(userFromDb, bindingModel.Password);
 
-                if (result.Succeeded)
-                {
-                    return RedirectToAction("All");
-                }
+            if (result.Succeeded)
+            {
+                return RedirectToAction("All");
             }
 
             return View();
         }
 
-        [HttpGet]
         public async Task<IActionResult> Edit(string username, UserEditBindingModel bindingModel)
         {
-            if (username != bindingModel.UserName)
+            if (!ModelState.IsValid)
+            {
+                return View(bindingModel);
+            }
+
+
+            var user = await _userManager.FindByNameAsync(username);
+
+            if (user == null)
             {
                 return NotFound();
             }
 
-            if (ModelState.IsValid)
+            user.UserName = bindingModel.UserName;
+            user.Email = bindingModel.Email;
+            user.FirstName = bindingModel.FirstName;
+            user.LastName = bindingModel.LastName;
+            user.PIN = bindingModel.PIN;
+            user.PhoneNumber = bindingModel.PhoneNumber;
+
+            var result = await _userManager.UpdateAsync(user);
+
+            foreach (var error in result.Errors)
             {
-                var user = await _userManager.FindByNameAsync(username);
+                ModelState.AddModelError(string.Empty, error.Description);
+            }
 
-                if (user == null)
-                {
-                    return NotFound();
-                }
-
-                user.UserName = bindingModel.UserName;
-                user.Email = bindingModel.Email;
-                user.FirstName = bindingModel.FirstName;
-                user.LastName = bindingModel.LastName;
-                user.PIN = bindingModel.PIN;
-                user.PhoneNumber = bindingModel.PhoneNumber;
-
-                var result = await _userManager.UpdateAsync(user);
-
-                if (result.Succeeded)
-                {
-                    return RedirectToAction("All");
-                }
-                foreach (var error in result.Errors)
-                {
-                    ModelState.AddModelError(string.Empty, error.Description);
-                }
+            if (result.Succeeded)
+            {
+                return RedirectToAction("All");
             }
 
             return View(bindingModel);
