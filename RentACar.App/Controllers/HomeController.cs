@@ -80,6 +80,10 @@ namespace RentACar.App.Controllers
                 EndDate = DateTime.Parse(Request.Query["endDate"])
             };
 
+            TimeSpan rentDuration = endDate - startDate;
+
+            decimal rentTotal = decimal.Parse(bindingModel.RentPrice) * rentDuration.Days;
+
             return View("RentConfirm", bindingModel);
         }
     }
