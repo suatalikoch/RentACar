@@ -1,50 +1,49 @@
 ﻿@model RentCreateBindingModel
 
 @{
-    ViewData["Title"] = "Create";
+    ViewData["Title"] = "Create Rent";
 }
 
-<h1>Create</h1>
-
-<h4>RentCreateBindingModel</h4>
+<h1 class="text-center mb-3">Create a new rent</h1>
 <hr />
-<div class="row">
+
+<div class="row justify-content-center">
     <div class="col-md-4">
         <form asp-action="Create">
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
-            <div class="form-group">
-                <label asp-for="CarId" class="control-label"></label>
+            <div class="form-floating mb-3">
                 <input asp-for="CarId" class="form-control" />
+                <label asp-for="CarId" class="form-label">Car Id</label>
                 <span asp-validation-for="CarId" class="text-danger"></span>
             </div>
-            <div class="form-group">
-                <label asp-for="TenantId" class="control-label"></label>
+            <div class="form-floating mb-3">
                 <input asp-for="TenantId" class="form-control" />
+                <label asp-for="TenantId" class="form-label">Tenant Id</label>
                 <span asp-validation-for="TenantId" class="text-danger"></span>
             </div>
-            <div class="form-group">
-                <label asp-for="StartDate" class="control-label"></label>
+            <div class="form-floating mb-3">
                 <input asp-for="StartDate" class="form-control" />
+                <label asp-for="StartDate" class="form-label">Start Date</label>
                 <span asp-validation-for="StartDate" class="text-danger"></span>
             </div>
-            <div class="form-group">
-                <label asp-for="EndDate" class="control-label"></label>
+            <div class="form-floating mb-3">
                 <input asp-for="EndDate" class="form-control" />
+                <label asp-for="EndDate" class="form-label">End Date</label>
                 <span asp-validation-for="EndDate" class="text-danger"></span>
             </div>
-            <div class="form-group form-check">
-                <label class="form-check-label">
-                    <input class="form-check-input" asp-for="Approved" /> @Html.DisplayNameFor(model => model.Approved)
+            <div class="checkbox">
+                <label asp-for="Approved" class="form-label">
+                    <input class="form-check-input" asp-for="Approved" />
+                    @Html.DisplayNameFor(model => model.Approved)
                 </label>
             </div>
-            <div class="form-group">
+            <div class="text-center">
                 <input type="submit" value="Create" class="btn btn-primary" />
             </div>
         </form>
     </div>
 </div>
 
-<div>
-    <a asp-action="All">Back to List</a>
+<div class="text-center mt-2">
+    <a asp-action="All" class="btn btn-secondary">Back to List</a>
 </div>
-
