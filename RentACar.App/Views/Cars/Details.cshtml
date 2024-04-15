@@ -11,6 +11,8 @@
         <h4 class="card-title">Car Details</h4>
         <hr />
         <dl class="row">
+            <dt class="col-sm-3">@Html.DisplayNameFor(model => model.Id)</dt>
+            <dd class="col-sm-9">@Html.DisplayFor(model => model.Id)</dd>
             <dt class="col-sm-3">@Html.DisplayNameFor(model => model.Brand)</dt>
             <dd class="col-sm-9">@Html.DisplayFor(model => model.Brand)</dd>
             <dt class="col-sm-3">@Html.DisplayNameFor(model => model.Model)</dt>
@@ -22,7 +24,7 @@
             <dt class="col-sm-3">@Html.DisplayNameFor(model => model.Description)</dt>
             <dd class="col-sm-9">@Html.DisplayFor(model => model.Description)</dd>
             <dt class="col-sm-3">@Html.DisplayNameFor(model => model.RentPrice)</dt>
-            <dd class="col-sm-9">@Html.DisplayFor(model => model.RentPrice)</dd>
+            <dd class="col-sm-9">@Html.DisplayFor(model => model.RentPrice)$</dd>
             <dt class="col-sm-3">@Html.DisplayNameFor(model => model.Renter)</dt>
             <dd class="col-sm-9">@Html.DisplayFor(model => model.Renter)</dd>
             <dt class="col-sm-3">@Html.DisplayNameFor(model => model.RenterId)</dt>

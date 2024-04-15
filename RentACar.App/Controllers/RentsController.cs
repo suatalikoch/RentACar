@@ -3,9 +3,7 @@ using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using RentACar.App.Data;
 using RentACar.App.Domain;
-using RentACar.App.Models.Cars;
 using RentACar.App.Models.Rents;
-using System.Security.Claims;
 
 namespace RentACar.App.Controllers
 {
@@ -13,22 +11,28 @@ namespace RentACar.App.Controllers
     public class RentsController : Controller
     {
         private readonly ApplicationDbContext _context;
+        private readonly UserManager<User> _userManager;
 
-        public RentsController(ApplicationDbContext context)
+        public RentsController(ApplicationDbContext context, UserManager<User> userManager)
         {
             _context = context;
+            _userManager = userManager;
         }
 
-        public ActionResult All()
+        public async Task <ActionResult> All()
         {
             List<RentAllViewModel> rents = _context.Rents
                 .Select(rentFromDb => new RentAllViewModel
                 {
                     Id = rentFromDb.Id,
                     CarId = rentFromDb.CarId,
+                    //CarBrand = car.Brand,
+                    //CarModel = car.Model,
                     StartDate = rentFromDb.StartDate,
                     EndDate = rentFromDb.EndDate,
-                    TenantId = rentFromDb.TenantId
+                    TenantId = rentFromDb.TenantId,
+                    //TenantFirstName = tenant.FirstName,
+                    //TenantLastName = tenant.LastName
                 }).ToList();
 
             return View(rents);
@@ -47,7 +51,7 @@ namespace RentACar.App.Controllers
                 return View();
             }
 
-            Rent rentFromDb = new Rent
+            Rent rentFromDb = new()
             {
                 CarId = bindingModel.CarId,
                 TenantId = bindingModel.TenantId,
@@ -106,11 +110,24 @@ namespace RentACar.App.Controllers
                 return NotFound();
             }
 
+            var car = await _context.Cars.FindAsync(rent.CarId);
+            var tenant = await _userManager.FindByIdAsync(rent.TenantId);
+
+            if (car == null || tenant == null)
+            {
+                return NotFound();
+            }
+
             var model = new RentDetailsViewModel
             {
                 Id = rent.Id,
                 CarId = rent.CarId,
+                CarBrand = car.Brand,
+                CarModel = car.Model,
                 TenantId = rent.TenantId,
+                TenantFirstName = tenant.FirstName,
+                TenantLastName = tenant.LastName,
+                TenantUserName = tenant.UserName,
                 StartDate = rent.StartDate.ToString(),
                 EndDate = rent.EndDate.ToString(),
                 Approved = rent.Approved.ToString()
@@ -129,11 +146,23 @@ namespace RentACar.App.Controllers
                 return NotFound();
             }
 
-            RentDeleteBindingModel bindingModel = new RentDeleteBindingModel()
+            var car = await _context.Cars.FindAsync(rent.CarId);
+            var tenant = await _userManager.FindByIdAsync(rent.TenantId);
+
+            if (car == null || tenant == null)
+            {
+                return NotFound();
+            }
+
+            RentDeleteBindingModel bindingModel = new()
             {
                 Id = rent.Id,
-                CarId = rent.CarId,
-                TenantId = rent.TenantId
+                CarModel = car.Model,
+                CarBrand = car.Brand,
+                TenantFirstName = tenant.FirstName,
+                TenantLastName = tenant.LastName,
+                StartDate = rent.StartDate.ToString(),
+                EndDate = rent.EndDate.ToString()
             };
 
             return View(bindingModel);
