@@ -140,9 +140,11 @@ namespace RentACar.App.Controllers
                 return NotFound();
             }
 
-            UserDeleteBindingModel bindingModel = new UserDeleteBindingModel()
+            UserDeleteBindingModel bindingModel = new()
             {
                 UserName = user.UserName,
+                FirstName= user.FirstName,
+                LastName= user.LastName,
             };
 
             return View(bindingModel);
