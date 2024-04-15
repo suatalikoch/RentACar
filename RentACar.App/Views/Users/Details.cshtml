@@ -11,10 +11,14 @@
         <h4 class="card-title">User Details</h4>
         <hr />
         <dl class="row">
+            <dt class="col-sm-3">@Html.DisplayNameFor(model => model.Id)</dt>
+            <dd class="col-sm-9">@Html.DisplayFor(model => model.Id)</dd>
             <dt class="col-sm-3">@Html.DisplayNameFor(model => model.UserName)</dt>
             <dd class="col-sm-9">@Html.DisplayFor(model => model.UserName)</dd>
             <dt class="col-sm-3">@Html.DisplayNameFor(model => model.Email)</dt>
             <dd class="col-sm-9">@Html.DisplayFor(model => model.Email)</dd>
+            <dt class="col-sm-3">@Html.DisplayNameFor(model => model.PasswordHash)</dt>
+            <dd class="col-sm-9">@Html.DisplayFor(model => model.PasswordHash)</dd>
             <dt class="col-sm-3">@Html.DisplayNameFor(model => model.FirstName)</dt>
             <dd class="col-sm-9">@Html.DisplayFor(model => model.FirstName)</dd>
             <dt class="col-sm-3">@Html.DisplayNameFor(model => model.LastName)</dt>
@@ -23,8 +27,6 @@
             <dd class="col-sm-9">@Html.DisplayFor(model => model.PIN)</dd>
             <dt class="col-sm-3">@Html.DisplayNameFor(model => model.PhoneNumber)</dt>
             <dd class="col-sm-9">@Html.DisplayFor(model => model.PhoneNumber)</dd>
-            <dt class="col-sm-3">@Html.DisplayNameFor(model => model.PasswordHash)</dt>
-            <dd class="col-sm-9">@Html.DisplayFor(model => model.PasswordHash)</dd>
         </dl>
         <div class="text-center">
             @Html.ActionLink("Edit", "Edit", new { id = Model.Id }, new { @class = "btn btn-primary btn-sm" })

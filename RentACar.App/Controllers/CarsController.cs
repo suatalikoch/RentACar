@@ -150,7 +150,7 @@ namespace RentACar.App.Controllers
                 return NotFound();
             }
 
-            CarDeleteBindingModel bindingModel = new CarDeleteBindingModel()
+            CarDeleteBindingModel bindingModel = new()
             {
                 Id = car.Id,
                 Brand = car.Brand,
