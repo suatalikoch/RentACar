@@ -62,7 +62,7 @@ else
                                     <p class="card-text">Seats: @car.Passenger</p>
                                     <p class="card-text">@car.Description</p>
                                     <p class="card-text">Rent Price: @car.RentPrice</p>
-                                    <a href="#" class="btn btn-primary">Rent Now</a>
+                                    @Html.ActionLink("Rent Now", "Rent", new { carId = car.Id }, new { @class = "btn btn-primary" })
                                 </div>
                             </div>
                         </div>

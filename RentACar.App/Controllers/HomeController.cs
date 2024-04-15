@@ -29,7 +29,7 @@ namespace RentACar.App.Controllers
 
         public async Task<IActionResult> Search(DateTime startDate, DateTime endDate)
         {
-            if (startDate >= endDate)
+            if (startDate > endDate)
             {
                 ModelState.AddModelError(string.Empty, "End date must be after start date.");
 
@@ -55,6 +55,32 @@ namespace RentACar.App.Controllers
             };
 
             return View("Index", viewModel);
+        }
+
+        public async Task<IActionResult> Rent(string carId, DateTime startDate, DateTime endDate)
+        {
+            var car = await _context.Cars.FindAsync(carId);
+
+            if (car == null)
+            {
+                return NotFound();
+            }
+
+            string startDating = Request.Query["startDate"];
+
+            RentConfirmViewModel bindingModel = new()
+            {
+                Brand = car.Brand,
+                Model = car.Model,
+                Year = car.Year.ToString(),
+                Passenger = car.Passenger.ToString(),
+                Description = car.Description,
+                RentPrice = car.RentPrice.ToString(),
+                StartDate = DateTime.Parse(Request.Query["startDate"]),
+                EndDate = DateTime.Parse(Request.Query["endDate"])
+            };
+
+            return View("RentConfirm", bindingModel);
         }
     }
 }

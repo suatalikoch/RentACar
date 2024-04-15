@@ -1,0 +1,18 @@
+﻿@model RentConfirmViewModel
+
+@{
+    ViewData["Title"] = "RentConfirm";
+}
+
+<h1>RentConfirm</h1>
+
+<h3>@Model.Brand</h3>
+<h3>@Model.Model</h3>
+<h3>@Model.Year</h3>
+<h3>@Model.Passenger</h3>
+<h3>@Model.Description</h3>
+<h3>@Model.RentPrice</h3>
+
+<input type="submit" value="Confirm" class="btn btn-success btn-sm" />
+<a asp-action="Index" class="btn btn-danger btn-sm">Cancel</a>
+
