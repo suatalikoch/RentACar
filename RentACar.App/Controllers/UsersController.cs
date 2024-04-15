@@ -70,12 +70,6 @@ namespace RentACar.App.Controllers
 
         public async Task<IActionResult> Edit(string username, UserEditBindingModel bindingModel)
         {
-            if (!ModelState.IsValid)
-            {
-                return View(bindingModel);
-            }
-
-
             var user = await _userManager.FindByNameAsync(username);
 
             if (user == null)
@@ -83,9 +77,23 @@ namespace RentACar.App.Controllers
                 return NotFound();
             }
 
+            if (!ModelState.IsValid)
+            {
+                bindingModel.UserName = user.UserName;
+                bindingModel.Email = user.Email;
+                bindingModel.Password = user.PasswordHash;
+                bindingModel.ConfirmPassword = user.PasswordHash;
+                bindingModel.FirstName = user.FirstName;
+                bindingModel.LastName = user.LastName;
+                bindingModel.PIN = user.PIN;
+                bindingModel.PhoneNumber = user.PhoneNumber;
+
+                return View(bindingModel);
+            }
+        
             user.UserName = bindingModel.UserName;
             user.Email = bindingModel.Email;
-            user.FirstName = bindingModel.FirstName;
+            user.PasswordHash = _userManager.PasswordHasher.HashPassword(user, bindingModel.Password);
             user.LastName = bindingModel.LastName;
             user.PIN = bindingModel.PIN;
             user.PhoneNumber = bindingModel.PhoneNumber;
