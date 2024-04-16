@@ -95,7 +95,7 @@ namespace RentACar.App.Controllers
 
         public async Task<IActionResult> RentConfirm(string carId, string tenantId, DateTime startDate, DateTime endDate)
         {
-            Rent rent = new()
+            PendingRent rent = new()
             {
                 CarId = carId,
                 TenantId = tenantId,
@@ -104,7 +104,7 @@ namespace RentACar.App.Controllers
                 Approved = false
             };
 
-            await _context.Rents.AddAsync(rent);
+            await _context.PendingRents.AddAsync(rent);
             await _context.SaveChangesAsync();
 
             return View("Index");

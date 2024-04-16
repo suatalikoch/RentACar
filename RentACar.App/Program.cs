@@ -135,8 +135,8 @@ namespace RentACar.App
                         Approved = true
                     };
 
-                    context.Add(rent);
-                    context.SaveChanges();
+                    await context.Rents.AddAsync(rent);
+                    await context.SaveChangesAsync();
                 }
             }
 

@@ -19,7 +19,7 @@ namespace RentACar.App.Controllers
             _userManager = userManager;
         }
 
-        public async Task <ActionResult> All()
+        public IActionResult All()
         {
             List<RentAllViewModel> rents = _context.Rents
                 .Select(rentFromDb => new RentAllViewModel
