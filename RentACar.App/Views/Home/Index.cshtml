@@ -27,11 +27,11 @@ else
                     <div class="form-row align-items-center">
                         <div class="col-md-3 mb-3">
                             <label for="startDate">Start Date</label>
-                            <input type="date" class="form-control" id="startDate" name="startDate" required>
+                            <input type="date" class="form-control" id="startDate" name="startDate" asp-for="StartDate" required>
                         </div>
                         <div class="col-md-3 mb-3">
                             <label for="endDate">End Date</label>
-                            <input type="date" class="form-control" id="endDate" name="endDate" required>
+                            <input type="date" class="form-control" id="endDate" name="endDate" asp-for="EndDate" required>
                         </div>
                         <div class="col-md-3 mb-3">
                             <button type="submit" class="btn btn-primary" id="searchBtn">Search</button>
@@ -62,7 +62,7 @@ else
                                     <p class="card-text">Seats: @car.Passenger</p>
                                     <p class="card-text">@car.Description</p>
                                     <p class="card-text">Rent Price: @car.RentPrice</p>
-                                    @Html.ActionLink("Rent Now", "Rent", new { carId = car.Id }, new { @class = "btn btn-primary" })
+                                    @Html.ActionLink("Rent Now", "Rent", new { carId = car.Id, startDate = Model.StartDate, endDate = Model.EndDate }, new { @class = "btn btn-primary" })
                                 </div>
                             </div>
                         </div>

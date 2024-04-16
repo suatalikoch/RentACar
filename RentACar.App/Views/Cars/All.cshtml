@@ -32,7 +32,7 @@
                     <td>@Html.DisplayFor(modelItem => item.Year)</td>
                     <td>@Html.DisplayFor(modelItem => item.Passenger)</td>
                     <td>@Html.DisplayFor(modelItem => item.Description)</td>
-                    <td>@Html.DisplayFor(modelItem => item.RentPrice)$</td>
+                    <td>$@Html.DisplayFor(modelItem => item.RentPrice)</td>
                     <td>@Html.DisplayFor(modelItem => item.Renter)</td>
                     <td class="text-center">
                         @Html.ActionLink("Edit", "Edit", new { id = item.Id }, new { @class = "btn btn-primary btn-sm" })

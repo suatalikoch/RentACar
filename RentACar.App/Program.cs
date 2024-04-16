@@ -102,13 +102,28 @@ namespace RentACar.App
                     await userManager.CreateAsync(user, "admin");
                     await userManager.AddToRoleAsync(user, "Administrator");
                 }
-            }
 
-            using (var scope = app.Services.CreateScope())
-            {
                 var context = scope.ServiceProvider.GetRequiredService<ApplicationDbContext>();
 
-                if (context.Rents.Count() == 0)
+                if (!context.Cars.Any())
+                {
+                    var car = new Car()
+                    {
+                        Brand = "Mersodes",
+                        Model = "S class",
+                        Year = 2007,
+                        Passenger = 5,
+                        Description = "Lorem ipsum dolor sit amet.",
+                        RentPrice = 99.999m,
+                        Renter = context.Users.FirstOrDefault().UserName,
+                        RenterId = context.Users.FirstOrDefault().Id
+                    };
+
+                    await context.Cars.AddAsync(car);
+                    await context.SaveChangesAsync();
+                }
+
+                if (!context.Rents.Any())
                 {
                     var rent = new Rent()
                     {

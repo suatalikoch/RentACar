@@ -4,6 +4,7 @@ using RentACar.App.Domain;
 using RentACar.App.Models;
 using RentACar.App.Models.Home;
 using System.Diagnostics;
+using System.Security.Claims;
 
 namespace RentACar.App.Controllers
 {
@@ -51,7 +52,9 @@ namespace RentACar.App.Controllers
 
             var viewModel = new AvailableCarsViewModel
             {
-                AvailableCars = allCars
+                AvailableCars = allCars,
+                StartDate = startDate,
+                EndDate = endDate
             };
 
             return View("Index", viewModel);
@@ -66,25 +69,45 @@ namespace RentACar.App.Controllers
                 return NotFound();
             }
 
-            string startDating = Request.Query["startDate"];
+            TimeSpan rentDuration = endDate - startDate;
 
             RentConfirmViewModel bindingModel = new()
             {
+                CarId = car.Id,
+                TenantId = User.FindFirstValue(ClaimTypes.NameIdentifier),
                 Brand = car.Brand,
                 Model = car.Model,
                 Year = car.Year.ToString(),
                 Passenger = car.Passenger.ToString(),
                 Description = car.Description,
                 RentPrice = car.RentPrice.ToString(),
-                StartDate = DateTime.Parse(Request.Query["startDate"]),
-                EndDate = DateTime.Parse(Request.Query["endDate"])
+                StartDate = startDate.ToString(),
+                EndDate = endDate.ToString()
             };
-
-            TimeSpan rentDuration = endDate - startDate;
 
             decimal rentTotal = decimal.Parse(bindingModel.RentPrice) * rentDuration.Days;
 
+            bindingModel.RentDuration = string.Concat(rentDuration.Days + " Days ", rentDuration.Hours + " Hours ", rentDuration.Minutes + " Minutes ");
+            bindingModel.RentTotal = rentTotal.ToString();
+
             return View("RentConfirm", bindingModel);
+        }
+
+        public async Task<IActionResult> RentConfirm(string carId, string tenantId, DateTime startDate, DateTime endDate)
+        {
+            Rent rent = new()
+            {
+                CarId = carId,
+                TenantId = tenantId,
+                StartDate = startDate,
+                EndDate = endDate,
+                Approved = false
+            };
+
+            await _context.Rents.AddAsync(rent);
+            await _context.SaveChangesAsync();
+
+            return View("Index");
         }
     }
 }
