@@ -22,14 +22,14 @@ namespace RentACar.App.Controllers
         public IActionResult All()
         {
             List<UserAllViewModel> users = _context.Users
-                .Select(userFromDb => new UserAllViewModel
+                .Select(user => new UserAllViewModel
                 {
-                    UserName = userFromDb.UserName,
-                    Email = userFromDb.Email,
-                    FirstName = userFromDb.FirstName,
-                    LastName = userFromDb.LastName,
-                    PIN = userFromDb.PIN,
-                    PhoneNumber = userFromDb.PhoneNumber
+                    UserName = user.UserName,
+                    Email = user.Email,
+                    FirstName = user.FirstName,
+                    LastName = user.LastName,
+                    PIN = user.PIN,
+                    PhoneNumber = user.PhoneNumber
                 }).ToList();
 
             return View(users);
@@ -41,24 +41,24 @@ namespace RentACar.App.Controllers
         }
 
         [HttpPost]
-        public async Task<IActionResult> Create(UserCreateBindingModel bindingModel)
+        public async Task<IActionResult> Create(UserCreateViewModel viewModel)
         {
             if (!ModelState.IsValid)
             {
                 return View();
             }
 
-            User userFromDb = new()
+            User user = new()
             {
-                UserName = bindingModel.UserName,
-                Email = bindingModel.Email,
-                FirstName = bindingModel.FirstName,
-                LastName = bindingModel.LastName,
-                PIN = bindingModel.PIN,
-                PhoneNumber = bindingModel.PhoneNumber
+                UserName = viewModel.UserName,
+                Email = viewModel.Email,
+                FirstName = viewModel.FirstName,
+                LastName = viewModel.LastName,
+                PIN = viewModel.PIN,
+                PhoneNumber = viewModel.PhoneNumber
             };
 
-            var result = await _userManager.CreateAsync(userFromDb, bindingModel.Password);
+            var result = await _userManager.CreateAsync(user, viewModel.Password);
 
             if (result.Succeeded)
             {
@@ -68,7 +68,7 @@ namespace RentACar.App.Controllers
             return View();
         }
 
-        public async Task<IActionResult> Edit(string username, UserEditBindingModel bindingModel)
+        public async Task<IActionResult> Edit(string username, UserEditViewModel viewModel)
         {
             var user = await _userManager.FindByNameAsync(username);
 
@@ -79,24 +79,24 @@ namespace RentACar.App.Controllers
 
             if (!ModelState.IsValid)
             {
-                bindingModel.UserName = user.UserName;
-                bindingModel.Email = user.Email;
-                bindingModel.Password = user.PasswordHash;
-                bindingModel.ConfirmPassword = user.PasswordHash;
-                bindingModel.FirstName = user.FirstName;
-                bindingModel.LastName = user.LastName;
-                bindingModel.PIN = user.PIN;
-                bindingModel.PhoneNumber = user.PhoneNumber;
+                viewModel.UserName = user.UserName;
+                viewModel.Email = user.Email;
+                viewModel.Password = user.PasswordHash;
+                viewModel.ConfirmPassword = user.PasswordHash;
+                viewModel.FirstName = user.FirstName;
+                viewModel.LastName = user.LastName;
+                viewModel.PIN = user.PIN;
+                viewModel.PhoneNumber = user.PhoneNumber;
 
-                return View(bindingModel);
+                return View(viewModel);
             }
-        
-            user.UserName = bindingModel.UserName;
-            user.Email = bindingModel.Email;
-            user.PasswordHash = _userManager.PasswordHasher.HashPassword(user, bindingModel.Password);
-            user.LastName = bindingModel.LastName;
-            user.PIN = bindingModel.PIN;
-            user.PhoneNumber = bindingModel.PhoneNumber;
+
+            user.UserName = viewModel.UserName;
+            user.Email = viewModel.Email;
+            user.PasswordHash = _userManager.PasswordHasher.HashPassword(user, viewModel.Password);
+            user.LastName = viewModel.LastName;
+            user.PIN = viewModel.PIN;
+            user.PhoneNumber = viewModel.PhoneNumber;
 
             var result = await _userManager.UpdateAsync(user);
 
@@ -110,7 +110,7 @@ namespace RentACar.App.Controllers
                 return RedirectToAction("All");
             }
 
-            return View(bindingModel);
+            return View(viewModel);
         }
 
         [HttpGet]
@@ -123,7 +123,7 @@ namespace RentACar.App.Controllers
                 return NotFound();
             }
 
-            var model = new UserDetailsViewModel
+            var viewModel = new UserDetailsViewModel
             {
                 Id = user.Id,
                 UserName = user.UserName,
@@ -135,27 +135,27 @@ namespace RentACar.App.Controllers
                 PasswordHash = user.PasswordHash
             };
 
-            return View(model);
+            return View(viewModel);
         }
 
         [HttpGet]
         public async Task<IActionResult> Delete(string username)
         {
             var user = await _userManager.FindByNameAsync(username);
-            
+
             if (user == null)
             {
                 return NotFound();
             }
 
-            UserDeleteBindingModel bindingModel = new()
+            UserDeleteViewModel viewModel = new()
             {
                 UserName = user.UserName,
-                FirstName= user.FirstName,
-                LastName= user.LastName,
+                FirstName = user.FirstName,
+                LastName = user.LastName,
             };
 
-            return View(bindingModel);
+            return View(viewModel);
         }
 
         [HttpPost]

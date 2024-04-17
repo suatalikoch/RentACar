@@ -3,7 +3,6 @@ using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using RentACar.App.Data;
 using RentACar.App.Domain;
-using RentACar.App.Models.Pending;
 using RentACar.App.Models.Rents;
 
 namespace RentACar.App.Controllers
@@ -24,24 +23,24 @@ namespace RentACar.App.Controllers
         {
             List<RentAllViewModel> rents = _context.Rents
                 .Join(_context.Cars,
-                      rent => rent.CarId,
-                      car => car.Id,
-                      (rent, car) => new { rent, car })
+                    rent => rent.CarId,
+                    car => car.Id,
+                    (rent, car) => new { rent, car })
                 .Join(_context.Users,
-                  combined => combined.rent.TenantId,
-                  user => user.Id,
-                  (combined, user) => new RentAllViewModel
-                  {
-                      Id = combined.rent.Id,
-                      CarId = combined.rent.CarId,
-                      CarBrand = combined.car.Brand,
-                      CarModel = combined.car.Model,
-                      StartDate = combined.rent.StartDate,
-                      EndDate = combined.rent.EndDate,
-                      TenantId = combined.rent.TenantId,
-                      TenantFirstName = user.FirstName,
-                      TenantLastName = user.LastName
-                  }).ToList();
+                    combined => combined.rent.TenantId,
+                    user => user.Id,
+                    (combined, user) => new RentAllViewModel
+                {
+                    Id = combined.rent.Id,
+                    CarId = combined.rent.CarId,
+                    CarBrand = combined.car.Brand,
+                        CarModel = combined.car.Model,
+                    StartDate = combined.rent.StartDate,
+                    EndDate = combined.rent.EndDate,
+                    TenantId = combined.rent.TenantId,
+                    TenantFirstName = user.FirstName,
+                    TenantLastName = user.LastName
+                }).ToList();
 
             return View(rents);
         }
@@ -52,7 +51,7 @@ namespace RentACar.App.Controllers
         }
 
         [HttpPost]
-        public async Task<IActionResult> Create(RentCreateBindingModel bindingModel)
+        public async Task<IActionResult> Create(RentCreateViewModel viewModel)
         {
             if (!ModelState.IsValid)
             {
@@ -61,19 +60,19 @@ namespace RentACar.App.Controllers
 
             Rent rent = new()
             {
-                CarId = bindingModel.CarId,
-                TenantId = bindingModel.TenantId,
-                StartDate = bindingModel.StartDate,
-                EndDate = bindingModel.EndDate
+                CarId = viewModel.CarId,
+                TenantId = viewModel.TenantId,
+                StartDate = viewModel.StartDate,
+                EndDate = viewModel.EndDate
             };
 
-            _context.Rents.Add(rent);
+            await _context.Rents.AddAsync(rent);
             await _context.SaveChangesAsync();
 
             return RedirectToAction("All");
         }
 
-        public async Task<IActionResult> Edit(string id, RentEditBindingModel bindingModel)
+        public async Task<IActionResult> Edit(string id, RentEditViewModel viewModel)
         {
             if (!ModelState.IsValid)
             {
@@ -85,7 +84,7 @@ namespace RentACar.App.Controllers
                     }
                 }
 
-                return View(bindingModel);
+                return View(viewModel);
             }
 
             var rent = await _context.Rents.FindAsync(id);
@@ -95,10 +94,10 @@ namespace RentACar.App.Controllers
                 return NotFound();
             }
 
-            rent.CarId = bindingModel.CarId;
-            rent.TenantId = bindingModel.TenantId;
-            rent.StartDate = bindingModel.StartDate;
-            rent.EndDate = bindingModel.EndDate;
+            rent.CarId = viewModel.CarId;
+            rent.TenantId = viewModel.TenantId;
+            rent.StartDate = viewModel.StartDate;
+            rent.EndDate = viewModel.EndDate;
 
             _context.Rents.Update(rent);
             await _context.SaveChangesAsync();
@@ -124,7 +123,7 @@ namespace RentACar.App.Controllers
                 return NotFound();
             }
 
-            var model = new RentDetailsViewModel
+            var viewModel = new RentDetailsViewModel
             {
                 Id = rent.Id,
                 CarId = rent.CarId,
@@ -138,7 +137,7 @@ namespace RentACar.App.Controllers
                 EndDate = rent.EndDate.ToString()
             };
 
-            return View(model);
+            return View(viewModel);
         }
 
         [HttpGet]
@@ -159,7 +158,7 @@ namespace RentACar.App.Controllers
                 return NotFound();
             }
 
-            RentDeleteBindingModel bindingModel = new()
+            RentDeleteViewModel viewModel = new()
             {
                 Id = rent.Id,
                 CarModel = car.Model,
@@ -170,7 +169,7 @@ namespace RentACar.App.Controllers
                 EndDate = rent.EndDate.ToString()
             };
 
-            return View(bindingModel);
+            return View(viewModel);
         }
 
         [HttpPost]

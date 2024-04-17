@@ -1,6 +1,6 @@
 ﻿namespace RentACar.App.Models.Rents
 {
-    public class RentEditBindingModel
+    public class RentCreateViewModel
     {
         public string CarId { get; set; }
         public string TenantId { get; set; }

@@ -1,4 +1,6 @@
-﻿namespace RentACar.App.Models.Cars
+﻿using System.ComponentModel;
+
+namespace RentACar.App.Models.Cars
 {
     public class CarAllViewModel
     {
@@ -8,6 +10,8 @@
         public string Year { get; set; }
         public string Passenger { get; set; }
         public string Description { get; set; }
+
+        [DisplayName("Rent Price")]
         public string RentPrice { get; set; }
         public string Renter { get; set; }
     }

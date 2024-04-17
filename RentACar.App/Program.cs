@@ -1,4 +1,3 @@
-using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using RentACar.App.Data;
@@ -18,6 +17,7 @@ namespace RentACar.App
             var connectionString = builder.Configuration.GetConnectionString("DefaultConnection") ?? throw new InvalidOperationException("Connection string 'DefaultConnection' not found.");
             builder.Services.AddDbContext<ApplicationDbContext>(options =>
                 options.UseSqlServer(connectionString));
+
             builder.Services.AddDatabaseDeveloperPageExceptionFilter();
 
             builder.Services.AddIdentity<User, IdentityRole>()
@@ -39,7 +39,7 @@ namespace RentACar.App
             builder.Services.AddRazorPages();
 
             // Register UserPinService
-            builder.Services.AddScoped<UserPinServices>();
+            builder.Services.AddScoped<UserPINServices>();
 
             var app = builder.Build();
 
@@ -109,14 +109,13 @@ namespace RentACar.App
                 {
                     var car = new Car()
                     {
-                        Brand = "Mersodes",
+                        Brand = "Mercedes",
                         Model = "S class",
                         Year = 2007,
                         Passenger = 5,
                         Description = "Lorem ipsum dolor sit amet.",
                         RentPrice = 99.999m,
-                        Renter = context.Users.FirstOrDefault().UserName,
-                        RenterId = context.Users.FirstOrDefault().Id
+                        RenterId = context.Users.FirstOrDefaultAsync().Result.Id
                     };
 
                     await context.Cars.AddAsync(car);
@@ -127,10 +126,10 @@ namespace RentACar.App
                 {
                     var rent = new Rent()
                     {
-                        CarId = context.Cars.FirstOrDefault().Id,
-                        TenantId = context.Users.FirstOrDefault().Id,
+                        CarId = context.Cars.FirstOrDefaultAsync().Result.Id,
+                        TenantId = context.Users.FirstOrDefaultAsync().Result.Id,
                         StartDate = DateTime.ParseExact("13/04/2024", "dd/MM/yyyy", CultureInfo.InvariantCulture),
-                        EndDate = DateTime.ParseExact("20/04/2024", "dd/MM/yyyy", CultureInfo.InvariantCulture)
+                        EndDate = DateTime.ParseExact("20/04/2024", "dd/MM/yyyy", CultureInfo.InvariantCulture),
                     };
 
                     await context.Rents.AddAsync(rent);

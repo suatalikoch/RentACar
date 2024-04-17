@@ -11,9 +11,8 @@ namespace RentACar.App.Domain
         public int Year { get; set; }
         public int Passenger { get; set; }
         public string Description { get; set; }
-        [Column(TypeName = "decimal(12,3)")]
+        [Column(TypeName = "decimal(12,2)")]
         public decimal RentPrice {  get; set; }
-        public string Renter { get; set; }
         public string RenterId { get; set; }
     }
 }

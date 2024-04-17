@@ -4,18 +4,18 @@ using RentACar.App.Domain;
 
 namespace RentACar.App.Services
 {
-    public class UserPinServices
+    public class UserPINServices
     {
         private readonly ApplicationDbContext _context;
 
-        public UserPinServices(ApplicationDbContext context)
+        public UserPINServices(ApplicationDbContext context)
         {
             _context = context;
         }
 
-        public async Task<User> FindByPINAsync(string pin)
+        public async Task<User> FindByPINAsync(string PIN)
         {
-            return await _context.Users.FirstOrDefaultAsync(u => u.PIN == pin);
+            return await _context.Users.FirstOrDefaultAsync(u => u.PIN == PIN);
         }
     }
 }

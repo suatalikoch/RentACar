@@ -1,6 +1,6 @@
 ﻿namespace RentACar.App.Models.Users
 {
-    public class UserDeleteBindingModel
+    public class UserDeleteViewModel
     {
         public string UserName { get; set; }
         public string FirstName { get; set; }

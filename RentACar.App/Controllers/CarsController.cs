@@ -4,6 +4,7 @@ using Microsoft.AspNetCore.Mvc;
 using RentACar.App.Data;
 using RentACar.App.Domain;
 using RentACar.App.Models.Cars;
+using RentACar.App.Models.Pending;
 using System.Security.Claims;
 
 namespace RentACar.App.Controllers
@@ -23,17 +24,20 @@ namespace RentACar.App.Controllers
         public IActionResult All()
         {
             List<CarAllViewModel> cars = _context.Cars
-                .Select(carFromDb => new CarAllViewModel
-                {
-                    Id = carFromDb.Id,
-                    Brand = carFromDb.Brand,
-                    Model = carFromDb.Model,
-                    Year = carFromDb.Year.ToString(),
-                    Passenger = carFromDb.Passenger.ToString(),
-                    Description = carFromDb.Description,
-                    RentPrice = carFromDb.RentPrice.ToString(),
-                    Renter = carFromDb.Renter
-                }).ToList();
+                .Join(_context.Users,
+                    car => car.RenterId,
+                    user => user.Id,
+                    (car, user) => new CarAllViewModel
+                    {
+                        Id = car.Id,
+                        Brand = car.Brand,
+                        Model = car.Model,
+                        Year = car.Year.ToString(),
+                        Passenger = car.Passenger.ToString(),
+                        Description = car.Description,
+                        RentPrice = car.RentPrice.ToString(),
+                        Renter = user.UserName,
+                    }).ToList();
 
             return View(cars);
         }
@@ -44,7 +48,7 @@ namespace RentACar.App.Controllers
         }
 
         [HttpPost]
-        public async Task<IActionResult> Create(CarCreateBindingModel bindingModel)
+        public async Task<IActionResult> Create(CarCreateViewModel viewModel)
         {
             if (!ModelState.IsValid)
             {
@@ -52,27 +56,25 @@ namespace RentACar.App.Controllers
             }
 
             string currentUserId = User.FindFirstValue(ClaimTypes.NameIdentifier);
-            var currentUser = await _userManager.FindByIdAsync(currentUserId);
 
-            Car carFromDb = new()
+            Car car = new()
             {
-                Brand = bindingModel.Brand,
-                Model = bindingModel.Model,
-                Year = bindingModel.Year,
-                Passenger = bindingModel.Passenger,
-                Description = bindingModel.Description,
-                RentPrice = bindingModel.RentPrice,
-                Renter = currentUser.UserName,
+                Brand = viewModel.Brand,
+                Model = viewModel.Model,
+                Year = viewModel.Year,
+                Passenger = viewModel.Passenger,
+                Description = viewModel.Description,
+                RentPrice = viewModel.RentPrice,
                 RenterId = currentUserId
             };
 
-            _context.Cars.Add(carFromDb);
+            _context.Cars.Add(car);
             await _context.SaveChangesAsync();
 
             return RedirectToAction("All");
         }
 
-        public async Task<IActionResult> Edit(string id, CarEditBindingModel bindingModel)
+        public async Task<IActionResult> Edit(string id, CarEditViewModel viewModel)
         {
             var car = await _context.Cars.FindAsync(id);
 
@@ -83,22 +85,22 @@ namespace RentACar.App.Controllers
 
             if (!ModelState.IsValid)
             {
-                bindingModel.Brand = car.Brand;
-                bindingModel.Model = car.Model;
-                bindingModel.Year = car.Year;
-                bindingModel.Passenger = car.Passenger;
-                bindingModel.Description = car.Description;
-                bindingModel.RentPrice = car.RentPrice;
+                viewModel.Brand = car.Brand;
+                viewModel.Model = car.Model;
+                viewModel.Year = car.Year;
+                viewModel.Passenger = car.Passenger;
+                viewModel.Description = car.Description;
+                viewModel.RentPrice = car.RentPrice;
 
-                return View(bindingModel);
+                return View(viewModel);
             }
 
-            car.Brand = bindingModel.Brand;
-            car.Model = bindingModel.Model;
-            car.Year = bindingModel.Year;
-            car.Passenger = bindingModel.Passenger;
-            car.Description = bindingModel.Description;
-            car.RentPrice = bindingModel.RentPrice;
+            car.Brand = viewModel.Brand;
+            car.Model = viewModel.Model;
+            car.Year = viewModel.Year;
+            car.Passenger = viewModel.Passenger;
+            car.Description = viewModel.Description;
+            car.RentPrice = viewModel.RentPrice;
 
             _context.Cars.Update(car);
             await _context.SaveChangesAsync();
@@ -124,7 +126,7 @@ namespace RentACar.App.Controllers
                 return NotFound();
             }
 
-            var model = new CarDetailsViewModel
+            var viewModel = new CarDetailsViewModel
             {
                 Id = car.Id,
                 Brand = car.Brand,
@@ -133,11 +135,11 @@ namespace RentACar.App.Controllers
                 Passenger = car.Passenger,
                 Description = car.Description,
                 RentPrice = car.RentPrice,
-                Renter = car.Renter,
+                Renter = _userManager.FindByIdAsync(car.RenterId).Result.UserName,
                 RenterId = car.RenterId
             };
 
-            return View(model);
+            return View(viewModel);
         }
 
         [HttpGet]
@@ -150,14 +152,14 @@ namespace RentACar.App.Controllers
                 return NotFound();
             }
 
-            CarDeleteBindingModel bindingModel = new()
+            CarDeleteViewModel viewModel = new()
             {
                 Id = car.Id,
                 Brand = car.Brand,
                 Model = car.Model
             };
 
-            return View(bindingModel);
+            return View(viewModel);
         }
 
         [HttpPost]

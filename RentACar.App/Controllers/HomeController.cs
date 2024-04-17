@@ -71,7 +71,7 @@ namespace RentACar.App.Controllers
 
             TimeSpan rentDuration = endDate - startDate;
 
-            RentConfirmViewModel bindingModel = new()
+            RentConfirmViewModel viewModel = new()
             {
                 CarId = car.Id,
                 TenantId = User.FindFirstValue(ClaimTypes.NameIdentifier),
@@ -85,17 +85,17 @@ namespace RentACar.App.Controllers
                 EndDate = endDate.ToString()
             };
 
-            decimal rentTotal = decimal.Parse(bindingModel.RentPrice) * rentDuration.Days;
+            decimal rentTotal = decimal.Parse(viewModel.RentPrice) * rentDuration.Days;
 
-            bindingModel.RentDuration = string.Concat(rentDuration.Days + " Days ", rentDuration.Hours + " Hours ", rentDuration.Minutes + " Minutes ");
-            bindingModel.RentTotal = rentTotal.ToString();
+            viewModel.RentDuration = string.Concat(rentDuration.Days + " Days ", rentDuration.Hours + " Hours ", rentDuration.Minutes + " Minutes ");
+            viewModel.RentTotal = rentTotal.ToString();
 
-            return View("RentConfirm", bindingModel);
+            return View("RentConfirm", viewModel);
         }
 
         public async Task<IActionResult> RentConfirm(string carId, string tenantId, DateTime startDate, DateTime endDate)
         {
-            PendingRent rent = new()
+            PendingRent pendingRent = new()
             {
                 CarId = carId,
                 TenantId = tenantId,
@@ -103,7 +103,7 @@ namespace RentACar.App.Controllers
                 EndDate = endDate
             };
 
-            await _context.PendingRents.AddAsync(rent);
+            await _context.PendingRents.AddAsync(pendingRent);
             await _context.SaveChangesAsync();
 
             return View("Index");

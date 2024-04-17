@@ -1,5 +1,4 @@
 ﻿using Microsoft.AspNetCore.Authorization;
-using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using RentACar.App.Data;
 using RentACar.App.Domain;
@@ -11,37 +10,37 @@ namespace RentACar.App.Controllers
     public class PendingController : Controller
     {
         private readonly ApplicationDbContext _context;
+
         public PendingController(ApplicationDbContext context)
         {
             _context = context;
         }
 
         public IActionResult All()
-        {           
+        {
             List<PendingRentAllViewModel> pendingRents = _context.PendingRents
                 .Join(_context.Cars,
-                      pendingRent => pendingRent.CarId,
-                      car => car.Id,
-                      (pendingRent, car) => new { pendingRent, car })
+                    pendingRent => pendingRent.CarId,
+                    car => car.Id,
+                    (pendingRent, car) => new { pendingRent, car })
                 .Join(_context.Users,
-                  combined => combined.pendingRent.TenantId,
-                  user => user.Id,
-                  (combined, user) => new PendingRentAllViewModel
-                  {
-                      Id = combined.pendingRent.Id,
-                      CarId = combined.pendingRent.CarId,
-                      CarBrand = combined.car.Brand,
-                      CarModel = combined.car.Model,
-                      StartDate = combined.pendingRent.StartDate,
-                      EndDate = combined.pendingRent.EndDate,
-                      TenantId = combined.pendingRent.TenantId,
-                      TenantFirstName = user.FirstName,
-                      TenantLastName = user.LastName
-                  }).ToList();
+                    combined => combined.pendingRent.TenantId,
+                    user => user.Id,
+                    (combined, user) => new PendingRentAllViewModel
+                    {
+                        Id = combined.pendingRent.Id,
+                        CarId = combined.pendingRent.CarId,
+                        CarBrand = combined.car.Brand,
+                        CarModel = combined.car.Model,
+                        StartDate = combined.pendingRent.StartDate,
+                        EndDate = combined.pendingRent.EndDate,
+                        TenantId = combined.pendingRent.TenantId,
+                        TenantFirstName = user.FirstName,
+                        TenantLastName = user.LastName
+                    }).ToList();
 
             return View(pendingRents);
         }
-
 
         public async Task<IActionResult> Accept(string pendingRentId)
         {
@@ -51,7 +50,8 @@ namespace RentACar.App.Controllers
             {
                 return NotFound();
             }
-            Rent rent = new Rent()
+
+            Rent rent = new()
             {
                 Id = pendingRent.Id,
                 CarId = pendingRent.CarId,
@@ -60,13 +60,12 @@ namespace RentACar.App.Controllers
                 EndDate = pendingRent.EndDate
             };
 
-            _context.Rents.Add(rent);
             _context.PendingRents.Remove(pendingRent);
+            await _context.Rents.AddAsync(rent);
             await _context.SaveChangesAsync();
 
             return RedirectToAction("All");
         }
-
 
         public async Task<IActionResult> Decline(string pendingRentId)
         {
@@ -78,7 +77,6 @@ namespace RentACar.App.Controllers
             }
 
             var car = await _context.Cars.FindAsync(pendingRent.CarId);
-
             var tenant = await _context.Users.FindAsync(pendingRent.TenantId);
 
             if (car == null || tenant == null)
@@ -86,22 +84,19 @@ namespace RentACar.App.Controllers
                 return NotFound();
             }
 
-
-            PendingDeleteBindingModel bindingModel = new()
+            PendingDeleteViewModel viewModel = new()
             {
                 Id = pendingRent.Id,
                 CarModel = car.Model,
                 CarBrand = car.Brand,
-
                 TenantFirstName = tenant.FirstName,
                 TenantLastName = tenant.LastName,
                 StartDate = pendingRent.StartDate.ToString(),
                 EndDate = pendingRent.EndDate.ToString()
             };
 
-            return View(bindingModel);
+            return View(viewModel);
         }
-
 
         public async Task<IActionResult> DeclineConfirm(string pendingRentId)
         {

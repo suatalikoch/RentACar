@@ -1,6 +1,6 @@
 ﻿namespace RentACar.App.Models.Cars
 {
-    public class CarDeleteBindingModel
+    public class CarDeleteViewModel
     {
         public string Id {  get; set; }
         public string Brand { get; set; }
