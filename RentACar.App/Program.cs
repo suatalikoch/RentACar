@@ -127,12 +127,10 @@ namespace RentACar.App
                 {
                     var rent = new Rent()
                     {
-                        Id = "2310e325-59b3-4143-a5d6-08f0eedbf96b",
                         CarId = context.Cars.FirstOrDefault().Id,
                         TenantId = context.Users.FirstOrDefault().Id,
                         StartDate = DateTime.ParseExact("13/04/2024", "dd/MM/yyyy", CultureInfo.InvariantCulture),
-                        EndDate = DateTime.ParseExact("20/04/2024", "dd/MM/yyyy", CultureInfo.InvariantCulture),
-                        Approved = true
+                        EndDate = DateTime.ParseExact("20/04/2024", "dd/MM/yyyy", CultureInfo.InvariantCulture)
                     };
 
                     await context.Rents.AddAsync(rent);

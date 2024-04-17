@@ -28,7 +28,7 @@ namespace RentACar.App.Controllers
             return View(new ErrorViewModel { RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier });
         }
 
-        public async Task<IActionResult> Search(DateTime startDate, DateTime endDate)
+        public IActionResult Search(DateTime startDate, DateTime endDate)
         {
             if (startDate > endDate)
             {
@@ -100,8 +100,7 @@ namespace RentACar.App.Controllers
                 CarId = carId,
                 TenantId = tenantId,
                 StartDate = startDate,
-                EndDate = endDate,
-                Approved = false
+                EndDate = endDate
             };
 
             await _context.PendingRents.AddAsync(rent);

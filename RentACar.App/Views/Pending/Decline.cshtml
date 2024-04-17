@@ -1,0 +1,22 @@
+﻿@model RentACar.App.Models.Pending.PendingDeleteBindingModel
+
+@{
+    ViewData["Title"] = "Decline";
+}
+
+<h1 class="mb-3">Decline</h1>
+
+<div class="card">
+    <div class="card-body">
+        <h3>Are you sure you want to decline this rent?</h3>
+        <hr />
+        <h4>@Model.TenantFirstName @Model.TenantLastName @Model.CarBrand @Model.CarModel @Model.StartDate @Model.EndDate</h4>
+        <form asp-action="DeclineConfirm" asp-route-pendingRentId="@Model.Id">
+            <div class="text-center">
+                <input type="submit" value="Decline" class="btn btn-danger btn-sm" />
+                <a asp-action="All" class="btn btn-secondary btn-sm">Back to List</a>
+            </div>
+        </form>
+    </div>
+</div>
+

@@ -31,12 +31,6 @@
                 <label asp-for="EndDate" class="form-label">End Date</label>
                 <span asp-validation-for="EndDate" class="text-danger"></span>
             </div>
-            <div class="checkbox">
-                <label asp-for="Approved" class="form-label">
-                    <input class="form-check-input" asp-for="Approved" />
-                    @Html.DisplayNameFor(model => model.Approved)
-                </label>
-            </div>
             <div class="text-center">
                 <input type="submit" value="Create" class="btn btn-primary" />
             </div>
