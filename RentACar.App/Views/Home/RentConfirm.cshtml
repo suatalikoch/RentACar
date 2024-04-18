@@ -4,22 +4,25 @@
     ViewData["Title"] = "RentConfirm";
 }
 
-<h1>RentConfirm</h1>
+<h1 class="mb-3">RentConfirm</h1>
 
-<h3>Brand: @Model.Brand</h3>
-<h3>Model: @Model.Model</h3>
-<h3>Year: @Model.Year</h3>
-<h3>Passengers: @Model.Passenger</h3>
-<h3>Description: @Model.Description</h3>
-<h3>Rent Price: $@Model.RentPrice</h3>
-<h3>Start Date: @Model.StartDate</h3>
-<h3>End Date: @Model.EndDate</h3>
-<h3>Rent Duration: @Model.RentDuration</h3>
-<h3>Total Price: $@Model.RentTotal</h3>
-
-<form asp-action="RentConfirm" asp-route-carId="@Model.CarId" asp-route-tenantId="@Model.TenantId" asp-route-startDate="@Model.StartDate" asp-route-endDate="@Model.EndDate">
-    <div class="text-center">
-        <input type="submit" value="Confirm" class="btn btn-success btn-sm" />
-        <a asp-action="Index" class="btn btn-danger btn-sm">Cancel</a>
+<div class="card">
+    <div class="card-body">
+        <h3>Brand: @Model.Brand</h3>
+        <h3>Model: @Model.Model</h3>
+        <h3>Year: @Model.Year</h3>
+        <h3>Passengers: @Model.Passenger</h3>
+        <h3>Description: @Model.Description</h3>
+        <h3>Rent Price: $@Model.RentPrice</h3>
+        <h3>Start Date: @Model.StartDate</h3>
+        <h3>End Date: @Model.EndDate</h3>
+        <h3>Rent Duration: @Model.RentDuration</h3>
+        <h3>Total Price: $@Model.RentTotal</h3>
+        <form asp-action="RentConfirm" asp-route-carId="@Model.CarId" asp-route-tenantId="@Model.TenantId" asp-route-startDate="@Model.StartDate" asp-route-endDate="@Model.EndDate">
+            <div class="text-center">
+                <input type="submit" value="Confirm" class="btn btn-success btn-sm" />
+                <a asp-action="Index" class="btn btn-danger btn-sm">Cancel</a>
+            </div>
+        </form>
     </div>
-</form>
+</div>
