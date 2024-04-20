@@ -186,7 +186,7 @@ namespace RentACar.App
                             Model = "Portofino",
                             Year = 2023,
                             Passenger = 4,
-                            ImageLink = "https://upload.wikimedia.org/wikipedia/commons/2/22/Ferrari_Portofino_M_IMG_4351.jpg",
+                            ImageLink = "https://car-images.bauersecure.com/wp-images/12459/ferrari_portofino_50.jpg",
                             Description = "Stylish convertible grand tourer with blistering performance.",
                             RentPrice = 350.00m
                         },
