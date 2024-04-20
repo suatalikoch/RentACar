@@ -34,7 +34,7 @@ namespace RentACar.App.Controllers
 
         public IActionResult Create()
         {
-            return View();
+            return View(new CarCreateViewModel());
         }
 
         [HttpPost]
