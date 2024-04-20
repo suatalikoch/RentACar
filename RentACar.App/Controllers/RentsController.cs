@@ -4,9 +4,6 @@ using Microsoft.AspNetCore.Mvc;
 using RentACar.App.Data;
 using RentACar.App.Domain;
 using RentACar.App.Models.Rents;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 
 namespace RentACar.App.Controllers
 {
@@ -82,7 +79,7 @@ namespace RentACar.App.Controllers
             await _context.SaveChangesAsync();
 
             // Redirect to the action method that displays all rents
-            return RedirectToAction("All");
+            return RedirectToAction(nameof(All));
         }
 
         public async Task<IActionResult> Edit(string id, RentCreateEditViewModel viewModel)
@@ -223,7 +220,7 @@ namespace RentACar.App.Controllers
             await _context.SaveChangesAsync();
 
             // Redirect to the action method that displays all rents
-            return RedirectToAction("All");
+            return RedirectToAction(nameof(All));
         }
     }
 }

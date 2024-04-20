@@ -42,7 +42,7 @@ namespace RentACar.App.Controllers
 
             if (!ModelState.IsValid)
             {
-                return View("Index");
+                return View(nameof(Index));
             }
 
             ViewBag.SearchButtonClicked = Request.Query["searchButton"] == "true";
@@ -65,7 +65,7 @@ namespace RentACar.App.Controllers
                 EndDate = endDate
             };
 
-            return View("Index", viewModel);
+            return View(nameof(Index), viewModel);
         }
 
         public async Task<IActionResult> Rent(string carId, DateTime startDate, DateTime endDate)
@@ -99,7 +99,7 @@ namespace RentACar.App.Controllers
             viewModel.RentDuration = string.Concat(rentDuration.Days + " Days ", rentDuration.Hours + " Hours ", rentDuration.Minutes + " Minutes ");
             viewModel.RentTotal = rentTotal.ToString("0.00");
 
-            return View("RentConfirm", viewModel);
+            return View(nameof(RentConfirm), viewModel);
         }
 
         public async Task<IActionResult> RentConfirm(string carId, string tenantId, string startDate, string endDate)
@@ -118,7 +118,7 @@ namespace RentACar.App.Controllers
             await _context.PendingRents.AddAsync(pendingRent);
             await _context.SaveChangesAsync();
 
-            return View("Index");
+            return View(nameof(Index));
         }
     }
 }

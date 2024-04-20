@@ -3,9 +3,6 @@ using Microsoft.AspNetCore.Mvc;
 using RentACar.App.Data;
 using RentACar.App.Domain;
 using RentACar.App.Models.Pending;
-using System.Collections.Generic;
-using System.Linq; 
-using System.Threading.Tasks; 
 
 namespace RentACar.App.Controllers
 {
@@ -81,7 +78,7 @@ namespace RentACar.App.Controllers
             await _context.Rents.AddAsync(rent); // Add rent
             await _context.SaveChangesAsync(); // Save changes to database
 
-            return RedirectToAction("All"); // Redirect to All action
+            return RedirectToAction(nameof(All)); // Redirect to All action
         }
 
         // Action to decline a pending rent
@@ -130,7 +127,7 @@ namespace RentACar.App.Controllers
             _context.PendingRents.Remove(pendingRent); // Remove pending rent
             await _context.SaveChangesAsync(); // Save changes to database
 
-            return RedirectToAction("All"); // Redirect to All action
+            return RedirectToAction(nameof(All)); // Redirect to All action
         }
     }
 }

@@ -12,6 +12,7 @@ namespace RentACar.App.Domain
         public int Passenger { get; set; }
         public string ImageLink { get; set; }
         public string Description { get; set; }
+
         [Column(TypeName = "decimal(12,2)")]
         public decimal RentPrice { get; set; }
     }

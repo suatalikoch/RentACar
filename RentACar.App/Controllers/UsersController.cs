@@ -73,7 +73,7 @@ namespace RentACar.App.Controllers
             // If user creation is successful, redirect to the list of all users
             if (result.Succeeded)
             {
-                return RedirectToAction("All");
+                return RedirectToAction(nameof(All));
             }
 
             // If user creation fails, return to the create user form
@@ -126,7 +126,7 @@ namespace RentACar.App.Controllers
 
             if (result.Succeeded)
             {
-                return RedirectToAction("All");
+                return RedirectToAction(nameof(All));
             }
 
             // If update fails, return to the edit user form
@@ -205,7 +205,7 @@ namespace RentACar.App.Controllers
             await _userManager.DeleteAsync(user);
 
             // Redirect to the list of all users after deletion
-            return RedirectToAction("All");
+            return RedirectToAction(nameof(All));
         }
     }
 }
