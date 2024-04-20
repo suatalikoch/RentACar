@@ -4,6 +4,7 @@ using RentACar.App.Domain;
 using RentACar.App.Models;
 using RentACar.App.Models.Home;
 using System.Diagnostics;
+using System.Globalization;
 using System.Security.Claims;
 
 namespace RentACar.App.Controllers
@@ -93,14 +94,17 @@ namespace RentACar.App.Controllers
             return View("RentConfirm", viewModel);
         }
 
-        public async Task<IActionResult> RentConfirm(string carId, string tenantId, DateTime startDate, DateTime endDate)
+        public async Task<IActionResult> RentConfirm(string carId, string tenantId, string startDate, string endDate)
         {
+            DateTime startDateFormatted = DateTime.Parse(startDate);
+            DateTime endDateFormatted = DateTime.Parse(endDate);
+
             PendingRent pendingRent = new()
             {
                 CarId = carId,
                 TenantId = tenantId,
-                StartDate = startDate,
-                EndDate = endDate
+                StartDate = startDateFormatted,
+                EndDate = endDateFormatted
             };
 
             await _context.PendingRents.AddAsync(pendingRent);
