@@ -208,7 +208,7 @@ namespace RentACar.App
                             Model = "Huracan",
                             Year = 2023,
                             Passenger = 4,
-                            ImageLink = "https://www.lamborghini.com/sites/it-en/files/DAM/it/models_gateway/blocks/special/huracan/huracan_evo-2020_grid.jpg",
+                            ImageLink = "https://www.google.com/url?sa=i&url=https%3A%2F%2Fwww.lamborghini.com%2Fen-en%2Fmodels%2Fhuracan&psig=AOvVaw3dw85A2y-sIGhuqVosOp6G&ust=1713714484384000&source=images&cd=vfe&opi=89978449&ved=0CBIQjRxqFwoTCIC18JKS0YUDFQAAAAAdAAAAABAJ",
                             Description = "Aggressive supercar with cutting-edge technology, unmatched performance, and striking design.",
                             RentPrice = 400.00m
                         },
@@ -219,7 +219,7 @@ namespace RentACar.App
                             Model = "Aventador",
                             Year = 2023,
                             Passenger = 2,
-                            ImageLink = "https://www.lamborghini.com/sites/it-en/files/DAM/it/models_gateway/blocks/special/aventador/aventador-svj-roadster/model_overview/aventador-svj-roadster_m_lifestyle.jpg",
+                            ImageLink = "https://www.google.com/url?sa=i&url=https%3A%2F%2Fwww.auto-press.net%2Fa%3ALamborghini-Aventador-SVJ-900-%25D1%2585-350-000-%25D0%25B5%25D0%25B2%25D1%2580%25D0%25BE&psig=AOvVaw153eVAH09Emg_WOwN_1vZd&ust=1713714509559000&source=images&cd=vfe&opi=89978449&ved=0CBIQjRxqFwoTCKCP456S0YUDFQAAAAAdAAAAABAE",
                             Description = "Iconic hypercar with extreme performance, jaw-dropping design, and advanced aerodynamics.",
                             RentPrice = 550.00m
                         },
@@ -230,7 +230,7 @@ namespace RentACar.App
                             Model = "Urus",
                             Year = 2023,
                             Passenger = 4,
-                            ImageLink = "https://www.lamborghini.com/sites/it-en/files/DAM/it/models_gateway/blocks/special/urus/urus-model-overview/urus-my21-grid.jpg",
+                            ImageLink = "https://www.google.com/url?sa=i&url=https%3A%2F%2Fwww.sofauto.bg%2F8%2Fcars%2Fdetails%2F136088&psig=AOvVaw2LJ0vP3RuEsff1_UkOogxJ&ust=1713714535964000&source=images&cd=vfe&opi=89978449&ved=0CBIQjRxqFwoTCKCqs6uS0YUDFQAAAAAdAAAAABAW",
                             Description = "Luxury SUV combining Lamborghini's DNA with practicality, comfort, and high-performance capabilities.",
                             RentPrice = 450.00m
                         }
