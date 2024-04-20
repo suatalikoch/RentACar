@@ -1,6 +1,7 @@
 ﻿using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 using RentACar.App.Data;
 using RentACar.App.Domain;
 using RentACar.App.Models.Rents;
@@ -82,43 +83,58 @@ namespace RentACar.App.Controllers
             return RedirectToAction(nameof(All));
         }
 
-        public async Task<IActionResult> Edit(string id, RentCreateEditViewModel viewModel)
+        [HttpGet]
+        public async Task<IActionResult> Edit(string id)
         {
-            if (!ModelState.IsValid)
-            {
-                // If model state is not valid, add validation errors to model state and return the view
-                foreach (var modelState in ModelState.Values)
-                {
-                    foreach (var error in modelState.Errors)
-                    {
-                        ModelState.AddModelError(string.Empty, error.ErrorMessage);
-                    }
-                }
-
-                return View(viewModel);
-            }
-
-            // Find the rent by id
             var rent = await _context.Rents.FindAsync(id);
 
             if (rent == null)
             {
-                // If rent is not found, return not found error
                 return NotFound();
             }
 
-            // Update rent properties with values from the view model
-            rent.CarId = viewModel.CarId;
-            rent.TenantId = viewModel.TenantId;
-            rent.StartDate = viewModel.StartDate;
-            rent.EndDate = viewModel.EndDate;
+            var viewModel = new RentCreateEditViewModel
+            {
+                CarId = rent.CarId,
+                TenantId = rent.TenantId,
+                StartDate = rent.StartDate,
+                EndDate = rent.EndDate
+            };
 
-            // Update the rent in the database and save changes
-            _context.Rents.Update(rent);
-            await _context.SaveChangesAsync();
+            return View(viewModel);
+        }
 
-            // Redirect to the action method that displays all rents
-            return RedirectToAction("All");
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> Edit(string id, RentCreateEditViewModel viewModel)
+        {
+            if (ModelState.IsValid)
+            {
+                var rent = await _context.Rents.FindAsync(id);
+
+                if (rent == null)
+                {
+                    return NotFound();
+                }
+
+                rent.CarId = viewModel.CarId;
+                rent.TenantId = viewModel.TenantId;
+                rent.StartDate = viewModel.StartDate;
+                rent.EndDate = rent.EndDate;
+
+                try
+                {
+                    await _context.SaveChangesAsync();
+                }
+                catch (DbUpdateConcurrencyException e)
+                {
+                    Console.WriteLine(e.Message);
+                }
+
+                return RedirectToAction(nameof(All));
+            }
+
+            return View(viewModel);
         }
 
         // Action method to display details of a rent
