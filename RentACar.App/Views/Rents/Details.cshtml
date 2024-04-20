@@ -1,39 +1,66 @@
 ﻿@model RentDetailsViewModel
 
 @{
-    ViewData["Title"] = "Details";
+    ViewData["Title"] = "Details"; <!-- Sets the title of the page -->
 }
 
-<h1 class="mb-3">Rent Details</h1>
+<h1 class="mb-3">Rent Details</h1> <!-- Page heading -->
 
 <div class="card">
     <div class="card-body">
-        <h4 class="card-title">Rent Details</h4>
-        <hr />
+        <h4 class="card-title">Rent Details</h4> <!-- Card title -->
+        <hr /> <!-- Horizontal line -->
         <dl class="row">
+            <!-- Displaying details in a definition list format -->
+            <!-- Each dt represents a term (label) and dd represents its definition (value) -->
+
+            <!-- Displaying Id -->
             <dt class="col-sm-3">@Html.DisplayNameFor(model => model.Id)</dt>
             <dd class="col-sm-9">@Html.DisplayFor(model => model.Id)</dd>
+
+            <!-- Displaying CarId -->
             <dt class="col-sm-3">@Html.DisplayNameFor(model => model.CarId)</dt>
             <dd class="col-sm-9">@Html.DisplayFor(model => model.CarId)</dd>
+
+            <!-- Displaying CarBrand -->
             <dt class="col-sm-3">@Html.DisplayNameFor(model => model.CarBrand)</dt>
             <dd class="col-sm-9">@Html.DisplayFor(model => model.CarBrand)</dd>
+
+            <!-- Displaying CarModel -->
             <dt class="col-sm-3">@Html.DisplayNameFor(model => model.CarModel)</dt>
             <dd class="col-sm-9">@Html.DisplayFor(model => model.CarModel)</dd>
+
+            <!-- Displaying TenantId -->
             <dt class="col-sm-3">@Html.DisplayNameFor(model => model.TenantId)</dt>
             <dd class="col-sm-9">@Html.DisplayFor(model => model.TenantId)</dd>
+
+            <!-- Displaying TenantFirstName -->
             <dt class="col-sm-3">@Html.DisplayNameFor(model => model.TenantFirstName)</dt>
             <dd class="col-sm-9">@Html.DisplayFor(model => model.TenantFirstName)</dd>
+
+            <!-- Displaying TenantLastName -->
             <dt class="col-sm-3">@Html.DisplayNameFor(model => model.TenantLastName)</dt>
             <dd class="col-sm-9">@Html.DisplayFor(model => model.TenantLastName)</dd>
+
+            <!-- Displaying TenantUserName -->
             <dt class="col-sm-3">@Html.DisplayNameFor(model => model.TenantUserName)</dt>
             <dd class="col-sm-9">@Html.DisplayFor(model => model.TenantUserName)</dd>
+
+            <!-- Displaying StartDate -->
             <dt class="col-sm-3">@Html.DisplayNameFor(model => model.StartDate)</dt>
             <dd class="col-sm-9">@Html.DisplayFor(model => model.StartDate)</dd>
+
+            <!-- Displaying EndDate -->
             <dt class="col-sm-3">@Html.DisplayNameFor(model => model.EndDate)</dt>
             <dd class="col-sm-9">@Html.DisplayFor(model => model.EndDate)</dd>
         </dl>
+
+        <!-- Buttons for actions -->
         <div class="text-center">
+            <!-- Link to edit the details -->
             @Html.ActionLink("Edit", "Edit", new { id = Model.Id }, new { @class = "btn btn-primary btn-sm" })
+
+            <!-- Link to go back to the list -->
             <a asp-action="All" class="btn btn-secondary btn-sm">Back to List</a>
         </div>
     </div>
