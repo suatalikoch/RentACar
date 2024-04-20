@@ -8,77 +8,80 @@
 @if (!this.User.Identity.IsAuthenticated)
 {
     // Displaying a jumbotron for non-authenticated users
-    <div class="jumbotron bg-eventures w-75 mx-auto">
-        <h1>RentACar: Luxury Cars</h1>
-        <hr class="hr-2 bg-dark" />
+<body style="background-image: url(https://www.mbusa.com/content/dam/mb-nafta/us/myco/my24/g-class/class-page/series/2024-G-SUV-CT-2-5-1-DR.jpg); background-size: cover;">
+    <div class="jumbotron bg-eventures w-75 mx-auto" >
+        <h1 class="text-white">RentACar: Luxury Cars</h1>
+        <hr class="hr-2 bg-white" />
     </div>
+</body>
+
 }
 else
 {
     // Displaying a personalized welcome message for authenticated users
-    <div class="jumbotron bg-eventures w-75 mx-auto">
-        <h1 class="text-center">Welcome, @this.User.Identity.Name</h1>
-        <hr class="hr-2 bg-secondary" />
-        <h4 class="mt-4 text-secondary text-center">RentACar wishes you an exciting experience.</h4>
-    </div>
+<div class="jumbotron bg-eventures w-75 mx-auto">
+    <h1 class="text-center">Welcome, @this.User.Identity.Name</h1>
+    <hr class="hr-2 bg-secondary" />
+    <h4 class="mt-4 text-secondary text-center">RentACar wishes you an exciting experience.</h4>
+</div>
 
-    <div class="container mt-5">
-        <div class="row">
-            <div class="col-md-12">
+<div class="container mt-5">
+    <div class="row">
+        <div class="col-md-12">
 
-                <!-- Form for searching available cars -->
-                <form id="searchForm" method="get" asp-action="Search">
-                    <input type="hidden" name="searchButton" value="true" />
-                    <div class="form-row align-items-center">
-                        <div class="col-md-3 mb-3">
-                            <label for="startDate">Start Date</label>
-                            <input type="datetime-local" class="form-control" id="startDate" name="startDate" asp-for="StartDate" required>
-                        </div>
-                        <div class="col-md-3 mb-3">
-                            <label for="endDate">End Date</label>
-                            <input type="datetime-local" class="form-control" id="endDate" name="endDate" asp-for="EndDate" required>
-                        </div>
-                        <div class="col-md-3 mb-3">
-                            <button type="submit" class="btn btn-primary" id="searchBtn">Search</button>
-                        </div>
+            <!-- Form for searching available cars -->
+            <form id="searchForm" method="get" asp-action="Search">
+                <input type="hidden" name="searchButton" value="true" />
+                <div class="form-row align-items-center">
+                    <div class="col-md-3 mb-3">
+                        <label for="startDate">Start Date</label>
+                        <input type="datetime-local" class="form-control" id="startDate" name="startDate" asp-for="StartDate" required>
                     </div>
-                </form>
-                <div asp-validation-summary="ModelOnly" class="text-danger"></div>
-            </div>
-        </div>
-
-        @{
-            // Checking if the search button is clicked
-            var searchButtonClicked = ViewBag.SearchButtonClicked as bool? ?? false;
-        }
-
-        @if (searchButtonClicked)
-        {
-            <!-- Section displaying available cars for rent -->
-            <section class="container mt-5">
-                <h2 class="text-center mb-4">Available Cars for Rent</h2>
-
-                <div class="row" id="carResults">
-                    @foreach (var car in Model.AvailableCars)
-                    {
-                        <div class="col-md-4 mb-4">
-                            <div class="card">
-                                <img src="@car.ImageLink" class="card-img-top" alt="Car 3">
-                                <div class="card-body">
-                                    <h5 class="card-title">@car.Brand @car.Model</h5>
-                                    <p class="card-text">Year: @car.Year</p>
-                                    <p class="card-text">Seats: @car.Passenger</p>
-                                    <p class="card-text">@car.Description</p>
-                                    <p class="card-text">Rent Price: @car.RentPrice</p>
-
-                                    <!-- Button to rent a specific car -->
-                                    @Html.ActionLink("Rent Now", "Rent", new { carId = car.Id, startDate = Model.StartDate, endDate = Model.EndDate }, new { @class = "btn btn-primary" })
-                                </div>
-                            </div>
-                        </div>
-                    }
+                    <div class="col-md-3 mb-3">
+                        <label for="endDate">End Date</label>
+                        <input type="datetime-local" class="form-control" id="endDate" name="endDate" asp-for="EndDate" required>
+                    </div>
+                    <div class="col-md-3 mb-3">
+                        <button type="submit" class="btn btn-primary" id="searchBtn">Search</button>
+                    </div>
                 </div>
-            </section>
-        }
+            </form>
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+        </div>
     </div>
+
+    @{
+    // Checking if the search button is clicked
+    var searchButtonClicked = ViewBag.SearchButtonClicked as bool? ?? false;
+    }
+
+    @if (searchButtonClicked)
+    {
+    <!-- Section displaying available cars for rent -->
+    <section class="container mt-5">
+        <h2 class="text-center mb-4">Available Cars for Rent</h2>
+
+        <div class="row" id="carResults">
+            @foreach (var car in Model.AvailableCars)
+            {
+            <div class="col-md-4 mb-4">
+                <div class="card">
+                    <img src="@car.ImageLink" class="card-img-top" alt="Car 3">
+                    <div class="card-body">
+                        <h5 class="card-title">@car.Brand @car.Model</h5>
+                        <p class="card-text">Year: @car.Year</p>
+                        <p class="card-text">Seats: @car.Passenger</p>
+                        <p class="card-text">@car.Description</p>
+                        <p class="card-text">Rent Price: @car.RentPrice</p>
+
+                        <!-- Button to rent a specific car -->
+                        @Html.ActionLink("Rent Now", "Rent", new { carId = car.Id, startDate = Model.StartDate, endDate = Model.EndDate }, new { @class = "btn btn-primary" })
+                    </div>
+                </div>
+            </div>
+            }
+        </div>
+    </section>
+    }
+</div>
 }
