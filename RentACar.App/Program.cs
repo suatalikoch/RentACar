@@ -114,7 +114,7 @@ namespace RentACar.App
                             Model = "S class",
                             Year = 2007,
                             Passenger = 5,
-                            ImageLink = "https://www.carpixel.net/w/1a4aa398849077b914fbdf81ec06d602/mercedes-benz-s-class-long-car-wallpaper-66978.jpg",
+                            ImageLink = "https://media.autoexpress.co.uk/image/private/s--X-WVjvBW--/f_auto,t_content-image-full-desktop@1/v1563184167/autoexpress/2017/11/dsc_9993.jpg",
                             Description = "Lorem ipsum dolor sit amet.",
                             RentPrice = 99.999m
                         },
@@ -164,7 +164,7 @@ namespace RentACar.App
                             Model = "LS",
                             Year = 2023,
                             Passenger = 5,
-                            ImageLink = "https://hips.hearstapps.com/hmg-prod/amv-prod-cad-assets/wp-content/uploads/2021/10/2023-Lexus-LS-500h-11.jpg?crop=0.914xw:1.00xh;0.0613xw,0&resize=640:*",
+                            ImageLink = @"https://hips.hearstapps.com/hmg-prod/images/2020-lexus-ls500h-205-1586827841.jpg?crop=0.702xw:0.785xh;0.130xw,0.215xh&resize=768:*",
                             Description = "Luxurious and refined sedan known for its impeccable build quality and comfort.",
                             RentPrice = 200.00m
                         },
@@ -175,7 +175,7 @@ namespace RentACar.App
                             Model = "CT6",
                             Year = 2022,
                             Passenger = 5,
-                            ImageLink = "https://hips.hearstapps.com/hmg-prod/amv-prod-cad-assets/wp-content/uploads/2021/05/2022-Cadillac-CT6-37.jpg?crop=0.999xw:1.00xh;0,0&resize=640:*",
+                            ImageLink = "https://www.cnet.com/a/img/resize/13b3706a0d436975c0666276b399439be7dd73a1/hub/2020/05/13/b688efe2-b633-47a8-ad5d-f5ca17aa1f8f/ogi1-2020-cadillac-ct6-017-copy.jpg?auto=webp&fit=crop&height=675&width=1200",
                             Description = "Sleek and sophisticated luxury sedan offering a smooth ride and advanced technology.",
                             RentPrice = 210.00m
                         },
