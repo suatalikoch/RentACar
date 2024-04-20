@@ -200,6 +200,17 @@ namespace RentACar.App
                             ImageLink = "https://upload.wikimedia.org/wikipedia/commons/2/22/Ferrari_Portofino_M_IMG_4351.jpg",
                             Description = "Stylish convertible grand tourer with blistering performance and iconic Ferrari design.",
                             RentPrice = 350.00m
+                        },
+
+                        new Car
+                        {
+                            Brand = "Lamborghini",
+                            Model = "Huracan",
+                            Year = 2023,
+                            Passenger = 4,
+                            ImageLink = "https://www.lamborghini.com/sites/it-en/files/DAM/it/models_gateway/blocks/special/huracan/huracan_evo-2020_grid.jpg",
+                            Description = "Aggressive supercar with cutting-edge technology, unmatched performance, and striking design.",
+                            RentPrice = 400.00m
                         }
 
                     };
