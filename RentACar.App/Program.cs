@@ -165,7 +165,7 @@ namespace RentACar.App
                             Year = 2023,
                             Passenger = 5,
                             ImageLink = @"https://hips.hearstapps.com/hmg-prod/images/2020-lexus-ls500h-205-1586827841.jpg?crop=0.702xw:0.785xh;0.130xw,0.215xh&resize=768:*",
-                            Description = "Luxurious and refined sedan known for its impeccable build quality and comfort.",
+                            Description = "Luxurious and refined sedan.",
                             RentPrice = 200.00m
                         },
 
@@ -176,7 +176,7 @@ namespace RentACar.App
                             Year = 2022,
                             Passenger = 5,
                             ImageLink = "https://www.cnet.com/a/img/resize/13b3706a0d436975c0666276b399439be7dd73a1/hub/2020/05/13/b688efe2-b633-47a8-ad5d-f5ca17aa1f8f/ogi1-2020-cadillac-ct6-017-copy.jpg?auto=webp&fit=crop&height=675&width=1200",
-                            Description = "Sleek and sophisticated luxury sedan offering a smooth ride and advanced technology.",
+                            Description = "Sleek and sophisticated luxury sedan.",
                             RentPrice = 210.00m
                         },
 
@@ -187,7 +187,7 @@ namespace RentACar.App
                             Year = 2023,
                             Passenger = 4,
                             ImageLink = "https://carwow-uk-wp-2.imgix.net/New-Porsche-Panamera-lead-1.png?auto=format&cs=tinysrgb&fit=crop&h=800&ixlib=rb-1.1.0&q=60&w=1600",
-                            Description = "Luxurious sports sedan with exhilarating performance and high-end interior.",
+                            Description = "Luxurious sports sedan with exhilarating performance.",
                             RentPrice = 280.00m
                         },
 
@@ -198,7 +198,7 @@ namespace RentACar.App
                             Year = 2023,
                             Passenger = 4,
                             ImageLink = "https://upload.wikimedia.org/wikipedia/commons/2/22/Ferrari_Portofino_M_IMG_4351.jpg",
-                            Description = "Stylish convertible grand tourer with blistering performance and iconic Ferrari design.",
+                            Description = "Stylish convertible grand tourer with blistering performance.",
                             RentPrice = 350.00m
                         },
 
@@ -209,7 +209,7 @@ namespace RentACar.App
                             Year = 2023,
                             Passenger = 4,
                             ImageLink = "https://stimg.cardekho.com/images/carexteriorimages/630x420/Lamborghini/Huracan-EVO/10643/1690010999692/front-left-side-47.jpg",
-                            Description = "Aggressive supercar with cutting-edge technology, unmatched performance, and striking design.",
+                            Description = "Aggressive supercar with cutting-edge technology and unmatched performance",
                             RentPrice = 400.00m
                         },
 
@@ -220,7 +220,7 @@ namespace RentACar.App
                             Year = 2023,
                             Passenger = 2,
                             ImageLink = "https://www.insidehook.com/wp-content/uploads/2022/11/lamborghini-aventador-ultimae-driving.jpg?fit=1500%2C1000s",
-                            Description = "Iconic hypercar with extreme performance, jaw-dropping design, and advanced aerodynamics.",
+                            Description = "Iconic hypercar with extreme performance and jaw-dropping design.",
                             RentPrice = 550.00m
                         },
 
@@ -231,7 +231,7 @@ namespace RentACar.App
                             Year = 2023,
                             Passenger = 4,
                             ImageLink = "https://images.drive.com.au/driveau/image/upload/c_fill,f_auto,g_auto,h_675,q_auto:best,w_1200/v1/cms/uploads/giz3atasiffnrc1fbbhx",
-                            Description = "Luxury SUV combining Lamborghini's DNA with practicality, comfort, and high-performance capabilities.",
+                            Description = "Luxury SUV combining Lamborghini's DNA with practicality and comfort.",
                             RentPrice = 450.00m
                         }
 
