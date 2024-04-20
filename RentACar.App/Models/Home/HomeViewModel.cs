@@ -2,7 +2,7 @@
 
 namespace RentACar.App.Models.Home
 {
-    public class AvailableCarsViewModel
+    public class HomeViewModel
     {
         public List<Car> AvailableCars { get; set; }
         public DateTime StartDate { get; set; }

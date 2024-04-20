@@ -4,7 +4,6 @@ using RentACar.App.Domain;
 using RentACar.App.Models;
 using RentACar.App.Models.Home;
 using System.Diagnostics;
-using System.Globalization;
 using System.Security.Claims;
 
 namespace RentACar.App.Controllers
@@ -31,10 +30,18 @@ namespace RentACar.App.Controllers
 
         public IActionResult Search(DateTime startDate, DateTime endDate)
         {
+            if (startDate <= DateTime.Now)
+            {
+                ModelState.AddModelError(string.Empty, "Start date must be today or after.");
+            }
+
             if (startDate > endDate)
             {
                 ModelState.AddModelError(string.Empty, "End date must be after start date.");
+            }
 
+            if (!ModelState.IsValid)
+            {
                 return View("Index");
             }
 
@@ -51,7 +58,7 @@ namespace RentACar.App.Controllers
                 allCars.RemoveAll(car => car.Id == rent.CarId);
             }
 
-            var viewModel = new AvailableCarsViewModel
+            var viewModel = new HomeViewModel
             {
                 AvailableCars = allCars,
                 StartDate = startDate,

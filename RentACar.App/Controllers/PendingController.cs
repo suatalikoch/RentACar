@@ -18,7 +18,7 @@ namespace RentACar.App.Controllers
 
         public IActionResult All()
         {
-            /*List<PendingRentAllViewModel> pendingRents = _context.PendingRents
+            List<PendingRentAllViewModel> pendingRents = _context.PendingRents
                 .Join(_context.Cars,
                     pendingRent => pendingRent.CarId,
                     car => car.Id,
@@ -37,40 +37,7 @@ namespace RentACar.App.Controllers
                         TenantId = combined.pendingRent.TenantId,
                         TenantFirstName = user.FirstName,
                         TenantLastName = user.LastName
-                    }).ToList();*/
-            // Initialize a list to store the result
-            List<PendingRentAllViewModel> pendingRents = new List<PendingRentAllViewModel>();
-
-            // Loop through each pending rent
-            foreach (var pendingRent in _context.PendingRents)
-            {
-                // Find the corresponding car
-                var car = _context.Cars.FirstOrDefault(c => c.Id == pendingRent.CarId);
-                if (car != null)
-                {
-                    // Find the corresponding user
-                    var user = _context.Users.FirstOrDefault(u => u.Id == pendingRent.TenantId);
-                    if (user != null)
-                    {
-                        // Create a new PendingRentAllViewModel and populate its properties
-                        var viewModel = new PendingRentAllViewModel
-                        {
-                            Id = pendingRent.Id,
-                            CarId = pendingRent.CarId,
-                            CarBrand = car.Brand,
-                            CarModel = car.Model,
-                            StartDate = pendingRent.StartDate,
-                            EndDate = pendingRent.EndDate,
-                            TenantId = pendingRent.TenantId,
-                            TenantFirstName = user.FirstName,
-                            TenantLastName = user.LastName
-                        };
-
-                        // Add the view model to the result list
-                        pendingRents.Add(viewModel);
-                    }
-                }
-            }
+                    }).ToList();
 
             return View(pendingRents);
         }
