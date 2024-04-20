@@ -51,6 +51,17 @@ namespace RentACar.App.Controllers
                 return NotFound();
             }
 
+            // Check for overlapping pending rents for the same car
+            var overlappingPendingRents = _context.PendingRents
+                .Where(pr => pr.CarId == pendingRent.CarId &&
+                              pr.Id != pendingRentId &&  // Exclude the current pending rent being accepted
+                              pr.EndDate >= pendingRent.StartDate &&  // Check for overlapping dates
+                              pr.StartDate <= pendingRent.EndDate)
+                .ToList();
+
+            // Remove overlapping pending rents
+            _context.PendingRents.RemoveRange(overlappingPendingRents);
+
             Rent rent = new()
             {
                 Id = pendingRent.Id,

@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 using RentACar.App.Data;
 using RentACar.App.Domain;
 using RentACar.App.Models.Cars;
@@ -34,11 +35,11 @@ namespace RentACar.App.Controllers
 
         public IActionResult Create()
         {
-            return View(new CarCreateViewModel());
+            return View(new CarCreateEditViewModel());
         }
 
         [HttpPost]
-        public async Task<IActionResult> Create(CarCreateViewModel viewModel)
+        public async Task<IActionResult> Create(CarCreateEditViewModel viewModel)
         {
             if (!ModelState.IsValid)
             {
@@ -59,10 +60,11 @@ namespace RentACar.App.Controllers
             _context.Cars.Add(car);
             await _context.SaveChangesAsync();
 
-            return RedirectToAction("All");
+            return RedirectToAction(nameof(All));
         }
 
-        public async Task<IActionResult> Edit(string id, CarEditViewModel viewModel)
+        [HttpGet]
+        public async Task<IActionResult> Edit(string id)
         {
             var car = await _context.Cars.FindAsync(id);
 
@@ -71,39 +73,55 @@ namespace RentACar.App.Controllers
                 return NotFound();
             }
 
-            if (!ModelState.IsValid)
+            var viewModel = new CarCreateEditViewModel
             {
-                viewModel.Brand = car.Brand;
-                viewModel.Model = car.Model;
-                viewModel.Year = car.Year;
-                viewModel.Passenger = car.Passenger;
-                viewModel.ImageLink = car.ImageLink;
-                viewModel.Description = car.Description;
-                viewModel.RentPrice = car.RentPrice;
+                Brand = car.Brand,
+                Model = car.Model,
+                Year = car.Year,
+                Passenger = car.Passenger,
+                ImageLink = car.ImageLink,
+                Description = car.Description,
+                RentPrice = car.RentPrice
+            };
 
-                return View(viewModel);
-            }
+            return View(viewModel);
+        }
 
-            car.Brand = viewModel.Brand;
-            car.Model = viewModel.Model;
-            car.Year = viewModel.Year;
-            car.Passenger = viewModel.Passenger;
-            car.ImageLink = viewModel.ImageLink;
-            car.Description = viewModel.Description;
-            car.RentPrice = viewModel.RentPrice;
-
-            _context.Cars.Update(car);
-            await _context.SaveChangesAsync();
-
-            foreach (var modelState in ModelState.Values)
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> Edit(string id, CarCreateEditViewModel viewModel)
+        {
+            if (ModelState.IsValid)
             {
-                foreach (var error in modelState.Errors)
+                var car = await _context.Cars.FindAsync(id);
+
+                if (car == null)
                 {
-                    ModelState.AddModelError(string.Empty, error.ErrorMessage);
+                    return NotFound();
                 }
+
+                // Update car properties
+                car.Brand = viewModel.Brand;
+                car.Model = viewModel.Model;
+                car.Year = viewModel.Year;
+                car.Passenger = viewModel.Passenger;
+                car.ImageLink = viewModel.ImageLink;
+                car.Description = viewModel.Description;
+                car.RentPrice = viewModel.RentPrice;
+
+                try
+                {
+                    await _context.SaveChangesAsync();
+                }
+                catch (DbUpdateConcurrencyException e)
+                {
+                    Console.WriteLine(e.Message);
+                }
+
+                return RedirectToAction(nameof(All));
             }
 
-            return RedirectToAction("All");
+            return View(viewModel);
         }
 
         [HttpGet]
@@ -164,7 +182,7 @@ namespace RentACar.App.Controllers
             _context.Cars.Remove(car);
             await _context.SaveChangesAsync();
 
-            return RedirectToAction("All");
+            return RedirectToAction(nameof(All));
         }
     }
 }

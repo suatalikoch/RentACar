@@ -51,7 +51,7 @@ namespace RentACar.App.Controllers
         }
 
         [HttpPost]
-        public async Task<IActionResult> Create(RentCreateViewModel viewModel)
+        public async Task<IActionResult> Create(RentCreateEditViewModel viewModel)
         {
             if (!ModelState.IsValid)
             {
@@ -72,7 +72,7 @@ namespace RentACar.App.Controllers
             return RedirectToAction("All");
         }
 
-        public async Task<IActionResult> Edit(string id, RentEditViewModel viewModel)
+        public async Task<IActionResult> Edit(string id, RentCreateEditViewModel viewModel)
         {
             if (!ModelState.IsValid)
             {
