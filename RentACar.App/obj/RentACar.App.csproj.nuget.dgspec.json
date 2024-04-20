@@ -1,23 +1,23 @@
 {
   "format": 1,
   "restore": {
-    "C:\\Users\\erenm\\Desktop\\project\\RentACar\\RentACar.App\\RentACar.App.csproj": {}
+    "D:\\Projects\\GitHub\\RentACar\\RentACar.App\\RentACar.App.csproj": {}
   },
   "projects": {
-    "C:\\Users\\erenm\\Desktop\\project\\RentACar\\RentACar.App\\RentACar.App.csproj": {
+    "D:\\Projects\\GitHub\\RentACar\\RentACar.App\\RentACar.App.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\erenm\\Desktop\\project\\RentACar\\RentACar.App\\RentACar.App.csproj",
+        "projectUniqueName": "D:\\Projects\\GitHub\\RentACar\\RentACar.App\\RentACar.App.csproj",
         "projectName": "RentACar.App",
-        "projectPath": "C:\\Users\\erenm\\Desktop\\project\\RentACar\\RentACar.App\\RentACar.App.csproj",
-        "packagesPath": "C:\\Users\\erenm\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\erenm\\Desktop\\project\\RentACar\\RentACar.App\\obj\\",
+        "projectPath": "D:\\Projects\\GitHub\\RentACar\\RentACar.App\\RentACar.App.csproj",
+        "packagesPath": "C:\\Users\\suata\\.nuget\\packages\\",
+        "outputPath": "D:\\Projects\\GitHub\\RentACar\\RentACar.App\\obj\\",
         "projectStyle": "PackageReference",
         "fallbackFolders": [
           "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
         ],
         "configFilePaths": [
-          "C:\\Users\\erenm\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Users\\suata\\AppData\\Roaming\\NuGet\\NuGet.Config",
           "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.FallbackLocation.config",
           "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
         ],
@@ -27,7 +27,6 @@
         "sources": {
           "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
           "C:\\Program Files\\dotnet\\library-packs": {},
-          "C:\\Program Files\\dotnet\\sdk\\7.0.306\\Sdks\\Microsoft.NET.Sdk.Web\\library-packs": {},
           "https://api.nuget.org/v3/index.json": {}
         },
         "frameworks": {
@@ -40,6 +39,11 @@
           "warnAsError": [
             "NU1605"
           ]
+        },
+        "restoreAuditProperties": {
+          "enableAudit": "true",
+          "auditLevel": "low",
+          "auditMode": "direct"
         }
       },
       "frameworks": {
@@ -96,7 +100,7 @@
               "privateAssets": "all"
             }
           },
-          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\7.0.306\\RuntimeIdentifierGraph.json"
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\8.0.202\\RuntimeIdentifierGraph.json"
         }
       }
     }

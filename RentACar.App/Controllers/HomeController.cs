@@ -86,10 +86,11 @@ namespace RentACar.App.Controllers
                 EndDate = endDate.ToString()
             };
 
-            decimal rentTotal = decimal.Parse(viewModel.RentPrice) * rentDuration.Days;
+            decimal rentPrice = decimal.Parse(viewModel.RentPrice);
+            decimal rentTotal = rentPrice * rentDuration.Days + rentPrice / 24 * rentDuration.Hours + rentPrice / 24 / 60 * rentDuration.Minutes;
 
             viewModel.RentDuration = string.Concat(rentDuration.Days + " Days ", rentDuration.Hours + " Hours ", rentDuration.Minutes + " Minutes ");
-            viewModel.RentTotal = rentTotal.ToString();
+            viewModel.RentTotal = rentTotal.ToString("0.00");
 
             return View("RentConfirm", viewModel);
         }

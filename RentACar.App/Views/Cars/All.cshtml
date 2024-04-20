@@ -11,15 +11,38 @@
 </p>
 <div class="table-responsive">
     <table class="table table-bordered table-hover table-striped">
+        <colgroup>
+            <col style="width: auto;" /> <!-- Adjust the width as needed -->
+            <col style="width: auto;" /> <!-- Adjust the width as needed -->
+            <col style="width: auto;" /> <!-- Adjust the width as needed -->
+            <col style="width: auto;" /> <!-- Adjust the width as needed -->
+            <col style="width: 45%;" /> <!-- Adjust the width as needed -->
+            <col style="width: auto;" /> <!-- Adjust the width as needed -->
+            <col style="width: auto;" /> <!-- Adjust the width as needed -->
+        </colgroup>
         <thead class="thead-dark align-middle">
             <tr>
-                <th>@Html.DisplayNameFor(model => model.Brand)</th>
-                <th>@Html.DisplayNameFor(model => model.Model)</th>
-                <th>@Html.DisplayNameFor(model => model.Year)</th>
-                <th>@Html.DisplayNameFor(model => model.Passenger)</th>
-                <th>@Html.DisplayNameFor(model => model.Description)</th>
-                <th>@Html.DisplayNameFor(model => model.RentPrice)</th>
-                <th class="text-center">Actions</th>
+                <th class="col"> <!-- Add class="col" to each header to make them evenly spaced -->
+                    @Html.DisplayNameFor(model => model.Brand)
+                </th>
+                <th class="col">
+                    @Html.DisplayNameFor(model => model.Model)
+                </th>
+                <th class="col">
+                    @Html.DisplayNameFor(model => model.Year)
+                </th>
+                <th class="col">
+                    @Html.DisplayNameFor(model => model.Passenger)
+                </th>
+                <th class="col">
+                    @Html.DisplayNameFor(model => model.Description)
+                </th>
+                <th class="col">
+                    @Html.DisplayNameFor(model => model.RentPrice)
+                </th>
+                <th class="col text-center">
+                    Actions
+                </th>
             </tr>
         </thead>
         <tbody class="align-middle">
