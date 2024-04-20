@@ -1,38 +1,52 @@
 ﻿@model IEnumerable<PendingRentAllViewModel>
 
 @{
+    // Setting the page title
     ViewData["Title"] = "All Pendings";
 }
 
+<!-- Page Header -->
 <h1>All Pendings</h1>
 
+<!-- Table Container -->
 <div class="table-responsive">
+    <!-- Table Markup -->
     <table class="table table-bordered table-hover table-striped">
+        <!-- Table Header -->
         <thead class="thead-dark align-middle">
+            <!-- Table Header Row -->
             <tr>
+                <!-- Displaying column headers -->
                 <th>@Html.DisplayNameFor(model => model.CarBrand)</th>
                 <th>@Html.DisplayNameFor(model => model.CarModel)</th>
                 <th>@Html.DisplayNameFor(model => model.TenantFirstName)</th>
                 <th>@Html.DisplayNameFor(model => model.TenantLastName)</th>
                 <th>@Html.DisplayNameFor(model => model.StartDate)</th>
                 <th>@Html.DisplayNameFor(model => model.EndDate)</th>
-                <th class="text-center">Actions</th>
+                <th class="text-center">Actions</th> <!-- Actions column header -->
             </tr>
         </thead>
+        <!-- Table Body -->
         <tbody>
-            @foreach (var item in Model) {
-            <tr>
-                <td>@Html.DisplayFor(modelItem => item.CarBrand)</td>
-                <td>@Html.DisplayFor(modelItem => item.CarModel)</td>
-                <td>@Html.DisplayFor(modelItem => item.TenantFirstName)</td>
-                <td>@Html.DisplayFor(modelItem => item.TenantLastName)</td>
-                <td>@Html.DisplayFor(modelItem => item.StartDate)</td>
-                <td>@Html.DisplayFor(modelItem => item.EndDate)</td>
-                <td class="text-center">
+            <!-- Looping through each item in the model -->
+            @foreach (var item in Model)
+            {
+                <tr>
+                    <!-- Displaying data for each property of the item -->
+                    <td>@Html.DisplayFor(modelItem => item.CarBrand)</td>
+                    <td>@Html.DisplayFor(modelItem => item.CarModel)</td>
+                    <td>@Html.DisplayFor(modelItem => item.TenantFirstName)</td>
+                    <td>@Html.DisplayFor(modelItem => item.TenantLastName)</td>
+                    <td>@Html.DisplayFor(modelItem => item.StartDate)</td>
+                    <td>@Html.DisplayFor(modelItem => item.EndDate)</td>
+                    <!-- Actions column for each item -->
+                    <td class="text-center">
+                        <!-- Accept button with link to Accept action -->
                     @Html.ActionLink("Accept", "Accept", new { pendingRentId = item.Id }, new { @class = "btn btn-success btn-sm" })
+                        <!-- Decline button with link to Decline action -->
                     @Html.ActionLink("Decline", "Decline", new { pendingRentId = item.Id }, new { @class = "btn btn-danger btn-sm" })
-                </td>
-            </tr>
+                    </td>
+                </tr>
             }
         </tbody>
     </table>
