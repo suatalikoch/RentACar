@@ -19,7 +19,6 @@
                 <th>@Html.DisplayNameFor(model => model.Passenger)</th>
                 <th>@Html.DisplayNameFor(model => model.Description)</th>
                 <th>@Html.DisplayNameFor(model => model.RentPrice)</th>
-                <th>@Html.DisplayNameFor(model => model.Renter)</th>
                 <th class="text-center">Actions</th>
             </tr>
         </thead>
@@ -33,7 +32,6 @@
                     <td>@Html.DisplayFor(modelItem => item.Passenger)</td>
                     <td>@Html.DisplayFor(modelItem => item.Description)</td>
                     <td>$@Html.DisplayFor(modelItem => item.RentPrice)</td>
-                    <td>@Html.DisplayFor(modelItem => item.Renter)</td>
                     <td class="text-center">
                         @Html.ActionLink("Edit", "Edit", new { id = item.Id }, new { @class = "btn btn-primary btn-sm" })
                         @Html.ActionLink("Details", "Details", new { id = item.Id }, new { @class = "btn btn-primary btn-sm" })

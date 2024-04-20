@@ -113,9 +113,9 @@ namespace RentACar.App
                         Model = "S class",
                         Year = 2007,
                         Passenger = 5,
+                        ImageLink = "https://media.discordapp.net/attachments/532572214562914334/1228610959359217716/403537-2024-mercedes-benz-g-class.jpg?ex=662cac1f&is=661a371f&hm=d2dfff51f2e66b2d57df9b839ac59717c98e0031a93167947341d5d57fd0a404&=&format=webp&width=1448&height=905",
                         Description = "Lorem ipsum dolor sit amet.",
-                        RentPrice = 99.999m,
-                        RenterId = context.Users.FirstOrDefaultAsync().Result.Id
+                        RentPrice = 99.999m
                     };
 
                     await context.Cars.AddAsync(car);

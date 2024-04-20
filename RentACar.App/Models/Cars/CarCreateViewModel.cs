@@ -23,8 +23,12 @@ namespace RentACar.App.Models.Cars
         [Range(0, int.MaxValue, ErrorMessage = "Car passenger seats must be a positive number.")]
         public int Passenger { get; set; }
 
+        [Display(Name = "Image Link")]
+        [Url]
+        public string? ImageLink { get; set; } = "https://www.seat.com.mt/content/dam/public/seat-website/carworlds/compare/default-image/ghost.png";
+
         [Display(Name = "Description")]
-        public string Description { get; set; }
+        public string? Description { get; set; }
 
         [Required]
         [Display(Name = "Rent Price")]

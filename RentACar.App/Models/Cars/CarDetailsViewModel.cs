@@ -1,4 +1,5 @@
 ﻿using System.ComponentModel;
+using System.ComponentModel.DataAnnotations;
 
 namespace RentACar.App.Models.Cars
 {
@@ -9,11 +10,11 @@ namespace RentACar.App.Models.Cars
         public string Model { get; set; }
         public int Year {  get; set; }
         public int Passenger {  get; set; }
+
+        [Display(Name = "Image Link")]
+        public string ImageLink { get; set; }
         public string Description { get; set; }
         [DisplayName("Rent Price")]
         public decimal RentPrice {  get; set; }
-        public string Renter { get; set; }
-        [DisplayName("Renter Id")]
-        public string RenterId { get; set; }
     }
 }

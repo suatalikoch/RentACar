@@ -15,5 +15,18 @@ namespace RentACar.App.Data
         {
             Database.EnsureCreated();
         }
+
+        protected override void OnModelCreating(ModelBuilder modelBuilder)
+        {
+            base.OnModelCreating(modelBuilder);
+
+            modelBuilder.Entity<Car>()
+                .Property(c => c.ImageLink)
+                .IsRequired(false); // Allows null for ImageLink
+
+            modelBuilder.Entity<Car>()
+                .Property(c => c.Description)
+                .IsRequired(false); // Allows null for Description
+        }
     }
 }

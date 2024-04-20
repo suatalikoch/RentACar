@@ -19,6 +19,10 @@ namespace RentACar.App.Models.Cars
         [Range(0, int.MaxValue, ErrorMessage = "Car passenger seats must be a positive number.")]
         public int Passenger { get; set; }
 
+        [Display(Name = "Image Link")]
+        [Url]
+        public string ImageLink { get; set; }
+
         [Display(Name = "Description")]
         public string Description { get; set; }
 

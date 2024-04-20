@@ -1,11 +1,8 @@
 ﻿using Microsoft.AspNetCore.Authorization;
-using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using RentACar.App.Data;
 using RentACar.App.Domain;
 using RentACar.App.Models.Cars;
-using RentACar.App.Models.Pending;
-using System.Security.Claims;
 
 namespace RentACar.App.Controllers
 {
@@ -13,31 +10,24 @@ namespace RentACar.App.Controllers
     public class CarsController : Controller
     {
         private readonly ApplicationDbContext _context;
-        private readonly UserManager<User> _userManager;
 
-        public CarsController(ApplicationDbContext context, UserManager<User> userManager)
+        public CarsController(ApplicationDbContext context)
         {
             _context = context;
-            _userManager = userManager;
         }
 
         public IActionResult All()
         {
-            List<CarAllViewModel> cars = _context.Cars
-                .Join(_context.Users,
-                    car => car.RenterId,
-                    user => user.Id,
-                    (car, user) => new CarAllViewModel
-                    {
-                        Id = car.Id,
-                        Brand = car.Brand,
-                        Model = car.Model,
-                        Year = car.Year.ToString(),
-                        Passenger = car.Passenger.ToString(),
-                        Description = car.Description,
-                        RentPrice = car.RentPrice.ToString(),
-                        Renter = user.UserName,
-                    }).ToList();
+            List<CarAllViewModel> cars = _context.Cars.Select(car => new CarAllViewModel
+            {
+                Id = car.Id,
+                Brand = car.Brand,
+                Model = car.Model,
+                Year = car.Year.ToString(),
+                Passenger = car.Passenger.ToString(),
+                Description = car.Description,
+                RentPrice = car.RentPrice.ToString(),
+            }).ToList();
 
             return View(cars);
         }
@@ -55,17 +45,15 @@ namespace RentACar.App.Controllers
                 return View();
             }
 
-            string currentUserId = User.FindFirstValue(ClaimTypes.NameIdentifier);
-
             Car car = new()
             {
                 Brand = viewModel.Brand,
                 Model = viewModel.Model,
                 Year = viewModel.Year,
                 Passenger = viewModel.Passenger,
+                ImageLink = viewModel.ImageLink,
                 Description = viewModel.Description,
-                RentPrice = viewModel.RentPrice,
-                RenterId = currentUserId
+                RentPrice = viewModel.RentPrice
             };
 
             _context.Cars.Add(car);
@@ -89,6 +77,7 @@ namespace RentACar.App.Controllers
                 viewModel.Model = car.Model;
                 viewModel.Year = car.Year;
                 viewModel.Passenger = car.Passenger;
+                viewModel.ImageLink = car.ImageLink;
                 viewModel.Description = car.Description;
                 viewModel.RentPrice = car.RentPrice;
 
@@ -99,6 +88,7 @@ namespace RentACar.App.Controllers
             car.Model = viewModel.Model;
             car.Year = viewModel.Year;
             car.Passenger = viewModel.Passenger;
+            car.ImageLink = viewModel.ImageLink;
             car.Description = viewModel.Description;
             car.RentPrice = viewModel.RentPrice;
 
@@ -133,10 +123,9 @@ namespace RentACar.App.Controllers
                 Model = car.Model,
                 Year = car.Year,
                 Passenger = car.Passenger,
+                ImageLink = car.ImageLink,
                 Description = car.Description,
-                RentPrice = car.RentPrice,
-                Renter = _userManager.FindByIdAsync(car.RenterId).Result.UserName,
-                RenterId = car.RenterId
+                RentPrice = car.RentPrice
             };
 
             return View(viewModel);

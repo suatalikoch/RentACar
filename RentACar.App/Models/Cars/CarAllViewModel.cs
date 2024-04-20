@@ -13,6 +13,5 @@ namespace RentACar.App.Models.Cars
 
         [DisplayName("Rent Price")]
         public string RentPrice { get; set; }
-        public string Renter { get; set; }
     }
 }
