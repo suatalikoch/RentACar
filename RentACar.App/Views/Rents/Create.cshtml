@@ -1,6 +1,7 @@
 ﻿@model RentCreateEditViewModel
 
 @{
+    // Setting the title for the page
     ViewData["Title"] = "Create Rent";
 }
 
@@ -10,27 +11,33 @@
 <div class="row justify-content-center">
     <div class="col-md-4">
         <form asp-action="Create">
+            <!-- Display validation errors if there are any -->
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <!-- Input field for CarId -->
             <div class="form-floating mb-3">
                 <input asp-for="CarId" class="form-control" />
                 <label asp-for="CarId" class="form-label">Car Id</label>
                 <span asp-validation-for="CarId" class="text-danger"></span>
             </div>
+            <!-- Input field for TenantId -->
             <div class="form-floating mb-3">
                 <input asp-for="TenantId" class="form-control" />
                 <label asp-for="TenantId" class="form-label">Tenant Id</label>
                 <span asp-validation-for="TenantId" class="text-danger"></span>
             </div>
+            <!-- Input field for StartDate -->
             <div class="form-floating mb-3">
                 <input asp-for="StartDate" class="form-control" />
                 <label asp-for="StartDate" class="form-label">Start Date</label>
                 <span asp-validation-for="StartDate" class="text-danger"></span>
             </div>
+            <!-- Input field for EndDate -->
             <div class="form-floating mb-3">
                 <input asp-for="EndDate" class="form-control" />
                 <label asp-for="EndDate" class="form-label">End Date</label>
                 <span asp-validation-for="EndDate" class="text-danger"></span>
             </div>
+            <!-- Submit button for creating the rent -->
             <div class="text-center">
                 <input type="submit" value="Create" class="btn btn-primary" />
             </div>
@@ -38,6 +45,7 @@
     </div>
 </div>
 
+<!-- Button to navigate back to the rent list -->
 <div class="text-center mt-2">
     <a asp-action="All" class="btn btn-secondary">Back to List</a>
 </div>

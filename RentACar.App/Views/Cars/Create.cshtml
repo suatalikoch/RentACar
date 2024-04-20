@@ -1,6 +1,7 @@
 ﻿@model CarCreateEditViewModel
 
 @{
+    // Set the page title
     ViewData["Title"] = "Create Car";
 }
 
@@ -10,42 +11,52 @@
 <div class="row justify-content-center">
     <div class="col-md-4">
         <form asp-action="Create">
-            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <!-- Form for creating a new car, action set to "Create" -->
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div> <!-- Display model-level validation errors -->
+            <!-- Input fields for car attributes -->
             <div class="form-floating mb-3">
                 <input asp-for="Brand" class="form-control" />
                 <label asp-for="Brand" class="form-label">Brand</label>
-                <span asp-validation-for="Brand" class="text-danger"></span>
+                <span asp-validation-for="Brand" class="text-danger"></span> <!-- Display validation message for brand -->
             </div>
+
             <div class="form-floating mb-3">
                 <input asp-for="Model" class="form-control" />
                 <label asp-for="Model" class="form-label">Model</label>
-                <span asp-validation-for="Model" class="text-danger"></span>
+                <span asp-validation-for="Model" class="text-danger"></span> <!-- Display validation message for model -->
             </div>
+
             <div class="form-floating mb-3">
                 <input asp-for="Year" class="form-control" />
                 <label asp-for="Year" class="form-label">Year</label>
-                <span asp-validation-for="Year" class="text-danger"></span>
+                <span asp-validation-for="Year" class="text-danger"></span> <!-- Display validation message for year -->
             </div>
+
             <div class="form-floating mb-3">
                 <input asp-for="Passenger" class="form-control" />
                 <label asp-for="Passenger" class="form-label">Passenger</label>
-                <span asp-validation-for="Passenger" class="text-danger"></span>
+                <span asp-validation-for="Passenger" class="text-danger"></span> <!-- Display validation message for passenger -->
             </div>
+
             <div class="form-floating mb-3">
                 <input asp-for="ImageLink" class="form-control" value="@Model.ImageLink" />
                 <label asp-for="ImageLink" class="form-label">Image Link</label>
-                <span asp-validation-for="ImageLink" class="text-danger"></span>
+                <span asp-validation-for="ImageLink" class="text-danger"></span> <!-- Display validation message for image link -->
             </div>
+
             <div class="form-floating mb-3">
                 <input asp-for="Description" class="form-control" />
                 <label asp-for="Description" class="form-label">Description</label>
-                <span asp-validation-for="Description" class="text-danger"></span>
+                <span asp-validation-for="Description" class="text-danger"></span> <!-- Display validation message for description -->
             </div>
+
             <div class="form-floating mb-3">
                 <input asp-for="RentPrice" class="form-control" />
                 <label asp-for="RentPrice" class="form-label">Rent Price</label>
-                <span asp-validation-for="RentPrice" class="text-danger"></span>
+                <span asp-validation-for="RentPrice" class="text-danger"></span> <!-- Display validation message for rent price -->
             </div>
+
+            <!-- Submit button -->
             <div class="text-center">
                 <input type="submit" value="Create" class="btn btn-primary btn-block" />
             </div>
@@ -53,12 +64,14 @@
     </div>
 </div>
 
+<!-- Button to navigate back to the list of cars -->
 <div class="text-center mt-2">
     <a asp-action="All" class="btn btn-secondary">Back to List</a>
 </div>
 
 @section Scripts {
     @{
+        // Include client-side validation scripts
         await Html.RenderPartialAsync("_ValidationScriptsPartial");
     }
 }

@@ -1,17 +1,20 @@
 ﻿@model IEnumerable<CarAllViewModel>
 
 @{
+    // Set the title of the page
     ViewData["Title"] = "All Cars";
 }
 
 <h1>All Cars</h1>
 
 <p>
+    <!-- Link to create a new car -->
     <a class="btn btn-primary" asp-action="Create">Create New</a>
 </p>
 <div class="table-responsive">
     <table class="table table-bordered table-hover table-striped">
         <colgroup>
+            <!-- Define column widths -->
             <col style="width: auto;" />
             <col style="width: auto;" />
             <col style="width: auto;" />
@@ -22,6 +25,7 @@
         </colgroup>
         <thead class="thead-dark align-middle">
             <tr>
+                <!-- Table headers -->
                 <th class="col">@Html.DisplayNameFor(model => model.Brand)</th>
                 <th class="col">@Html.DisplayNameFor(model => model.Model)</th>
                 <th class="col">@Html.DisplayNameFor(model => model.Year)</th>
@@ -32,9 +36,11 @@
             </tr>
         </thead>
         <tbody class="align-middle">
+            <!-- Loop through each item in the model to display in the table -->
             @foreach (var item in Model)
             {
                 <tr>
+                    <!-- Display car details in table cells -->
                     <td>@Html.DisplayFor(modelItem => item.Brand)</td>
                     <td>@Html.DisplayFor(modelItem => item.Model)</td>
                     <td>@Html.DisplayFor(modelItem => item.Year)</td>
@@ -42,7 +48,8 @@
                     <td>@Html.DisplayFor(modelItem => item.Description)</td>
                     <td>$@Html.DisplayFor(modelItem => item.RentPrice)</td>
                     <td class="text-center">
-                        @Html.ActionLink("Edit", "Edit", new { id = item.Id }, new { @class = "btn btn-primary btn-sm" })
+                        <!-- Action links for Edit, Details, and Delete -->
+                    @Html.ActionLink("Edit", "Edit", new { id = item.Id }, new { @class = "btn btn-primary btn-sm" })
                         @Html.ActionLink("Details", "Details", new { id = item.Id }, new { @class = "btn btn-primary btn-sm" })
                         @Html.ActionLink("Delete", "Delete", new { id = item.Id }, new { @class = "btn btn-danger btn-sm" })
                     </td>

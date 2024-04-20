@@ -7,35 +7,35 @@
 <h1>All Users</h1>
 
 <p>
-    <a class="btn btn-primary" asp-action="Create">Create New</a>
+    <a class="btn btn-primary" asp-action="Create">Create New</a> <!-- Button to create a new user -->
 </p>
 <div class="table-responsive">
     <table class="table table-bordered table-hover table-striped">
         <thead class="thead-dark align-middle">
             <tr>
-                <th>@Html.DisplayNameFor(model => model.UserName)</th>
-                <th>@Html.DisplayNameFor(model => model.Email)</th>
-                <th>@Html.DisplayNameFor(model => model.FirstName)</th>
-                <th>@Html.DisplayNameFor(model => model.LastName)</th>
-                <th>@Html.DisplayNameFor(model => model.PIN)</th>
-                <th>@Html.DisplayNameFor(model => model.PhoneNumber)</th>
-                <th class="text-center">Actions</th>
+                <th>@Html.DisplayNameFor(model => model.UserName)</th> <!-- Table header for UserName -->
+                <th>@Html.DisplayNameFor(model => model.Email)</th> <!-- Table header for Email -->
+                <th>@Html.DisplayNameFor(model => model.FirstName)</th> <!-- Table header for FirstName -->
+                <th>@Html.DisplayNameFor(model => model.LastName)</th> <!-- Table header for LastName -->
+                <th>@Html.DisplayNameFor(model => model.PIN)</th> <!-- Table header for PIN -->
+                <th>@Html.DisplayNameFor(model => model.PhoneNumber)</th> <!-- Table header for PhoneNumber -->
+                <th class="text-center">Actions</th> <!-- Table header for Actions -->
             </tr>
         </thead>
         <tbody class="align-middle">
             @foreach (var item in Model)
             {
                 <tr>
-                    <td>@Html.DisplayFor(modelItem => item.UserName)</td>
-                    <td>@Html.DisplayFor(modelItem => item.Email)</td>
-                    <td>@Html.DisplayFor(modelItem => item.FirstName)</td>
-                    <td>@Html.DisplayFor(modelItem => item.LastName)</td>
-                    <td>@Html.DisplayFor(modelItem => item.PIN)</td>
-                    <td>@Html.DisplayFor(modelItem => item.PhoneNumber)</td>
+                    <td>@Html.DisplayFor(modelItem => item.UserName)</td> <!-- Display UserName for each user -->
+                    <td>@Html.DisplayFor(modelItem => item.Email)</td> <!-- Display Email for each user -->
+                    <td>@Html.DisplayFor(modelItem => item.FirstName)</td> <!-- Display FirstName for each user -->
+                    <td>@Html.DisplayFor(modelItem => item.LastName)</td> <!-- Display LastName for each user -->
+                    <td>@Html.DisplayFor(modelItem => item.PIN)</td> <!-- Display PIN for each user -->
+                    <td>@Html.DisplayFor(modelItem => item.PhoneNumber)</td> <!-- Display PhoneNumber for each user -->
                     <td class="text-center">
-                        @Html.ActionLink("Edit", "Edit", new { username = item.UserName }, new { @class = "btn btn-primary btn-sm" })
-                        @Html.ActionLink("Details", "Details", new { username = item.UserName }, new { @class = "btn btn-primary btn-sm" })
-                        @Html.ActionLink("Delete", "Delete", new { username = item.UserName }, new { @class = "btn btn-danger btn-sm" })
+                        @Html.ActionLink("Edit", "Edit", new { username = item.UserName }, new { @class = "btn btn-primary btn-sm" }) <!-- Link to edit user -->
+                    @Html.ActionLink("Details", "Details", new { username = item.UserName }, new { @class = "btn btn-primary btn-sm" }) <!-- Link to view user details -->
+                    @Html.ActionLink("Delete", "Delete", new { username = item.UserName }, new { @class = "btn btn-danger btn-sm" }) <!-- Link to delete user -->
                     </td>
                 </tr>
             }
