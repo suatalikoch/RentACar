@@ -10,34 +10,44 @@
         <h4 class="card-title">User Details</h4> <!-- Display the title for user details -->
         <hr /> <!-- Horizontal line for visual separation -->
         <dl class="row"> <!-- Definition list for displaying user details -->
+
             <!-- Display user ID -->
             <dt class="col-sm-3">@Html.DisplayNameFor(model => model.Id)</dt>
             <dd class="col-sm-9">@Html.DisplayFor(model => model.Id)</dd>
+
             <!-- Display username -->
             <dt class="col-sm-3">@Html.DisplayNameFor(model => model.UserName)</dt>
             <dd class="col-sm-9">@Html.DisplayFor(model => model.UserName)</dd>
+
             <!-- Display email -->
             <dt class="col-sm-3">@Html.DisplayNameFor(model => model.Email)</dt>
             <dd class="col-sm-9">@Html.DisplayFor(model => model.Email)</dd>
+
             <!-- Display password hash (be cautious about displaying sensitive information) -->
             <dt class="col-sm-3">@Html.DisplayNameFor(model => model.PasswordHash)</dt>
             <dd class="col-sm-9">@Html.DisplayFor(model => model.PasswordHash)</dd>
+
             <!-- Display first name -->
             <dt class="col-sm-3">@Html.DisplayNameFor(model => model.FirstName)</dt>
             <dd class="col-sm-9">@Html.DisplayFor(model => model.FirstName)</dd>
+
             <!-- Display last name -->
             <dt class="col-sm-3">@Html.DisplayNameFor(model => model.LastName)</dt>
             <dd class="col-sm-9">@Html.DisplayFor(model => model.LastName)</dd>
+
             <!-- Display PIN -->
             <dt class="col-sm-3">@Html.DisplayNameFor(model => model.PIN)</dt>
             <dd class="col-sm-9">@Html.DisplayFor(model => model.PIN)</dd>
+
             <!-- Display phone number -->
             <dt class="col-sm-3">@Html.DisplayNameFor(model => model.PhoneNumber)</dt>
             <dd class="col-sm-9">@Html.DisplayFor(model => model.PhoneNumber)</dd>
         </dl>
         <div class="text-center">
+
             <!-- Link to edit user details -->
             @Html.ActionLink("Edit", "Edit", new { id = Model.Id }, new { @class = "btn btn-primary btn-sm" })
+
             <!-- Link to go back to the list of all users -->
             <a asp-action="All" class="btn btn-secondary btn-sm">Back to List</a>
         </div>

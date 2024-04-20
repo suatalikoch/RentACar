@@ -109,7 +109,7 @@ namespace RentACar.App
                 {
                     var cars = new List<Car>
                     {
-                        new Car {
+                        new() {
                             Brand = "Mercedes",
                             Model = "S class",
                             Year = 2007,
@@ -118,8 +118,7 @@ namespace RentACar.App
                             Description = "Lorem ipsum dolor sit amet.",
                             RentPrice = 99.999m
                         },
-                        new Car
-                        {
+                        new() {
                             Brand = "Chevrolet",
                             Model = "Camaro",
                             Year = 2022,
@@ -128,8 +127,7 @@ namespace RentACar.App
                             Description = "Classic American muscle car with modern performance.",
                             RentPrice = 80.00m
                         },
-                        new Car
-                        {
+                        new() {
                             Brand = "BMW",
                             Model = "X5",
                             Year = 2020,
@@ -138,8 +136,7 @@ namespace RentACar.App
                             Description = "Luxury SUV with premium features and comfort.",
                             RentPrice = 120.00m
                         },
-                        new Car
-                        {
+                        new() {
                             Brand = "Mercedes-Benz",
                             Model = "E-Class",
                             Year = 2019,
@@ -148,8 +145,7 @@ namespace RentACar.App
                             Description = "Executive sedan known for its comfort and elegance.",
                             RentPrice = 110.00m
                         },
-                        new Car
-                        {
+                        new() {
                             Brand = "Jeep",
                             Model = "Wrangler",
                             Year = 2021,
@@ -158,8 +154,7 @@ namespace RentACar.App
                             Description = "Iconic off-road SUV for adventure seekers.",
                             RentPrice = 90.00m
                         },
-                        new Car
-                        {
+                        new() {
                             Brand = "Lexus",
                             Model = "LS",
                             Year = 2023,
@@ -168,9 +163,7 @@ namespace RentACar.App
                             Description = "Luxurious and refined sedan.",
                             RentPrice = 200.00m
                         },
-
-                        new Car
-                        {
+                        new() {
                             Brand = "Cadillac",
                             Model = "CT6",
                             Year = 2022,
@@ -179,9 +172,7 @@ namespace RentACar.App
                             Description = "Sleek and sophisticated luxury sedan.",
                             RentPrice = 210.00m
                         },
-
-                        new Car
-                        {
+                        new() {
                             Brand = "Porsche",
                             Model = "Panamera",
                             Year = 2023,
@@ -190,9 +181,7 @@ namespace RentACar.App
                             Description = "Luxurious sports sedan with exhilarating performance.",
                             RentPrice = 280.00m
                         },
-
-                        new Car
-                        {
+                        new() {
                             Brand = "Ferrari",
                             Model = "Portofino",
                             Year = 2023,
@@ -201,9 +190,7 @@ namespace RentACar.App
                             Description = "Stylish convertible grand tourer with blistering performance.",
                             RentPrice = 350.00m
                         },
-
-                        new Car
-                        {
+                        new() {
                             Brand = "Lamborghini",
                             Model = "Huracan",
                             Year = 2023,
@@ -212,9 +199,7 @@ namespace RentACar.App
                             Description = "Aggressive supercar with cutting-edge technology and unmatched performance",
                             RentPrice = 400.00m
                         },
-
-                        new Car
-                        {
+                        new() {
                             Brand = "Lamborghini",
                             Model = "Aventador",
                             Year = 2023,
@@ -223,9 +208,7 @@ namespace RentACar.App
                             Description = "Iconic hypercar with extreme performance and jaw-dropping design.",
                             RentPrice = 550.00m
                         },
-
-                        new Car
-                        {
+                        new() {
                             Brand = "Lamborghini",
                             Model = "Urus",
                             Year = 2023,
@@ -234,13 +217,13 @@ namespace RentACar.App
                             Description = "Luxury SUV combining Lamborghini's DNA with practicality and comfort.",
                             RentPrice = 450.00m
                         }
-
                     };
 
                     foreach (var car in cars)
                     {
                         await context.Cars.AddAsync(car);
                     }
+
                     await context.SaveChangesAsync();
                 }
 

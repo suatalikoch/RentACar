@@ -9,16 +9,21 @@
 
 <div class="card">
     <div class="card-body">
+
         <!-- Prompt the user if they are sure they want to delete the car -->
         <h3>Are you sure you want to delete this car?</h3>
         <hr />
+
         <!-- Display the details of the car to be deleted -->
         <h4>@Model.Brand @Model.Model</h4>
+
         <!-- Form for confirming the deletion -->
         <form asp-action="DeleteConfirm" asp-route-id="@Model.Id">
             <div class="text-center">
+
                 <!-- Button to submit the deletion request -->
                 <input type="submit" value="Delete" class="btn btn-danger btn-sm" />
+
                 <!-- Button to go back to the list of cars -->
                 <a asp-action="All" class="btn btn-secondary btn-sm">Back to List</a>
             </div>

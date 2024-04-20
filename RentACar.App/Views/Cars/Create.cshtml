@@ -11,8 +11,10 @@
 <div class="row justify-content-center">
     <div class="col-md-4">
         <form asp-action="Create">
+
             <!-- Form for creating a new car, action set to "Create" -->
             <div asp-validation-summary="ModelOnly" class="text-danger"></div> <!-- Display model-level validation errors -->
+
             <!-- Input fields for car attributes -->
             <div class="form-floating mb-3">
                 <input asp-for="Brand" class="form-control" />

@@ -11,40 +11,52 @@
 <!-- Card to contain the car details -->
 <div class="card">
     <div class="card-body">
+
         <!-- Title for the card -->
         <h4 class="card-title">Car Details</h4>
         <hr />
         <!-- Definition list to display car attributes -->
         <dl class="row">
+
             <!-- Displaying car ID -->
             <dt class="col-sm-3">@Html.DisplayNameFor(model => model.Id)</dt>
             <dd class="col-sm-9">@Html.DisplayFor(model => model.Id)</dd>
+
             <!-- Displaying car brand -->
             <dt class="col-sm-3">@Html.DisplayNameFor(model => model.Brand)</dt>
             <dd class="col-sm-9">@Html.DisplayFor(model => model.Brand)</dd>
+
             <!-- Displaying car model -->
             <dt class="col-sm-3">@Html.DisplayNameFor(model => model.Model)</dt>
             <dd class="col-sm-9">@Html.DisplayFor(model => model.Model)</dd>
+
             <!-- Displaying car year -->
             <dt class="col-sm-3">@Html.DisplayNameFor(model => model.Year)</dt>
             <dd class="col-sm-9">@Html.DisplayFor(model => model.Year)</dd>
+
             <!-- Displaying passenger capacity -->
             <dt class="col-sm-3">@Html.DisplayNameFor(model => model.Passenger)</dt>
             <dd class="col-sm-9">@Html.DisplayFor(model => model.Passenger)</dd>
+
             <!-- Displaying car image link -->
             <dt class="col-sm-3">@Html.DisplayNameFor(model => model.ImageLink)</dt>
             <dd class="col-sm-9">@Html.DisplayFor(model => model.ImageLink)</dd>
+
             <!-- Displaying car description -->
             <dt class="col-sm-3">@Html.DisplayNameFor(model => model.Description)</dt>
             <dd class="col-sm-9">@Html.DisplayFor(model => model.Description)</dd>
+
             <!-- Displaying rent price -->
             <dt class="col-sm-3">@Html.DisplayNameFor(model => model.RentPrice)</dt>
             <dd class="col-sm-9">$@Html.DisplayFor(model => model.RentPrice)</dd>
         </dl>
+
         <!-- Links for editing and navigating back to the list -->
         <div class="text-center">
+
             <!-- Link to edit the car details -->
             @Html.ActionLink("Edit", "Edit", new { id = Model.Id, bindingModel = Model }, new { @class = "btn btn-primary btn-sm" })
+
             <!-- Link to navigate back to the list of cars -->
             <a asp-action="All" class="btn btn-secondary btn-sm">Back to List</a>
         </div>

@@ -9,16 +9,21 @@
 
 <div class="card">
     <div class="card-body">
+
         <!-- Confirmation message -->
         <h3>Are you sure you want to decline this rent?</h3>
         <hr />
+
         <!-- Displaying rent details -->
         <h4>@Model.TenantFirstName @Model.TenantLastName @Model.CarBrand @Model.CarModel @Model.StartDate @Model.EndDate</h4>
+
         <!-- Decline form -->
         <form asp-action="DeclineConfirm" asp-route-pendingRentId="@Model.Id">
             <div class="text-center">
+
                 <!-- Submit button for declining -->
                 <input type="submit" value="Decline" class="btn btn-danger btn-sm" />
+
                 <!-- Button to navigate back to the list -->
                 <a asp-action="All" class="btn btn-secondary btn-sm">Back to List</a>
             </div>

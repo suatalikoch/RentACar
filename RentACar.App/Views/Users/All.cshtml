@@ -34,8 +34,8 @@
                     <td>@Html.DisplayFor(modelItem => item.PhoneNumber)</td> <!-- Display PhoneNumber for each user -->
                     <td class="text-center">
                         @Html.ActionLink("Edit", "Edit", new { username = item.UserName }, new { @class = "btn btn-primary btn-sm" }) <!-- Link to edit user -->
-                    @Html.ActionLink("Details", "Details", new { username = item.UserName }, new { @class = "btn btn-primary btn-sm" }) <!-- Link to view user details -->
-                    @Html.ActionLink("Delete", "Delete", new { username = item.UserName }, new { @class = "btn btn-danger btn-sm" }) <!-- Link to delete user -->
+                        @Html.ActionLink("Details", "Details", new { username = item.UserName }, new { @class = "btn btn-primary btn-sm" }) <!-- Link to view user details -->
+                        @Html.ActionLink("Delete", "Delete", new { username = item.UserName }, new { @class = "btn btn-danger btn-sm" }) <!-- Link to delete user -->
                     </td>
                 </tr>
             }
