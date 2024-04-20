@@ -1,6 +1,7 @@
 ﻿using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 using RentACar.App.Data;
 using RentACar.App.Domain;
 using RentACar.App.Models.Users;
@@ -48,7 +49,7 @@ namespace RentACar.App.Controllers
 
         // Action to handle user creation form submission
         [HttpPost]
-        public async Task<IActionResult> Create(UserCreateViewModel viewModel)
+        public async Task<IActionResult> Create(UserCreateEditViewModel viewModel)
         {
             // Validate form data
             if (!ModelState.IsValid)
@@ -80,56 +81,62 @@ namespace RentACar.App.Controllers
             return View();
         }
 
-        // Action to display the edit user form
-        public async Task<IActionResult> Edit(string username, UserEditViewModel viewModel)
+        [HttpGet]
+        public async Task<IActionResult> Edit(string username)
         {
-            // Find the user to be edited
             var user = await _userManager.FindByNameAsync(username);
 
-            // If user is not found, return a not found error
             if (user == null)
             {
                 return NotFound();
             }
 
-            // If form data is invalid, return the edit user form with the existing data pre-filled
-            if (!ModelState.IsValid)
+            var viewModel = new UserCreateEditViewModel
             {
-                viewModel.UserName = user.UserName;
-                viewModel.Email = user.Email;
-                viewModel.Password = user.PasswordHash;
-                viewModel.ConfirmPassword = user.PasswordHash;
-                viewModel.FirstName = user.FirstName;
-                viewModel.LastName = user.LastName;
-                viewModel.PIN = user.PIN;
-                viewModel.PhoneNumber = user.PhoneNumber;
+                UserName = user.UserName,
+                Email = user.Email,
+                FirstName = user.FirstName,
+                LastName = user.LastName,
+                PIN = user.PIN,
+                PhoneNumber = user.PhoneNumber
+            };
 
-                return View(viewModel);
-            }
+            return View(viewModel);
+        }
 
-            // Update user data with the new values from the form
-            user.UserName = viewModel.UserName;
-            user.Email = viewModel.Email;
-            user.PasswordHash = _userManager.PasswordHasher.HashPassword(user, viewModel.Password);
-            user.LastName = viewModel.LastName;
-            user.PIN = viewModel.PIN;
-            user.PhoneNumber = viewModel.PhoneNumber;
-
-            // Attempt to update the user in the database
-            var result = await _userManager.UpdateAsync(user);
-
-            // If update is successful, redirect to the list of all users
-            foreach (var error in result.Errors)
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> Edit(string username, UserCreateEditViewModel viewModel)
+        {
+            if (ModelState.IsValid)
             {
-                ModelState.AddModelError(string.Empty, error.Description);
-            }
+                var user = await _userManager.FindByNameAsync(username);
 
-            if (result.Succeeded)
-            {
+                if (user == null)
+                {
+                    return NotFound();
+                }
+
+                user.UserName = viewModel.UserName;
+                user.Email = viewModel.Email;
+                user.PasswordHash = _userManager.PasswordHasher.HashPassword(user, viewModel.Password);
+                user.FirstName = user.FirstName;
+                user.LastName = viewModel.LastName;
+                user.PIN = viewModel.PIN;
+                user.PhoneNumber = viewModel.PhoneNumber;
+
+                try
+                {
+                    await _context.SaveChangesAsync();
+                }
+                catch (DbUpdateConcurrencyException e)
+                {
+                    Console.WriteLine(e.Message);
+                }
+
                 return RedirectToAction(nameof(All));
             }
 
-            // If update fails, return to the edit user form
             return View(viewModel);
         }
 

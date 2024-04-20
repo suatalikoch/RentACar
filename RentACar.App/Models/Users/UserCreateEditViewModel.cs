@@ -2,7 +2,7 @@
 
 namespace RentACar.App.Models.Users
 {
-    public class UserCreateViewModel
+    public class UserCreateEditViewModel
     {
         [Required]
         [Display(Name = "Username")]
