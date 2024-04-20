@@ -189,7 +189,19 @@ namespace RentACar.App
                             ImageLink = "https://carwow-uk-wp-2.imgix.net/New-Porsche-Panamera-lead-1.png?auto=format&cs=tinysrgb&fit=crop&h=800&ixlib=rb-1.1.0&q=60&w=1600",
                             Description = "Luxurious sports sedan with exhilarating performance and high-end interior.",
                             RentPrice = 280.00m
+                        },
+
+                        new Car
+                        {
+                            Brand = "Ferrari",
+                            Model = "Portofino",
+                            Year = 2023,
+                            Passenger = 4,
+                            ImageLink = "https://upload.wikimedia.org/wikipedia/commons/2/22/Ferrari_Portofino_M_IMG_4351.jpg",
+                            Description = "Stylish convertible grand tourer with blistering performance and iconic Ferrari design.",
+                            RentPrice = 350.00m
                         }
+
                     };
 
                     foreach (var car in cars)
