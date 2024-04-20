@@ -4,13 +4,11 @@ using Microsoft.AspNetCore.Mvc;
 using RentACar.App.Data;
 using RentACar.App.Domain;
 using RentACar.App.Models.Users;
-using System.Collections.Generic;
-using System.Linq; 
-using System.Threading.Tasks; 
 
 namespace RentACar.App.Controllers
 {
-    [Authorize(Roles = "Administrator")] // Restricts access to only users with "Administrator" role
+    // Restricts access to only users with "Administrator" role
+    [Authorize(Roles = "Administrator")]
     public class UsersController : Controller
     {
         private readonly ApplicationDbContext _context;
@@ -121,6 +119,11 @@ namespace RentACar.App.Controllers
             var result = await _userManager.UpdateAsync(user);
 
             // If update is successful, redirect to the list of all users
+            foreach (var error in result.Errors)
+            {
+                ModelState.AddModelError(string.Empty, error.Description);
+            }
+
             if (result.Succeeded)
             {
                 return RedirectToAction("All");
