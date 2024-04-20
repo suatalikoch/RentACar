@@ -1,56 +1,78 @@
 ﻿@model UserEditViewModel
 
 @{
+    // Set the title of the page
     ViewData["Title"] = "Edit User";
 }
 
+<!-- Page Heading -->
 <h1 class="text-center mb-3">Edit @Model.UserName</h1>
 <hr />
 
+<!-- Form Section -->
 <div class="row justify-content-center">
     <div class="col-md-4">
         <form asp-action="Edit">
+            <!-- Display validation errors summary -->
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+
+            <!-- Username Input -->
             <div class="form-floating mb-3">
                 <input asp-for="UserName" class="form-control" />
                 <label asp-for="UserName" class="form-label">Username</label>
                 <span asp-validation-for="UserName" class="text-danger"></span>
             </div>
+
+            <!-- Email Input -->
             <div class="form-floating mb-3">
                 <input asp-for="Email" class="form-control" />
                 <label asp-for="Email" class="form-label">Email</label>
                 <span asp-validation-for="Email" class="text-danger"></span>
             </div>
+
+            <!-- Password Input -->
             <div class="form-floating mb-3">
                 <input asp-for="Password" class="form-control" />
                 <label asp-for="Password" class="form-label">Password</label>
                 <span asp-validation-for="Password" class="text-danger"></span>
             </div>
+
+            <!-- Confirm Password Input -->
             <div class="form-floating mb-3">
                 <input asp-for="ConfirmPassword" class="form-control" />
                 <label asp-for="ConfirmPassword" class="form-label">Confirm Password</label>
                 <span asp-validation-for="ConfirmPassword" class="text-danger"></span>
             </div>
+
+            <!-- First Name Input -->
             <div class="form-floating mb-3">
                 <input asp-for="FirstName" class="form-control" />
                 <label asp-for="FirstName" class="form-label">First Name</label>
                 <span asp-validation-for="FirstName" class="text-danger"></span>
             </div>
+
+            <!-- Last Name Input -->
             <div class="form-floating mb-3">
                 <input asp-for="LastName" class="form-control" />
                 <label asp-for="LastName" class="form-label">Last Name</label>
                 <span asp-validation-for="LastName" class="text-danger"></span>
             </div>
+
+            <!-- PIN Input -->
             <div class="form-floating mb-3">
                 <input asp-for="PIN" class="form-control" />
                 <label asp-for="PIN" class="form-label">PIN</label>
                 <span asp-validation-for="PIN" class="text-danger"></span>
             </div>
+
+            <!-- Phone Number Input -->
             <div class="form-floating mb-3">
                 <input asp-for="PhoneNumber" class="form-control" />
                 <label asp-for="PhoneNumber" class="form-label">Phone Number</label>
                 <span asp-validation-for="PhoneNumber" class="text-danger"></span>
             </div>
+
+            <!-- Save Button -->
             <div class="text-center mb-3">
                 <input type="submit" value="Save" class="btn btn-primary btn-block" />
             </div>
@@ -58,12 +80,15 @@
     </div>
 </div>
 
+<!-- Back to List Button -->
 <div class="text-center">
     <a asp-action="All" class="btn btn-secondary">Back to List</a>
 </div>
 
+<!-- Scripts Section -->
 @section Scripts {
     @{
+        // Render partial validation scripts
         await Html.RenderPartialAsync("_ValidationScriptsPartial");
     }
 }
