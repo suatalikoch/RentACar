@@ -107,18 +107,95 @@ namespace RentACar.App
 
                 if (!context.Cars.Any())
                 {
-                    var car = new Car()
+                    var cars = new List<Car>
                     {
-                        Brand = "Mercedes",
-                        Model = "S class",
-                        Year = 2007,
-                        Passenger = 5,
-                        ImageLink = "https://media.discordapp.net/attachments/532572214562914334/1228610959359217716/403537-2024-mercedes-benz-g-class.jpg?ex=662cac1f&is=661a371f&hm=d2dfff51f2e66b2d57df9b839ac59717c98e0031a93167947341d5d57fd0a404&=&format=webp&width=1448&height=905",
-                        Description = "Lorem ipsum dolor sit amet.",
-                        RentPrice = 99.999m
+                        new Car {
+                            Brand = "Mercedes",
+                            Model = "S class",
+                            Year = 2007,
+                            Passenger = 5,
+                            ImageLink = "https://www.carpixel.net/w/1a4aa398849077b914fbdf81ec06d602/mercedes-benz-s-class-long-car-wallpaper-66978.jpg",
+                            Description = "Lorem ipsum dolor sit amet.",
+                            RentPrice = 99.999m
+                        },
+                        new Car
+                        {
+                            Brand = "Chevrolet",
+                            Model = "Camaro",
+                            Year = 2022,
+                            Passenger = 4,
+                            ImageLink="https://hips.hearstapps.com/hmg-prod/images/2019-chevrolet-camaro-2-0t-1le-6mt-106-1539790974.jpg?crop=0.603xw:0.738xh;0.306xw,0.262xh&resize=768:*",
+                            Description = "Classic American muscle car with modern performance.",
+                            RentPrice = 80.00m
+                        },
+                        new Car
+                        {
+                            Brand = "BMW",
+                            Model = "X5",
+                            Year = 2020,
+                            Passenger = 5,
+                            ImageLink="https://cdn-images.fleetnews.co.uk/thumbs/1400x1000/web-clean/1/bmw-x5-and-x6-2023/p90489754-highres.jpg",
+                            Description = "Luxury SUV with premium features and comfort.",
+                            RentPrice = 120.00m
+                        },
+                        new Car
+                        {
+                            Brand = "Mercedes-Benz",
+                            Model = "E-Class",
+                            Year = 2019,
+                            Passenger = 5,
+                            ImageLink="https://hips.hearstapps.com/hmg-prod/images/2024-mercedes-benz-e-class-exterior-105-6446a2cb7003d.jpg?crop=0.671xw:0.753xh;0.135xw,0.247xh&resize=768:*",
+                            Description = "Executive sedan known for its comfort and elegance.",
+                            RentPrice = 110.00m
+                        },
+                        new Car
+                        {
+                            Brand = "Jeep",
+                            Model = "Wrangler",
+                            Year = 2021,
+                            Passenger = 4,
+                            ImageLink="https://hips.hearstapps.com/hmg-prod/images/2024-jeep-wrangler-4xe-rubicon-x-504-65b27d09dc3b6.jpg?crop=0.606xw:0.453xh;0.204xw,0.348xh&resize=1200:*",
+                            Description = "Iconic off-road SUV for adventure seekers.",
+                            RentPrice = 90.00m
+                        },
+                        new Car
+                        {
+                            Brand = "Lexus",
+                            Model = "LS",
+                            Year = 2023,
+                            Passenger = 5,
+                            ImageLink = "https://hips.hearstapps.com/hmg-prod/amv-prod-cad-assets/wp-content/uploads/2021/10/2023-Lexus-LS-500h-11.jpg?crop=0.914xw:1.00xh;0.0613xw,0&resize=640:*",
+                            Description = "Luxurious and refined sedan known for its impeccable build quality and comfort.",
+                            RentPrice = 200.00m
+                        },
+
+                        new Car
+                        {
+                            Brand = "Cadillac",
+                            Model = "CT6",
+                            Year = 2022,
+                            Passenger = 5,
+                            ImageLink = "https://hips.hearstapps.com/hmg-prod/amv-prod-cad-assets/wp-content/uploads/2021/05/2022-Cadillac-CT6-37.jpg?crop=0.999xw:1.00xh;0,0&resize=640:*",
+                            Description = "Sleek and sophisticated luxury sedan offering a smooth ride and advanced technology.",
+                            RentPrice = 210.00m
+                        },
+
+                        new Car
+                        {
+                            Brand = "Porsche",
+                            Model = "Panamera",
+                            Year = 2023,
+                            Passenger = 4,
+                            ImageLink = "https://carwow-uk-wp-2.imgix.net/New-Porsche-Panamera-lead-1.png?auto=format&cs=tinysrgb&fit=crop&h=800&ixlib=rb-1.1.0&q=60&w=1600",
+                            Description = "Luxurious sports sedan with exhilarating performance and high-end interior.",
+                            RentPrice = 280.00m
+                        }
                     };
 
-                    await context.Cars.AddAsync(car);
+                    foreach (var car in cars)
+                    {
+                        await context.Cars.AddAsync(car);
+                    }
                     await context.SaveChangesAsync();
                 }
 
