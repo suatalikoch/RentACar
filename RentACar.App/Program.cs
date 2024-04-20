@@ -211,6 +211,17 @@ namespace RentACar.App
                             ImageLink = "https://www.lamborghini.com/sites/it-en/files/DAM/it/models_gateway/blocks/special/huracan/huracan_evo-2020_grid.jpg",
                             Description = "Aggressive supercar with cutting-edge technology, unmatched performance, and striking design.",
                             RentPrice = 400.00m
+                        },
+
+                        new Car
+                        {
+                            Brand = "Lamborghini",
+                            Model = "Aventador",
+                            Year = 2023,
+                            Passenger = 2,
+                            ImageLink = "https://www.lamborghini.com/sites/it-en/files/DAM/it/models_gateway/blocks/special/aventador/aventador-svj-roadster/model_overview/aventador-svj-roadster_m_lifestyle.jpg",
+                            Description = "Iconic hypercar with extreme performance, jaw-dropping design, and advanced aerodynamics.",
+                            RentPrice = 550.00m
                         }
 
                     };
