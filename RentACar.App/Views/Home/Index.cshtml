@@ -1,11 +1,13 @@
 ﻿@model HomeViewModel
 
 @{
+    // Setting the title of the page
     ViewData["Title"] = "Home Page";
 }
 
 @if (!this.User.Identity.IsAuthenticated)
 {
+    // Displaying a jumbotron for non-authenticated users
     <div class="jumbotron bg-eventures w-75 mx-auto">
         <h1>RentACar: Luxury Cars</h1>
         <hr class="hr-2 bg-dark" />
@@ -13,6 +15,7 @@
 }
 else
 {
+    // Displaying a personalized welcome message for authenticated users
     <div class="jumbotron bg-eventures w-75 mx-auto">
         <h1 class="text-center">Welcome, @this.User.Identity.Name</h1>
         <hr class="hr-2 bg-secondary" />
@@ -22,6 +25,7 @@ else
     <div class="container mt-5">
         <div class="row">
             <div class="col-md-12">
+                <!-- Form for searching available cars -->
                 <form id="searchForm" method="get" asp-action="Search">
                     <input type="hidden" name="searchButton" value="true" />
                     <div class="form-row align-items-center">
@@ -43,11 +47,13 @@ else
         </div>
 
         @{
+            // Checking if the search button is clicked
             var searchButtonClicked = ViewBag.SearchButtonClicked as bool? ?? false;
         }
 
         @if (searchButtonClicked)
         {
+            <!-- Section displaying available cars for rent -->
             <section class="container mt-5">
                 <h2 class="text-center mb-4">Available Cars for Rent</h2>
 
@@ -63,7 +69,8 @@ else
                                     <p class="card-text">Seats: @car.Passenger</p>
                                     <p class="card-text">@car.Description</p>
                                     <p class="card-text">Rent Price: @car.RentPrice</p>
-                                    @Html.ActionLink("Rent Now", "Rent", new { carId = car.Id, startDate = Model.StartDate, endDate = Model.EndDate }, new { @class = "btn btn-primary" })
+                                    <!-- Button to rent a specific car -->
+                        @Html.ActionLink("Rent Now", "Rent", new { carId = car.Id, startDate = Model.StartDate, endDate = Model.EndDate }, new { @class = "btn btn-primary" })
                                 </div>
                             </div>
                         </div>
