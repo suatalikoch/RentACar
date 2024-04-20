@@ -222,6 +222,17 @@ namespace RentACar.App
                             ImageLink = "https://www.lamborghini.com/sites/it-en/files/DAM/it/models_gateway/blocks/special/aventador/aventador-svj-roadster/model_overview/aventador-svj-roadster_m_lifestyle.jpg",
                             Description = "Iconic hypercar with extreme performance, jaw-dropping design, and advanced aerodynamics.",
                             RentPrice = 550.00m
+                        },
+
+                        new Car
+                        {
+                            Brand = "Lamborghini",
+                            Model = "Urus",
+                            Year = 2023,
+                            Passenger = 4,
+                            ImageLink = "https://www.lamborghini.com/sites/it-en/files/DAM/it/models_gateway/blocks/special/urus/urus-model-overview/urus-my21-grid.jpg",
+                            Description = "Luxury SUV combining Lamborghini's DNA with practicality, comfort, and high-performance capabilities.",
+                            RentPrice = 450.00m
                         }
 
                     };
