@@ -40,10 +40,9 @@
                 <label asp-for="Input.PhoneNumber" class="form-label"></label>
                 <span asp-validation-for="Input.PhoneNumber" class="text-danger"></span>
             </div>
-            <p>
-                <a class="w-100 btn btn-lg btn-primary text-decoration-none" asp-page="./ChangePassword">Change Password</a>
-            </p>
-            <button id="update-profile-button" type="submit" class="w-100 btn btn-lg btn-primary">Save</button>
+            <a class="w-100 btn btn-lg btn-primary text-decoration-none mb-3" asp-page="./ChangePassword">Change Password</a>
+            <a class="w-100 btn btn-lg btn-primary text-decoration-none mb-3" asp-page="./PersonalData">Personal Data</a>
+            <button id="update-profile-button" type="submit" class="w-100 btn btn-lg btn-success">Save</button>
         </form>
     </div>
 </div>
