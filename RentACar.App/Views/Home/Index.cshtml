@@ -26,22 +26,22 @@ else
 </div>
 
 <div class="container mt-5">
-    <div class="row">
-        <div class="col-md-12">
+    <div class="row justify-content-center">
+        <div class="col-md-3">
 
             <!-- Form for searching available cars -->
             <form id="searchForm" method="get" asp-action="Search">
                 <input type="hidden" name="searchButton" value="true" />
                 <div class="form-row align-items-center">
-                    <div class="col-md-3 mb-3">
+                    <div class="mb-3">
                         <label for="startDate">Start Date</label>
                         <input type="datetime-local" class="form-control" id="startDate" name="startDate" asp-for="StartDate" required>
                     </div>
-                    <div class="col-md-3 mb-3">
+                    <div class="mb-3">
                         <label for="endDate">End Date</label>
                         <input type="datetime-local" class="form-control" id="endDate" name="endDate" asp-for="EndDate" required>
                     </div>
-                    <div class="col-md-3 mb-3">
+                    <div class="mb-3">
                         <button type="submit" class="btn btn-primary" id="searchBtn">Search</button>
                     </div>
                 </div>
