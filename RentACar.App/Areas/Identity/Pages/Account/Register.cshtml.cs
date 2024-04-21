@@ -121,7 +121,6 @@ namespace RentACar.App.Areas.Identity.Pages.Account
             /// </summary>
             [Required]
             [RegularExpression(@"^\d{10}$", ErrorMessage = "Invalid PIN format.")]
-
             [Display(Name = "PIN")]
             public string PIN { get; set; }
 
@@ -130,7 +129,7 @@ namespace RentACar.App.Areas.Identity.Pages.Account
             ///     Lorem ipsum dolor sit amet.
             /// </summary>
             [Required]
-            [RegularExpression(@"^\d{7,15}$", ErrorMessage = "Invalid phone number format.")]
+            [Phone]
             [Display(Name = "Phone Number")]
             public string PhoneNumber { get; set; }
         }
