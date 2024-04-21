@@ -11,7 +11,7 @@ namespace RentACar.App.Models.Cars
         public int Year { get; set; }
         public int Passenger { get; set; }
 
-        [Display(Name = "Image Link")]
+        [Display(Name = "Image")]
         public string ImageLink { get; set; }
         public string Description { get; set; }
 

@@ -40,7 +40,7 @@
 
             <!-- Displaying car image link -->
             <dt class="col-sm-3">@Html.DisplayNameFor(model => model.ImageLink)</dt>
-            <dd class="col-sm-9">@Html.DisplayFor(model => model.ImageLink)</dd>
+            <dd class="col-sm-9 text-decoration-none"><a href="@Html.DisplayFor(model => model.ImageLink)" target="_blank">View Image</a></dd>
 
             <!-- Displaying car description -->
             <dt class="col-sm-3">@Html.DisplayNameFor(model => model.Description)</dt>
